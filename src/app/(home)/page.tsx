@@ -153,7 +153,7 @@ export default function Home() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Image
-                  src="/logoWtext.png"
+                  src="/images/logoWtext.png"
                   alt="Karhuno"
                   width={180}
                   height={40}
