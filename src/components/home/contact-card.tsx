@@ -9,14 +9,14 @@ interface ContactCardProps {
   name: string;
   role: string;
   company: string;
-  imageUrl: string;
+  image: string;
 }
 
 export function ContactCard({
   name,
   role,
   company,
-  imageUrl,
+  image,
 }: ContactCardProps) {
   return (
     <motion.div
@@ -28,7 +28,9 @@ export function ContactCard({
       <div className="flex items-start gap-4 mb-4">
         <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-purple-500/50 flex-shrink-0">
           <Image
-            src={imageUrl}
+            width={50}
+            height={50}
+            src={image}
             alt={name}
             className="w-full h-full object-cover"
           />

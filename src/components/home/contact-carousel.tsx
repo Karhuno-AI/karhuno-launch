@@ -9,31 +9,31 @@ const CONTACTS = [
     name: "Sarah Chen",
     role: "Head of Growth",
     company: "TechVision Inc.",
-    imageUrl: "",
+    image: "/image.jpeg",
   },
   {
     name: "Michael Rodriguez",
     role: "VP of Sales",
     company: "CloudScale Solutions",
-    imageUrl: "",
+    image: "/image.jpeg",
   },
   {
     name: "Emma Thompson",
     role: "Chief Revenue Officer",
     company: "DataFlow Systems",
-    imageUrl: "",
+    image: "/image.jpeg",
   },
   {
     name: "Alex Johnson",
     role: "Sales Director",
     company: "InnoTech Enterprises",
-    imageUrl: "",
+    image: "/image.jpeg",
   },
   {
     name: "Olivia Lee",
     role: "Business Development Manager",
     company: "FutureSoft Inc.",
-    imageUrl: "",
+    image: "/image.jpeg",
   },
 ]
 

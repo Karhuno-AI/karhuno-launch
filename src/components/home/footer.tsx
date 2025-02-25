@@ -50,7 +50,7 @@ Hiihtomäentie 14, 00810 Helsinki, Finland</p>
               href="https://www.linkedin.com/company/karhuno/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 text-gray-300 hover:text-purple-400 transition-colors"
+              className="inline-flex items-center space-x-2 text-gray-200 hover:text-purple-400 transition-colors"
             >
               <Linkedin size={24} />
               <span>LinkedIn</span>
@@ -58,7 +58,7 @@ Hiihtomäentie 14, 00810 Helsinki, Finland</p>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+        <div className="mt-4 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-200 md:mt-8">
           © {new Date().getFullYear()} Karhuno. All rights reserved.
         </div>
       </div>

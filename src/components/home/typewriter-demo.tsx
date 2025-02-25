@@ -57,7 +57,7 @@ export function TypewriterDemo() {
   }, [phraseIndex, charIndex, isSearching])
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 w-full">
       <div className="flex gap-2">
         <Input value={text} className="w-full bg-white shadow-sm" placeholder="Type your search query..." readOnly />
         <Button

@@ -68,10 +68,10 @@ export function Pricing({ id }: PricingProps) {
                     </h4>
                   </div>
                   <p className="text-base text-gray-600">
-                    Your ICP - {">"}
+                    Your ICP -{">"}
                     <Link
                       href="#"
-                      className="underline decoration-2 decoration-purple-400 font-medium"
+                      className="underline decoration-2 decoration-purple-400 font-medium pl-2"
                     >
                       our leads
                     </Link>
@@ -147,11 +147,11 @@ export function Pricing({ id }: PricingProps) {
                       based on fresh sales signals
                     </h4>
                   </div>
-                  <p className="text-base text-gray-600">
-                    Your ICPⓘ - {">"}
+                  <p className="text-base text-gray-600 text-center">
+                    Your ICP -{">"}
                     <Link
                       href="#"
-                      className="underline decoration-2 decoration-purple-400 font-medium"
+                      className="underline decoration-2 decoration-purple-400 font-medium pl-2"
                     >
                       our leads
                     </Link>{" "}
@@ -198,7 +198,7 @@ export function Pricing({ id }: PricingProps) {
             viewport={{ once: true }}
             className="relative p-6 rounded-2xl border-2 border-indigo-400 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 backdrop-blur-sm hover:border-indigo-500 transition-all duration-300 flex flex-col shadow-lg transform hover:scale-105"
           >
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-md">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-indigo-600 to-primary text-white px-4 py-1 rounded-full text-xs lg:text-sm font-semibold shadow-md">
               Most Popular
             </div>
             <div className="flex flex-col flex-grow">
@@ -207,8 +207,7 @@ export function Pricing({ id }: PricingProps) {
                 <div className="space-y-1">
                   <div className="flex items-center justify-center">
                     <h4 className="text-lg text-indigo-900">
-                      Find the best match for your ICP based on fresh sales
-                      signals
+                      Find the best match for your ICP
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger>
@@ -224,18 +223,19 @@ export function Pricing({ id }: PricingProps) {
                           </TooltipTrigger>
                           <TooltipContent className="bg-white/90 backdrop-blur-sm shadow-lg p-2 tooltip-content">
                             <p>Ideal Customer Profile -</p>
-                            <p>a perfect customer who's</p>
+                            <p>a perfect customer who&apos;s</p>
                             <p>most likely to love your product</p>
                           </TooltipContent>
                         </Tooltip>
-                      </TooltipProvider>
+                      </TooltipProvider>{" "}
+                      based on fresh sales signals
                     </h4>
                   </div>
                   <p className="text-base text-indigo-700">
-                    Your ICP - {">"}
+                    Your ICP -{">"}
                     <Link
                       href="#"
-                      className="underline decoration-2 decoration-indigo-400 font-medium"
+                      className="underline pl-2 decoration-2 decoration-indigo-400 font-medium"
                     >
                       our leads
                     </Link>{" "}
@@ -253,7 +253,7 @@ export function Pricing({ id }: PricingProps) {
                 </div>
 
                 <Button
-                  className="w-full py-4 text-base bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl transition-all duration-300 transform hover:scale-105"
+                  className="w-full py-4 text-base bg-gradient-to-r from-indigo-600 to-primary hover:from-indigo-700 hover:to-primary text-white rounded-xl transition-all duration-300 transform hover:scale-105"
                   onClick={() =>
                     window.handleButtonClick &&
                     window.handleButtonClick(() =>
@@ -280,7 +280,8 @@ export function Pricing({ id }: PricingProps) {
 
         <div className="text-center mt-6 space-y-1">
           <p className="font-medium text-sm">
-            100% money-back guarantee if you&apos;re not satisfied with the results.
+            100% money-back guarantee if you&apos;re not satisfied with the
+            results.
           </p>
           <p className="text-sm text-gray-600">Minimal package is $50.</p>
         </div>

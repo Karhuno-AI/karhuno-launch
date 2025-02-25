@@ -5,9 +5,8 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Menu } from "lucide-react";
 import { TypewriterDemo } from "@/components/home/typewriter-demo";
-import { WhatYouGet } from "@/components/home/what-you-get";
 import { VennDiagram } from "@/components/home/venn-diagram";
 import { CaseStudies } from "@/components/home/case-studies";
 import { ContactCarousel } from "@/components/home/contact-carousel";
@@ -26,12 +25,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Footer } from "@/components/home/footer";
 
-
 const placeholderTexts = [
   "European energy companies working with startups",
   "Companies announcing warehouse launch plans",
   "Companies developing internal entrepreneurship",
-]
+];
 
 const sectionBackgroundClass = `
     relative 
@@ -42,19 +40,18 @@ const sectionBackgroundClass = `
   `;
 const dialogContentStyle =
   "bg-white text-gray-900 max-w-md w-full mx-auto p-6 rounded-lg";
-const dialogTitleStyle = "text-2xl font-bold mb-4 text-center";
+const dialogTitleStyle = "text-2xl font-semibold text-center";
 const dialogDescriptionStyle = "text-lg mb-4";
 const inputStyle =
   "w-full bg-white border-2 border-gray-300 rounded-md p-2 mb-4";
-const buttonStyle =
-  "bg-indigo-600 hover:bg-indigo-700 text-white text-lg px-6 py-2 rounded-md transition-colors duration-300 w-full";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const [isICPDialogOpen, setIsICPDialogOpen] = useState(false);
   const [buttonAction, setButtonAction] = useState<() => void>(() => {});
   const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [details, setDetails] = useState("");
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isSecondDialogOpen, setIsSecondDialogOpen] = useState(false);
@@ -69,47 +66,49 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY
-      const vh = window.innerHeight
-      document.querySelectorAll('[id$="-pattern"]').forEach((pattern, index) => {
-        const offset = index * vh
-        const distance = Math.abs(scrolled - offset)
-        const opacity = Math.max(0, 1 - distance / vh)
-        ;(pattern as HTMLElement).style.opacity = String(opacity * 0.15)
-      })
-    }
+      const scrolled = window.scrollY;
+      const vh = window.innerHeight;
+      document
+        .querySelectorAll('[id$="-pattern"]')
+        .forEach((pattern, index) => {
+          const offset = index * vh;
+          const distance = Math.abs(scrolled - offset);
+          const opacity = Math.max(0, 1 - distance / vh);
+          (pattern as HTMLElement).style.opacity = String(opacity * 0.15);
+        });
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout
+    let timeout: NodeJS.Timeout;
 
     const animatePlaceholder = () => {
-      const currentText = placeholderTexts[placeholderIndex]
+      const currentText = placeholderTexts[placeholderIndex];
 
       if (!isDeleting) {
         if (placeholder.length < currentText.length) {
-          setPlaceholder(currentText.slice(0, placeholder.length + 1))
-          timeout = setTimeout(animatePlaceholder, 12.5)
+          setPlaceholder(currentText.slice(0, placeholder.length + 1));
+          timeout = setTimeout(animatePlaceholder, 12.5);
         } else {
-          timeout = setTimeout(() => setIsDeleting(true), 2000)
+          timeout = setTimeout(() => setIsDeleting(true), 2000);
         }
       } else {
         if (placeholder.length === 0) {
-          setIsDeleting(false)
-          setPlaceholderIndex((prev) => (prev + 1) % placeholderTexts.length)
+          setIsDeleting(false);
+          setPlaceholderIndex((prev) => (prev + 1) % placeholderTexts.length);
         } else {
-          setPlaceholder(placeholder.slice(0, -1))
-          timeout = setTimeout(animatePlaceholder, 2)
+          setPlaceholder(placeholder.slice(0, -1));
+          timeout = setTimeout(animatePlaceholder, 2);
         }
       }
-    }
+    };
 
-    timeout = setTimeout(animatePlaceholder, 12.5)
-    return () => clearTimeout(timeout)
-  }, [placeholder, placeholderIndex, isDeleting])
+    timeout = setTimeout(animatePlaceholder, 20.5);
+    return () => clearTimeout(timeout);
+  }, [placeholder, placeholderIndex, isDeleting]);
 
   const featuresRef = useRef(null);
 
@@ -185,7 +184,7 @@ export default function Home() {
                 </a>
               </nav>
 
-              <div className="relative flex items-center">
+              <div className="relative md:flex items-center hidden">
                 <Button
                   onClick={() =>
                     handleButtonClick(() => setIsFirstDialogOpen(true))
@@ -196,9 +195,40 @@ export default function Home() {
                   Free Trial
                 </Button>
               </div>
+              <div className="md:hidden">
+                <Button
+                  variant="ghost"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                  <Menu size={24} />
+                </Button>
+              </div>
             </div>
           </div>
         </header>
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <nav className="absolute z-20 top-16 left-0 right-0 bg-white p-4 shadow-md flex flex-col gap-4 md:hidden">
+            <a
+              href="#features"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
+            >
+              What we do
+            </a>
+            <a
+              href="#case-studies"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
+            >
+              Case studies
+            </a>
+            <a
+              href="#pricing"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
+            >
+              Pricing
+            </a>
+          </nav>
+        )}
 
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-[-30px] bg-[url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/67ba18b037bb033987acf44b_hero-gradient-zg3Lsi42q4ylbWfIvlKRkwHf3LNfpi.png')] bg-cover bg-center filter blur-[30px] scale-105 opacity-40 animate-spin-slow"></div>
@@ -272,8 +302,8 @@ export default function Home() {
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900">
+          <div className="text-center mb-10 md:mb-20">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
               Accelerate lead generation with{" "}
               <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
                 boundless filters
@@ -286,41 +316,36 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Demo Video Section */}
-            <div className="relative aspect-video bg-transparent rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-full max-w-md p-4 select-none backdrop-blur-sm bg-white/30">
-                  <div className="relative space-y-4">
+            <div className="relative bg-transparent rounded-2xl flex justify-center overflow-hidden">
+              <div className="w-full max-w-md p-8 rounded-2xl select-none backdrop-blur-sm bg-white/50">
+                <div className="space-y-6">
+                  <div className="flex items-center justify-center">
                     <TypewriterDemo />
-                    <div className="relative">
-                      <div className="w-full h-10 bg-white/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
-                        <div className="animate-typing whitespace-nowrap">
-                          Excluding:
-                        </div>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <div className="w-full h-10 bg-white/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
+                      <div className="animate-typing whitespace-nowrap">
+                        Excluding:
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/30 pointer-events-none" />
                     </div>
-                    <div className="relative">
-                      <div className="w-full h-10 bg-white/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
-                        <div className="animate-typing whitespace-nowrap">
-                          Other conditions:
-                        </div>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <div className="w-full h-10 bg-white/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
+                      <div className="animate-typing whitespace-nowrap">
+                        Other conditions:
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/30 pointer-events-none" />
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/30 pointer-events-none" />
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white opacity-50" />
-                <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-white opacity-50" />
-              </div>
             </div>
+
 
             {/* Features List */}
             <motion.div
               ref={featuresRef}
-              className="space-y-8 overflow-hidden"
+              className="space-y-8 overflow-hidden md:grid-cols-2"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
@@ -368,22 +393,6 @@ export default function Home() {
                   description:
                     "No more double-checking or outdated information. Data updates in real-time during export.",
                 },
-                {
-                  icon: (
-                    <svg
-                      className="w-5 h-5 text-indigo-600"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  ),
-                  title: "Perfect Timing",
-                  description:
-                    "Reach clients at the perfect moment. We analyze thousands of news articles and posts to deliver what truly matters.",
-                },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -429,7 +438,7 @@ export default function Home() {
 
       {/* Supercharge your conversions with sales signals */}
       {/* TODO: MOVE TO HEADER COMPONENT */}
-      <section className={`py-24 ${sectionBackgroundClass} relative`}>
+      <section className={`py-20 ${sectionBackgroundClass} relative`}>
         <div className="absolute inset-0">
           <motion.div
             className="absolute inset-0 bg-gradient-to-tr from-indigo-100/80 via-purple-100/60 to-pink-100/80"
@@ -544,7 +553,7 @@ export default function Home() {
             </motion.div>
 
             {/* Animated News Thread Visualization */}
-            <div className="relative aspect-[4/3] bg-gradient-to-br from-white/40 to-white/10 overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.1)] backdrop-blur-sm">
+            <div className="hidden md:block relative aspect-[4/3] bg-gradient-to-br from-white/40 to-white/10 overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.1)] backdrop-blur-sm">
               <div className="absolute inset-0 bg-white/5 backdrop-blur-md"></div>
               <div className="absolute inset-0 overflow-hidden blur-[2px]">
                 <div className="animate-slide-up-faster h-[400%]">
@@ -552,8 +561,8 @@ export default function Home() {
                     <div
                       key={i}
                       className={`p-3 m-3 bg-white/90 transition-all duration-500
-${i % 5 === 0 ? "animate-flash-news-bright" : ""}
-border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
+                                  ${i % 5 === 0 ? "animate-flash-news-bright" : ""}
+                                  border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
                     >
                       <div className="h-2 w-2/3 bg-gradient-to-r from-indigo-300 to-purple-300 rounded mb-1" />
                       <div className="h-2 w-1/2 bg-gradient-to-r from-pink-300 to-indigo-200 rounded" />
@@ -568,18 +577,9 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
       </section>
 
       {/* Get leads with full contact info */}
-      <section className={`py-24 ${sectionBackgroundClass} relative`}>
-        <div className="absolute inset-0">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-bl from-pink-100/80 via-purple-100/60 to-indigo-100/80"
-            style={{
-              opacity: useTransform(scrollYProgress, [0.6, 0.9], [0, 0.75]),
-              scale: useTransform(scrollYProgress, [0.6, 0.9], [1.1, 1]),
-            }}
-          />
-        </div>
+      <section className={`py-20 ${sectionBackgroundClass} relative`}>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-20">
+          <div className="text-center mb-10 md:mb-20">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900">
               Get leads with{" "}
               <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
@@ -592,24 +592,11 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-6">
                 <motion.div
                   className="p-6 rounded-xl bg-white/80 hover:bg-white/95 hover:shadow-xl transition-all duration-300 ease-in-out group relative overflow-hidden shadow-md hover:shadow-indigo-100/50 border border-gray-100 hover:border-indigo-200"
-                  variants={{
-                    visible: {
-                      opacity: 1,
-                      scale: 1,
-                      rotate: 0,
-                      transition: {
-                        type: "spring",
-                        stiffness: 100,
-                        damping: 12,
-                      },
-                    },
-                    hidden: { opacity: 0, scale: 0.8, rotate: -10 },
-                  }}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.3 }}
@@ -635,19 +622,6 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
 
                 <motion.div
                   className="p-6 rounded-xl bg-white/80 hover:bg-white/95 hover:shadow-xl transition-all duration-300 ease-in-out group relative overflow-hidden shadow-md hover:shadow-indigo-100/50 border border-gray-100 hover:border-indigo-200"
-                  variants={{
-                    visible: {
-                      opacity: 1,
-                      scale: 1,
-                      rotate: 0,
-                      transition: {
-                        type: "spring",
-                        stiffness: 100,
-                        damping: 12,
-                      },
-                    },
-                    hidden: { opacity: 0, scale: 0.8, rotate: -10 },
-                  }}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.3 }}
@@ -696,7 +670,6 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
         </div>
       </section>
 
-      <WhatYouGet />
 
       <ComparisonTable />
 
@@ -721,7 +694,6 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
             <DialogDescription className={dialogDescriptionStyle}>
               Your ICP: <span className="font-semibold">{icp}</span>
               <br />
-              <br />
               Should we know something else?
             </DialogDescription>
           </DialogHeader>
@@ -733,11 +705,12 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
           />
           <DialogFooter className="flex justify-center mt-4">
             <Button
+              variant="accent"
+              className="w-full"
               onClick={() => {
                 setIsFirstDialogOpen(false);
                 setIsSecondDialogOpen(true);
               }}
-              className={buttonStyle}
             >
               Next
             </Button>
@@ -753,11 +726,11 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
               Your product and company
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div>
               <label
                 htmlFor="company"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 mb-4"
               >
                 We should know the name of your company to understand the
                 product better
@@ -773,11 +746,12 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
           </div>
           <DialogFooter className="flex justify-center mt-4">
             <Button
+              variant="accent"
+              className="w-full"
               onClick={() => {
                 setIsSecondDialogOpen(false);
                 setIsThirdDialogOpen(true);
-              }}
-              className={buttonStyle}
+              }} 
             >
               Next
             </Button>
@@ -827,7 +801,7 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
             </div>
           </div>
           <DialogFooter className="flex justify-center mt-4">
-            <Button onClick={handleSubmit} className={buttonStyle}>
+            <Button variant="accent" className="w-full" onClick={handleSubmit}>
               Submit
             </Button>
           </DialogFooter>
@@ -857,14 +831,15 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
           </div>
           <DialogFooter className="flex justify-center mt-4">
             <Button
+              variant="accent"
               onClick={() => setIsThankYouDialogOpen(false)}
-              className={buttonStyle}
             >
               Good!
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
 
       <Dialog open={isICPDialogOpen} onOpenChange={setIsICPDialogOpen}>
         <DialogContent className={dialogContentStyle}>
@@ -880,7 +855,7 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
             className={inputStyle}
           />
           <DialogFooter className="flex justify-center mt-4">
-            <Button onClick={handleICPSubmit} className={buttonStyle}>
+            <Button variant="accent" className="w-full" onClick={handleICPSubmit}>
               Next
             </Button>
           </DialogFooter>
@@ -1071,10 +1046,6 @@ border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
       `}</style>
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
-
-        body {
-          font-family: "Montserrat", sans-serif;
-        }
 
         @keyframes slide-up-faster {
           0% {

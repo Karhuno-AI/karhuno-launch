@@ -32,9 +32,9 @@ const features: FeatureProps[] = [
 
 const Indicator = ({ positive }: { positive: boolean }) => {
   return positive ? (
-    <Plus className="w-6 h-6 text-emerald-500" />
+    <Plus className="w-4 h-4 md:w-6 md:h-6 text-emerald-500" />
   ) : (
-    <Minus className="w-6 h-6 text-red-400" />
+    <Minus className="w-4 h-4 md:w-6 md:h-6 text-red-400" />
   );
 };
 
@@ -67,11 +67,11 @@ export function ComparisonTable() {
             <table className="w-full">
               <thead>
                 <tr>
-                  <th className="p-4 text-left bg-purple-600 text-white rounded-tl-xl"></th>
+                  <th className="p-4 text-left bg-primary text-white rounded-tl-xl"></th>
                   {["Apollo", "Clay", "Karhuno"].map((platform) => (
                     <th
                       key={platform}
-                      className="p-4 text-center bg-purple-600 text-white last:rounded-tr-xl font-medium text-lg"
+                      className="p-4 text-center bg-primary text-white last:rounded-tr-xl font-medium text-xs md:text-lg"
                     >
                       {platform}
                     </th>
@@ -84,7 +84,7 @@ export function ComparisonTable() {
                     key={index}
                     className="border-b border-purple-100 last:border-none bg-white/80 hover:bg-purple-50/50 transition-colors"
                   >
-                    <td className="p-4 text-left font-medium text-black dark:text-white">
+                    <td className="text-xs md:text-lg p-4 text-left font-medium text-black dark:text-white">
                       {feature.name}
                     </td>
                     <td className="p-4">

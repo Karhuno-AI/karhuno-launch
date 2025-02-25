@@ -13,7 +13,7 @@ const caseStudies = [
       "Announcements of plans or the launch of cold storage warehouses.",
     ],
     image:
-      "",
+      "/images/Logtech.webp",
   },
   {
     id: "hrtech",
@@ -24,7 +24,7 @@ const caseStudies = [
       "Teams that have implemented SCRUM",
     ],
     image:
-      "",
+      "/images/HRTech.webp",
   },
   {
     id: "legaltech",
@@ -34,7 +34,7 @@ const caseStudies = [
       "Projects that have successfully completed crowdfunding campaigns",
     ],
     image:
-      "",
+      "/images/LegalTech.webp",
   },
   {
     id: "greentech",
@@ -44,7 +44,7 @@ const caseStudies = [
       "Companies that have invested in energy-efficient technologies",
     ],
     image:
-      "",
+      "/images/GreenTech.webp",
   },
   {
     id: "fintech",
@@ -52,7 +52,7 @@ const caseStudies = [
     product: "Money transfer service",
     signalSearch: ["Currently active fintech companies in UAE"],
     image:
-      "",
+      "/images/Fintech.webp",
   },
   {
     id: "martech",
@@ -62,7 +62,7 @@ const caseStudies = [
       "HoReCa companies from Brazil with rapidly growing Instagram accounts",
     ],
     image:
-      "",
+      "/images/MarTech.webp",
   },
 ];
 
@@ -247,19 +247,18 @@ export function CaseStudies({ id }: CaseStudiesProps) {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-12 text-white">
+        <h2 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-12 text-white">
           Case studies
         </h2>
 
         <div className="w-full">
-          <div className="relative mb-8">
+          <div className="relative flex overflow-x-scroll mb-4 md:mb-8">
             <div
               className="absolute inset-0 flex items-center"
               aria-hidden="true"
             >
-              <div className="w-full border-t border-gray-600" />
             </div>
-            <div className="relative bg-gray-800 flex justify-between rounded-full p-1 mx-auto">
+            <div className="bg-gray-800 relative flex justify-between rounded-full p-1 mx-auto w-auto lg:w-full">
               {caseStudies.map((study) => (
                 <button
                   key={study.id}
