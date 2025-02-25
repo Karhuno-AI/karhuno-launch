@@ -1,15 +1,15 @@
-// import HomeLayout from "@/modules/dashboard/layouts/dashboard-layout";
+import HomeLayout from "@/modules/dashboard/layouts/dashboard-layout";
 
-// interface HomeLayoutProps {
-//   children: React.ReactNode
-// }
+interface HomeLayoutProps {
+  children: React.ReactNode
+}
 
-// const Layout = ({children}: HomeLayoutProps) => {
-//   return (
-//     <HomeLayout>
-//       {children}
-//     </HomeLayout>
-//   );
-// }
+const Layout = ({children}: HomeLayoutProps) => {
+  return (
+    <HomeLayout>
+      {children}
+    </HomeLayout>
+  );
+}
 
-// export default Layout;
+export default Layout;
