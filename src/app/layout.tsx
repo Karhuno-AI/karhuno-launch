@@ -32,7 +32,7 @@ export default function RootLayout({
       <body className={`${montserrat.variable} ${roboto.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
