@@ -42,6 +42,7 @@ interface ContactCarouselProps {
 }
 
 export function ContactCarousel({ direction = "ltr" }: ContactCarouselProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cards, setCards] = useState(CONTACTS)
 
   return (

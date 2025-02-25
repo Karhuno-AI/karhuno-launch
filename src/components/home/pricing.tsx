@@ -10,6 +10,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+declare global {
+  interface Window {
+    handleButtonClick?: (callback: () => void) => void;
+  }
+}
+
 interface PricingProps {
   id?: string;
 }

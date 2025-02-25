@@ -96,7 +96,7 @@ export function CaseStudies({ id }: CaseStudiesProps) {
   }, []);
 
   useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout | undefined;
     if (isVisible && isAutoPlaying) {
       timer = setInterval(() => {
         setActiveTab((prevTab) => {

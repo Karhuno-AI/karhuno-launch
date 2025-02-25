@@ -1,17 +1,7 @@
-import HomeLayout from "@/modules/dashboard/layouts/dashboard-layout";
-
-interface HomeLayoutProps {
-  children: React.ReactNode
-}
-
-const Layout = ({children}: HomeLayoutProps) => {
+export default function Home() {
   return (
-    <HomeLayout>
-        <div className="font-[family-name:var(--font-montserrat-sans)]">
-            {children}
-        </div>
-    </HomeLayout>
+    <div>
+      Load videos in the future
+    </div>
   );
 }
-
-export default Layout;
