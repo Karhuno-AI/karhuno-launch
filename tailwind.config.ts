@@ -91,6 +91,10 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.6s ease-out forwards",
+        "circle-1": "circle-appear 0.6s ease-out 0.3s forwards",
+        "circle-2": "circle-appear 0.6s ease-out 0.6s forwards",
+        "circle-3": "circle-appear 0.6s ease-out 0.9s forwards",
       },
       fontFamily: {
         montserrat: ["var(--font-montserrat-sans)", "sans-serif"],

@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { CheckCircle2, Menu } from "lucide-react";
 import { TypewriterDemo } from "@/components/home/typewriter-demo";
-import { VennDiagram } from "@/components/home/venn-diagram";
+import VennDiagram  from "@/components/home/venn-diagram";
 import { CaseStudies } from "@/components/home/case-studies";
 import { ContactCarousel } from "@/components/home/contact-carousel";
 import { ComparisonTable } from "@/components/home/comparison-table";
@@ -676,6 +676,8 @@ export default function Home() {
       <VennDiagram />
 
       <CaseStudies id="case-studies" />
+      
+      <VennDiagram />
 
       <Pricing id="pricing" />
 
