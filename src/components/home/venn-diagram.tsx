@@ -27,24 +27,24 @@ export default function VennDiagram() {
       <div className="relative h-[500px]">
         {/* B2B Circle */}
         <motion.div
-          className="absolute top-0 left-[15%] w-72 h-72 rounded-full  bg-gradient-to-bl from-violet-600/60 via-violet-400/60 to-violet-500/60 border border-purple-500 flex items-center justify-center"
+          className="absolute top-0 left-[5%] lg:top-0 lg:left-[15%] w-48 h-48 lg:w-72 lg:h-72 rounded-full  bg-gradient-to-bl from-violet-600/60 via-violet-400/60 to-violet-500/60 border border-purple-500 flex items-center justify-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <span className="text-xl font-bold -translate-x-full -translate-y-full">B2B</span>
+          <span className="text-sm lg:text-xl font-bold -translate-x-[150%] -translate-y-[150%] lg:-translate-x-full lg:-translate-y-full">B2B</span>
         </motion.div>
 
         {/* Global sales Circle */}
         <motion.div
-          className="absolute top-0 right-[20%] w-72 h-72 rounded-full bg-gradient-to-bl from-purple-600/60 via-purple-400/60 to-purple-500/60 bg-primary/30 border border-purple-500  flex items-center justify-center"
+          className="absolute top-0 right-[5%] lg:top-0 lg:right-[20%] w-48 h-48 lg:w-72 lg:h-72 rounded-full bg-gradient-to-bl from-purple-600/60 via-purple-400/60 to-purple-500/60 bg-primary/30 border border-purple-500  flex items-center justify-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <span className="text-xl font-bold translate-x-3/4 -translate-y-3/4">
+          <span className="text-sm lg:text-xl font-bold translate-x-3/4 -translate-y-3/4">
             Global
             <br />
             sales
@@ -53,13 +53,13 @@ export default function VennDiagram() {
 
         {/* Average check Circle */}
         <motion.div
-          className="absolute top-40 right-[35%] w-72 h-72 rounded-full bg-gradient-to-bl from-blue-600/60 via-blue-400/60 to-blue-500/60 border border-purple-500 flex items-center justify-center text-center"
+          className="absolute top-32 right-1/4 lg:top-40 lg:right-[35%] w-48 h-48 lg:w-72 lg:h-72 rounded-full bg-gradient-to-bl from-blue-600/60 via-blue-400/60 to-blue-500/60 border border-purple-500 flex items-center justify-center text-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
           transition={{ duration: 0.6, delay: 0.9 }}
         >
-          <span className="text-xl font-bold translate-y-3/4">
+          <span className="text-sm lg:text-xl font-bold translate-y-1/4 lg:translate-y-3/4">
             $2-50K
             <br />
             average check
@@ -67,17 +67,17 @@ export default function VennDiagram() {
         </motion.div>
 
         {/* Center line and text */}
-        <div className="absolute top-[35%] left-[48%] -translate-y-1/2">
-          <div className="relative flex items-center">
+        <div className="lg:absolute lg:top-[35%] lg:left-[48%] lg:-translate-y-1/2">
+          <div className="relative block lg:flex items-center">
             <motion.div
-              className="h-[2px] bg-black origin-left"
+              className="hidden lg:block h-[2px] bg-black origin-left"
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               variants={lineVariants}
               transition={{ duration: 0.6, delay: 1.2 }}
             />
             <motion.div
-              className="ml-4"
+              className="my-4"
               initial={{ opacity: 0, x: -10 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
               transition={{ duration: 0.6, delay: 1.5 }}
