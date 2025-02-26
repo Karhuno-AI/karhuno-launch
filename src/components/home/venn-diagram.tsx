@@ -14,37 +14,37 @@ export default function VennDiagram() {
 
   const lineVariants = {
     hidden: { opacity: 0, width: 0 },
-    visible: { opacity: 1, width: "14rem" },
+    visible: { opacity: 1, width: "18rem" },
   };
 
   return (
     // TODO: CHECK THE REPOSNSIBLE WAY OF THE WEBSITE
-    <div ref={ref} className="max-w-3xl mx-auto p-8">
-      <h2 className="text-2xl font-medium text-center mb-12">
+    <div ref={ref} className="max-w-4xl mx-auto px-8">
+      <h2 className="text-4xl md:text-5xl font-bold mb-12 mt-6">
         Who will benefit of your solution most
       </h2>
 
       <div className="relative h-[500px]">
         {/* B2B Circle */}
         <motion.div
-          className="absolute top-0 left-[15%] w-64 h-64 rounded-full bg-primary/30 border border-purple-500 flex items-center justify-center"
+          className="absolute top-0 left-[15%] w-72 h-72 rounded-full  bg-gradient-to-bl from-purple-600/60 via-purple-400/60 to-purple-500/60 border border-purple-500 flex items-center justify-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <span className="text-xl font-medium">B2B</span>
+          <span className="text-xl font-bold -translate-x-full -translate-y-full">B2B</span>
         </motion.div>
 
         {/* Global sales Circle */}
         <motion.div
-          className="absolute top-0 right-[20%] w-64 h-64 rounded-full bg-primary/30 border border-purple-500  flex items-center justify-center"
+          className="absolute top-0 right-[20%] w-72 h-72 rounded-full bg-gradient-to-bl from-purple-600/60 via-purple-400/60 to-purple-500/60 bg-primary/30 border border-purple-500  flex items-center justify-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <span className="text-xl font-medium">
+          <span className="text-xl font-bold translate-x-3/4 -translate-y-3/4">
             Global
             <br />
             sales
@@ -53,13 +53,13 @@ export default function VennDiagram() {
 
         {/* Average check Circle */}
         <motion.div
-          className="absolute top-32 right-[35%] -translate-x-1/2 w-64 h-64 rounded-full bg-primary/30 border border-purple-500  flex items-center justify-center text-center"
+          className="absolute top-40 right-[35%] w-72 h-72 rounded-full bg-gradient-to-bl from-purple-600/60 via-purple-400/60 to-purple-500/60 border border-purple-500 flex items-center justify-center text-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
           transition={{ duration: 0.6, delay: 0.9 }}
         >
-          <span className="text-xl font-medium">
+          <span className="text-xl font-bold translate-y-3/4">
             $2-50K
             <br />
             average check
@@ -67,10 +67,10 @@ export default function VennDiagram() {
         </motion.div>
 
         {/* Center line and text */}
-        <div className="absolute top-[35%] left-[52%] -translate-y-1/2">
+        <div className="absolute top-[35%] left-[48%] -translate-y-1/2">
           <div className="relative flex items-center">
             <motion.div
-              className="h-[1px] bg-black origin-left"
+              className="h-[2px] bg-black origin-left"
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               variants={lineVariants}
@@ -82,7 +82,7 @@ export default function VennDiagram() {
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
               transition={{ duration: 0.6, delay: 1.5 }}
             >
-              <p className="whitespace-nowrap text-lg">
+              <p className="whitespace-nowrap text-xl">
                 The segment where
                 <br />
                 we are doing the
