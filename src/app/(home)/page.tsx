@@ -8,6 +8,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { CheckCircle2, Menu } from "lucide-react";
 import { TypewriterDemo } from "@/components/home/typewriter-demo";
 import VennDiagram  from "@/components/home/venn-diagram";
+import WhatYouGet from "@/components/home/what-you-get";
 import { CaseStudies } from "@/components/home/case-studies";
 import { ContactCarousel } from "@/components/home/contact-carousel";
 import { ComparisonTable } from "@/components/home/comparison-table";
@@ -678,6 +679,8 @@ export default function Home() {
       <CaseStudies id="case-studies" />
       
       <VennDiagram />
+      
+      <WhatYouGet />
 
       <Pricing id="pricing" />
 
