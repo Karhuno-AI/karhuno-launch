@@ -27,7 +27,7 @@ export default function VennDiagram() {
       <div className="relative h-[500px]">
         {/* B2B Circle */}
         <motion.div
-          className="absolute top-0 left-[15%] w-72 h-72 rounded-full  bg-gradient-to-bl from-purple-600/60 via-purple-400/60 to-purple-500/60 border border-purple-500 flex items-center justify-center"
+          className="absolute top-0 left-[15%] w-72 h-72 rounded-full  bg-gradient-to-bl from-violet-600/60 via-violet-400/60 to-violet-500/60 border border-purple-500 flex items-center justify-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
@@ -53,7 +53,7 @@ export default function VennDiagram() {
 
         {/* Average check Circle */}
         <motion.div
-          className="absolute top-40 right-[35%] w-72 h-72 rounded-full bg-gradient-to-bl from-purple-600/60 via-purple-400/60 to-purple-500/60 border border-purple-500 flex items-center justify-center text-center"
+          className="absolute top-40 right-[35%] w-72 h-72 rounded-full bg-gradient-to-bl from-blue-600/60 via-blue-400/60 to-blue-500/60 border border-purple-500 flex items-center justify-center text-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
