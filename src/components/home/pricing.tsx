@@ -261,6 +261,7 @@ export function Pricing({ id }: PricingProps) {
                 </div>
 
                 <Button
+                  size="xl"
                   className="w-full py-4 text-base bg-gradient-to-r from-indigo-600 to-primary hover:from-indigo-700 hover:to-primary text-white rounded-xl transition-all duration-300 transform hover:scale-105"
                   onClick={() =>
                     window.handleButtonClick &&
