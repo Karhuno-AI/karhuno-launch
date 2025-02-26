@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Footer } from "@/components/home/footer";
+import WhatYouGet from "@/components/home/what-you-get";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -239,7 +240,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-8 relative z-10 pt-20">
           {/* Hero Content */}
           <main className="max-w-5xl mx-auto text-center space-y-8 mb-32 mt-[13vh]">
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-gray-900">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-gray-900">
               Stop searching,{" "}
               <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
                 Start selling
@@ -677,7 +678,7 @@ export default function Home() {
 
       <CaseStudies id="case-studies" />
     
-      {/* <WhatYouGet /> */}
+      <WhatYouGet />
 
       <Pricing id="pricing" />
 

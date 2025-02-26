@@ -20,7 +20,7 @@ export default function VennDiagram() {
   return (
     // TODO: CHECK THE REPOSNSIBLE WAY OF THE WEBSITE
     <div ref={ref} className="max-w-4xl mx-auto px-8">
-      <h2 className="text-4xl md:text-5xl font-bold mb-12 mt-6">
+      <h2 className="text-3xl md:text-4xl font-bold my-12 text-center">
         Who will benefit of your solution most
       </h2>
 
