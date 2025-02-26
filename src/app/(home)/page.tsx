@@ -677,10 +677,8 @@ export default function Home() {
       <VennDiagram />
 
       <CaseStudies id="case-studies" />
-      
-      <VennDiagram />
-      
-      <WhatYouGet />
+    
+      {/* <WhatYouGet /> */}
 
       <Pricing id="pricing" />
 
