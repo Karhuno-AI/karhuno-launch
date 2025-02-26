@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CheckCircle2, Menu } from "lucide-react";
+import { CheckCircle2, Menu } from "lucide-react";
 import { TypewriterDemo } from "@/components/home/typewriter-demo";
 import { VennDiagram } from "@/components/home/venn-diagram";
 import { CaseStudies } from "@/components/home/case-studies";
@@ -148,7 +148,7 @@ export default function Home() {
       {/* TODO: MOVE TO HEADER COMPONENT */}
       <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100">
         {/* Transparent Header */}
-        <header className="absolute top-0 left-0 right-0 z-50 backdrop-blur-sm bg-white/30">
+        <header className="absolute top-0 left-0 right-0 z-[48] backdrop-blur-sm bg-white/30">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -197,7 +197,9 @@ export default function Home() {
               </div>
               <div className="md:hidden">
                 <Button
-                  variant="ghost"
+                  variant="accent"
+                  size="sm"
+                  className="rounded-xl"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
                   <Menu size={24} />
@@ -248,7 +250,7 @@ export default function Home() {
               Signal-based prospecting engine for hard-to-find B2B leads
             </p>
 
-            <div className="relative flex flex-col md:flex-row gap-4 max-w-2xl mx-auto mt-12">
+            <div className="relative flex flex-col md:flex-row gap-4 max-w-2xl mx-auto mt-12 items-center">
               <div className="flex-1">
                 <Input
                   type="text"
@@ -428,8 +430,6 @@ export default function Home() {
                   hidden: { opacity: 0, x: "100%" },
                 }}
               >
-                Learn more about our features
-                <ArrowRight className="w-4 h-4" />
               </motion.button>
             </motion.div>
           </div>
@@ -491,9 +491,9 @@ export default function Home() {
                       <path d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   ),
-                  title: "Perfect Timing",
+                  title: "Reach clients at the perfect moment.",
                   description:
-                    "Reach clients at the perfect moment. We analyze thousands of news articles to deliver what truly matters.",
+                    "We analyze thousands of news articles across the web, social media and specialized databases to deliver only what truly matters",
                 },
                 {
                   icon: (
@@ -507,9 +507,9 @@ export default function Home() {
                       <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                     </svg>
                   ),
-                  title: "Actionable Insights",
+                  title: "Empower your sales team with actionable insights.",
                   description:
-                    "Empower your sales team with actionable insights. Get proofs and sources for perfect sales hooks.",
+                    "Get the proofs and sources for perfect sales hooks.",
                 },
                 {
                   icon: (
@@ -523,8 +523,8 @@ export default function Home() {
                       <path d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
                     </svg>
                   ),
-                  title: "Global Reach",
-                  description: "Perfect timing",
+                  title: "Unlock new markets.",
+                  description: "Track key customer actions across any language.",
                 },
               ].map((item, index) => (
                 <motion.div
@@ -647,11 +647,11 @@ export default function Home() {
 
               <div>
                 <Button
+                  variant="accent"
+                  size="lg"
                   onClick={() =>
                     handleButtonClick(() => setIsFirstDialogOpen(true))
                   }
-                  size="lg"
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-indigo-600/30"
                 >
                   Start free trial
                 </Button>
@@ -813,7 +813,7 @@ export default function Home() {
         open={isThankYouDialogOpen}
         onOpenChange={setIsThankYouDialogOpen}
       >
-        <DialogContent className={dialogContentStyle}>
+        <DialogContent  className={dialogContentStyle}>
           <DialogHeader>
             <DialogTitle className={dialogTitleStyle}>Thank You!</DialogTitle>
           </DialogHeader>

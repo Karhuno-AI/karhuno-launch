@@ -252,7 +252,7 @@ export function CaseStudies({ id }: CaseStudiesProps) {
         </h2>
 
         <div className="w-full">
-          <div className="relative flex overflow-x-scroll mb-4 md:mb-8">
+          <div className="relative flex overflow-x-scroll scrollbar-hide mb-4 md:mb-8">
             <div
               className="absolute inset-0 flex items-center"
               aria-hidden="true"

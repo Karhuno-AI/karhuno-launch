@@ -11,9 +11,7 @@ export function Footer() {
             <h4 className="text-lg font-semibold mb-4 text-purple-300">Contact Details</h4>
             <p className="text-gray-300">+358 465381366</p>
             <p className="text-gray-300">team@karhuno.com</p>
-            <p className="text-gray-300">Daring Spirit Oy 
-Hiihtomäentie 14, 00810 Helsinki, Finland
-Hiihtomäentie 14, 00810 Helsinki, Finland</p>
+            <p className="text-gray-300">Daring Spirit Oy Hiihtomäentie 14, 00810 Helsinki, Finland</p>
           </div>
 
           {/* Quick Links */}

@@ -96,7 +96,7 @@ export function ROICalculator() {
             </div>
 
             <div className="mt-8 text-center">
-              <Button className="bg-primary hover:bg-purple-700 text-white px-6 py-2 rounded-xl text-lg font-semibold transition-colors duration-300">
+              <Button variant="accent">
                 Get leads for free
               </Button>
             </div>

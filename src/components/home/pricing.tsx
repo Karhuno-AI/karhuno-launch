@@ -92,7 +92,8 @@ export function Pricing({ id }: PricingProps) {
                 </div>
 
                 <Button
-                  className="w-full py-4 text-base bg-purple-600 hover:bg-purple-700 text-white rounded-xl"
+                  variant="accent"
+                  size="xl"
                   onClick={() =>
                     window.handleButtonClick &&
                     window.handleButtonClick(() =>
@@ -173,7 +174,8 @@ export function Pricing({ id }: PricingProps) {
                 </div>
 
                 <Button
-                  className="w-full py-4 text-base bg-purple-600 hover:bg-purple-700 text-white rounded-xl"
+                  variant="accent"
+                  size="xl"
                   onClick={() =>
                     window.handleButtonClick &&
                     window.handleButtonClick(() =>

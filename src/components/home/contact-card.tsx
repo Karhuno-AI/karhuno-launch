@@ -69,7 +69,7 @@ export function ContactCard({
         </Button>
       </div>
 
-      <Button className="w-full mt-auto bg-indigo-600 hover:bg-indigo-700 text-white">
+      <Button variant="accent" size="lg">
         Contact
       </Button>
     </motion.div>

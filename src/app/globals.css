@@ -98,7 +98,7 @@
     --grey-800: 240 70% 90%;
     --grey-900: 240 85% 95%;
     --chat-bg: 240 10% 12%;
-    --surface: 240,19%,17%;
+    --surface: 240, 19%, 17%;
   }
 }
 
@@ -111,5 +111,15 @@
   }
   h1 {
     @apply font-montserrat;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
