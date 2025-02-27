@@ -38,7 +38,7 @@ const Indicator = ({ positive }: { positive: boolean }) => {
   );
 };
 
-export function ComparisonTable() {
+export default function ComparisonTable() {
   return (
     <section className="py-24 bg-gradient-to-br from-white via-purple-50 to-white relative overflow-hidden">
       <div className="container mx-auto px-4">

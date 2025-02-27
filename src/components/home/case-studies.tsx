@@ -70,7 +70,7 @@ interface CaseStudiesProps {
   id?: string;
 }
 
-export function CaseStudies({ id }: CaseStudiesProps) {
+export default function CaseStudies({id}: CaseStudiesProps) {
   const [activeTab, setActiveTab] = useState("logtech");
   const [isVisible, setIsVisible] = useState(false);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);

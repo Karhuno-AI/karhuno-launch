@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { ContactCard } from "./contact-card"
+import ContactCard from "./contact-card"
 
 const CONTACTS = [
   {
@@ -41,7 +41,7 @@ interface ContactCarouselProps {
   direction?: "ltr" | "rtl"
 }
 
-export function ContactCarousel({ direction = "ltr" }: ContactCarouselProps) {
+export default function ContactCarousel({ direction = "ltr" }: ContactCarouselProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cards, setCards] = useState(CONTACTS)
 

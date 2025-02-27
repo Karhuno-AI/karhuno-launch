@@ -1,19 +1,13 @@
 "use client";
+// REACT
+import { useState, useEffect } from "react";
+import { CheckCircle2, Menu } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
+// UI
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { CheckCircle2, Menu } from "lucide-react";
-import { TypewriterDemo } from "@/components/home/typewriter-demo";
-import VennDiagram  from "@/components/home/venn-diagram";
-import { CaseStudies } from "@/components/home/case-studies";
-import { ContactCarousel } from "@/components/home/contact-carousel";
-import { ComparisonTable } from "@/components/home/comparison-table";
-import { Pricing } from "@/components/home/pricing";
-import { ROICalculator } from "@/components/home/roi-calculator";
-import { FAQ } from "@/components/home/faq";
 import {
   Dialog,
   DialogContent,
@@ -23,8 +17,20 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { Footer } from "@/components/home/footer";
+
+// COMPONENTS
+
+import VennDiagram from "@/components/home/venn-diagram";
 import WhatYouGet from "@/components/home/what-you-get";
+import CaseStudies from "@/components/home/case-studies";
+import ContactCarousel from "@/components/home/contact-carousel";
+import ComparisonTable from "@/components/home/comparison-table";
+import Pricing from "@/components/home/pricing";
+import ROICalculator from "@/components/home/roi-calculator";
+import FAQ from "@/components/home/faq";
+import Footer from "@/components/home/footer";
+import SaleSignal from "@/components/home/sale-signal";
+import Feature from "@/components/home/feature";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -32,22 +38,7 @@ const placeholderTexts = [
   "Companies developing internal entrepreneurship",
 ];
 
-const sectionBackgroundClass = `
-    relative 
-    before:absolute before:inset-0 
-    before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80
-    before:animate-gradient-shift before:opacity-75
-    overflow-hidden
-  `;
-const dialogContentStyle =
-  "bg-white text-gray-900 max-w-md w-full mx-auto p-6 rounded-lg";
-const dialogTitleStyle = "text-2xl font-semibold text-center";
-const dialogDescriptionStyle = "text-lg mb-4";
-const inputStyle =
-  "w-full bg-white border-2 border-gray-300 rounded-md p-2 mb-4";
-
 export default function Home() {
-  const { scrollYProgress } = useScroll();
   const [isICPDialogOpen, setIsICPDialogOpen] = useState(false);
   const [buttonAction, setButtonAction] = useState<() => void>(() => {});
   const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
@@ -111,7 +102,7 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [placeholder, placeholderIndex, isDeleting]);
 
-  const featuresRef = useRef(null);
+
 
   const handleButtonClick = (action: () => void) => {
     if (action === handleFind) {
@@ -135,11 +126,6 @@ export default function Home() {
   };
 
   const handleSubmit = () => {
-    console.log("ICP:", icp);
-    console.log("Details:", details);
-    console.log("Company:", company);
-    console.log("Username:", username);
-    console.log("Email:", email);
     setIsThirdDialogOpen(false);
     setIsThankYouDialogOpen(true);
   };
@@ -290,295 +276,13 @@ export default function Home() {
       </section>
 
       {/* Accelerate lead generation with boundless filters */}
-      {/* TODO: MOVE TO HEADER COMPONENT */}
-      <section
-        id="features"
-        className={`py-24 ${sectionBackgroundClass} relative`}
-      >
-        <div className="absolute inset-0">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-purple-100/80 via-pink-100/60 to-indigo-100/80"
-            style={{
-              opacity: useTransform(scrollYProgress, [0, 0.3], [0, 0.75]),
-              scale: useTransform(scrollYProgress, [0, 0.3], [1.1, 1]),
-            }}
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-10 md:mb-20">
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
-              Accelerate lead generation with{" "}
-              <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
-                boundless filters
-              </span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We discover precisely matched prospects that fit any ideal
-              customer profile
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative bg-transparent rounded-2xl flex justify-center overflow-hidden">
-              <div className="w-full max-w-md p-8 rounded-2xl select-none backdrop-blur-sm bg-white/50">
-                <div className="space-y-6">
-                  <div className="flex items-center justify-center">
-                    <TypewriterDemo />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <div className="w-full h-10 bg-white/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
-                      <div className="animate-typing whitespace-nowrap">
-                        Excluding:
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <div className="w-full h-10 bg-white/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
-                      <div className="animate-typing whitespace-nowrap">
-                        Other conditions:
-                      </div>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/30 pointer-events-none" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            {/* Features List */}
-            <motion.div
-              ref={featuresRef}
-              className="space-y-8 overflow-hidden md:grid-cols-2"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={{
-                visible: {
-                  transition: {
-                    staggerChildren: 0.1,
-                    delayChildren: 0.1,
-                  },
-                },
-                hidden: {},
-              }}
-            >
-              {[
-                {
-                  icon: (
-                    <svg
-                      className="w-6 h-6 text-indigo-600"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M4 4l16 16" />
-                      <path d="M6.5 4h11a2 2 0 012 2v3a2 2 0 01-.59 1.41L13 16.32V19l-4 2v-4.68l-4.91-4.91A2 2 0 013.5 10V6a2 2 0 012-2z" />
-                    </svg>
-                  ),
-                  title: "Leads beyond basic filters",
-                  description:
-                    "Just describe your ideal customer in plain language.",
-                },
-                {
-                  icon: (
-                    <svg
-                      className="w-6 h-6 text-indigo-600"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  ),
-                  title: "Real-time data updates",
-                  description:
-                    "No more double-checking or outdated information. Data updates in real-time during export.",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="p-6 rounded-xl bg-white/80 hover:bg-white/95 hover:shadow-xl transition-all duration-300 ease-in-out group relative overflow-hidden shadow-md hover:shadow-indigo-100/50 border border-gray-100 hover:border-indigo-200"
-                  variants={{
-                    visible: {
-                      opacity: 1,
-                      x: 0,
-                      transition: { duration: 0.5, ease: "easeOut" },
-                    },
-                    hidden: { opacity: 0, x: "100%" },
-                  }}
-                >
-                  <div className="flex gap-4 items-start">
-                    <div className="mt-1 shrink-0">{item.icon}</div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-600">{item.description}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-              <motion.button
-                className="text-indigo-600 hover:text-indigo-700 inline-flex items-center gap-2"
-                variants={{
-                  visible: {
-                    opacity: 1,
-                    x: 0,
-                    transition: { duration: 0.5, ease: "easeOut" },
-                  },
-                  hidden: { opacity: 0, x: "100%" },
-                }}
-              >
-              </motion.button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <Feature />
 
       {/* Supercharge your conversions with sales signals */}
-      {/* TODO: MOVE TO HEADER COMPONENT */}
-      <section className={`py-20 ${sectionBackgroundClass} relative`}>
-        <div className="absolute inset-0">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-tr from-indigo-100/80 via-purple-100/60 to-pink-100/80"
-            style={{
-              opacity: useTransform(scrollYProgress, [0.3, 0.6], [0, 0.75]),
-              scale: useTransform(scrollYProgress, [0.3, 0.6], [1.1, 1]),
-            }}
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 text-gray-900">
-              Supercharge your conversions with{" "}
-              <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
-                sales signals
-              </span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our AI scans thousands of online sources, detecting nuanced
-              business signals indicating purchase readiness
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <motion.div
-              className="space-y-4 overflow-hidden"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={{
-                visible: {
-                  transition: {
-                    staggerChildren: 0.1,
-                    delayChildren: 0.1,
-                  },
-                },
-                hidden: {},
-              }}
-            >
-              {[
-                {
-                  icon: (
-                    <svg
-                      className="w-5 h-5 text-indigo-600"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  ),
-                  title: "Reach clients at the perfect moment.",
-                  description:
-                    "We analyze thousands of news articles across the web, social media and specialized databases to deliver only what truly matters",
-                },
-                {
-                  icon: (
-                    <svg
-                      className="w-5 h-5 text-indigo-600"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                    </svg>
-                  ),
-                  title: "Empower your sales team with actionable insights.",
-                  description:
-                    "Get the proofs and sources for perfect sales hooks.",
-                },
-                {
-                  icon: (
-                    <svg
-                      className="w-5 h-5 text-indigo-600"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
-                    </svg>
-                  ),
-                  title: "Unlock new markets.",
-                  description: "Track key customer actions across any language.",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="p-6 rounded-xl bg-white/80 hover:bg-white/95 hover:shadow-xl transition-all duration-300 ease-in-out group relative overflow-hidden shadow-md hover:shadow-indigo-100/50 border border-gray-100 hover:border-indigo-200"
-                  variants={{
-                    visible: {
-                      opacity: 1,
-                      x: 0,
-                      transition: { duration: 0.5, ease: "easeOut" },
-                    },
-                    hidden: { opacity: 0, x: "-100%" },
-                  }}
-                >
-                  <div className="flex gap-4 items-start">
-                    <div className="mt-1 shrink-0">{item.icon}</div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-600">{item.description}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Animated News Thread Visualization */}
-            <div className="hidden md:block relative aspect-[4/3] bg-gradient-to-br from-white/40 to-white/10 overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.1)] backdrop-blur-sm">
-              <div className="absolute inset-0 bg-white/5 backdrop-blur-md"></div>
-              <div className="absolute inset-0 overflow-hidden blur-[2px]">
-                <div className="animate-slide-up-faster h-[400%]">
-                  {[...Array(80)].map((_, i) => (
-                    <div
-                      key={i}
-                      className={`p-3 m-3 bg-white/90 transition-all duration-500
-                                  ${i % 5 === 0 ? "animate-flash-news-bright" : ""}
-                                  border border-indigo-200 shadow-[0_0_10px_rgba(79,70,229,0.2)]`}
-                    >
-                      <div className="h-2 w-2/3 bg-gradient-to-r from-indigo-300 to-purple-300 rounded mb-1" />
-                      <div className="h-2 w-1/2 bg-gradient-to-r from-pink-300 to-indigo-200 rounded" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-white via-transparent to-white" />
-            </div>
-          </div>
-        </div>
-      </section>
+      <SaleSignal />
 
       {/* Get leads with full contact info */}
-      <section className={`py-20 ${sectionBackgroundClass} relative`}>
+      <section className="py-20 relative before:absolute before:inset-0  before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80 before:animate-gradient-shift before:opacity-75 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-10 md:mb-20">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900">
@@ -671,13 +375,12 @@ export default function Home() {
         </div>
       </section>
 
-
       <ComparisonTable />
 
       <VennDiagram />
 
       <CaseStudies id="case-studies" />
-    
+
       <WhatYouGet />
 
       <Pricing id="pricing" />
@@ -689,12 +392,12 @@ export default function Home() {
       {/* Dialogs */}
       {/* First Dialog */}
       <Dialog open={isFirstDialogOpen} onOpenChange={setIsFirstDialogOpen}>
-        <DialogContent className={dialogContentStyle}>
+        <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className={dialogTitleStyle}>
+            <DialogTitle className="dialogTitleStyle">
               Do you want to add some details?
             </DialogTitle>
-            <DialogDescription className={dialogDescriptionStyle}>
+            <DialogDescription className="dialogDescriptionStyle">
               Your ICP: <span className="font-semibold">{icp}</span>
               <br />
               Should we know something else?
@@ -704,7 +407,7 @@ export default function Home() {
             value={details}
             onChange={(e) => setDetails(e.target.value)}
             placeholder="Enter additional details here..."
-            className={inputStyle}
+            className="inputStyle"
           />
           <DialogFooter className="flex justify-center mt-4">
             <Button
@@ -723,9 +426,9 @@ export default function Home() {
 
       {/* Second Dialog */}
       <Dialog open={isSecondDialogOpen} onOpenChange={setIsSecondDialogOpen}>
-        <DialogContent className={dialogContentStyle}>
+        <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className={dialogTitleStyle}>
+            <DialogTitle className="dialogTitleStyle">
               Your product and company
             </DialogTitle>
           </DialogHeader>
@@ -743,7 +446,7 @@ export default function Home() {
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 placeholder="Company name"
-                className={inputStyle}
+                className="inputStyle"
               />
             </div>
           </div>
@@ -754,7 +457,7 @@ export default function Home() {
               onClick={() => {
                 setIsSecondDialogOpen(false);
                 setIsThirdDialogOpen(true);
-              }} 
+              }}
             >
               Next
             </Button>
@@ -764,9 +467,9 @@ export default function Home() {
 
       {/* Third Dialog */}
       <Dialog open={isThirdDialogOpen} onOpenChange={setIsThirdDialogOpen}>
-        <DialogContent className={dialogContentStyle}>
+        <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className={dialogTitleStyle}>
+            <DialogTitle className="dialogTitleStyle">
               Where can we send the result?
             </DialogTitle>
           </DialogHeader>
@@ -783,7 +486,7 @@ export default function Home() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Your name"
-                className={inputStyle}
+                className="inputStyle"
               />
             </div>
             <div>
@@ -799,7 +502,7 @@ export default function Home() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your work email"
-                className={inputStyle}
+                className="inputStyle"
               />
             </div>
           </div>
@@ -816,9 +519,9 @@ export default function Home() {
         open={isThankYouDialogOpen}
         onOpenChange={setIsThankYouDialogOpen}
       >
-        <DialogContent  className={dialogContentStyle}>
+        <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className={dialogTitleStyle}>Thank You!</DialogTitle>
+            <DialogTitle className="dialogTitleStyle">Thank You!</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <p className="text-lg">
@@ -843,11 +546,10 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-
       <Dialog open={isICPDialogOpen} onOpenChange={setIsICPDialogOpen}>
-        <DialogContent className={dialogContentStyle}>
+        <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className={dialogTitleStyle}>
+            <DialogTitle className="dialogTitleStyle">
               Please share what companies are you looking for?
             </DialogTitle>
           </DialogHeader>
@@ -855,10 +557,14 @@ export default function Home() {
             value={tempICP}
             onChange={(e) => setTempICP(e.target.value)}
             placeholder="Enter your Ideal Customer Profile here..."
-            className={inputStyle}
+            className="inputStyle"
           />
           <DialogFooter className="flex justify-center mt-4">
-            <Button variant="accent" className="w-full" onClick={handleICPSubmit}>
+            <Button
+              variant="accent"
+              className="w-full"
+              onClick={handleICPSubmit}
+            >
               Next
             </Button>
           </DialogFooter>

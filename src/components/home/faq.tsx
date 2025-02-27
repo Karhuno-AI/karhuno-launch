@@ -62,7 +62,7 @@ const faqs = [
   },
 ];
 
-export function FAQ({ className }: { className?: string }) {
+export default function FAQ({ className }: { className?: string }) {
   return (
     <section className={cn("relative py-24 overflow-hidden", className)}>
       {/* Gradient Background */}

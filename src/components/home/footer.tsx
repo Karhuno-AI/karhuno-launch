@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Linkedin } from "lucide-react"
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-white">
       <div className="container mx-auto px-4 py-12">

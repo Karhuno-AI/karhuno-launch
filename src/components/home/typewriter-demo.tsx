@@ -11,7 +11,7 @@ const phrases = [
   "last week",
 ]
 
-export function TypewriterDemo() {
+export default function TypewriterDemo() {
   const [text, setText] = useState("")
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)

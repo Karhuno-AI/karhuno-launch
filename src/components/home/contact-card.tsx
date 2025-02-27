@@ -12,7 +12,7 @@ interface ContactCardProps {
   image: string;
 }
 
-export function ContactCard({
+export default function ContactCard({
   name,
   role,
   company,

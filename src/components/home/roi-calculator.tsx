@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
-export function ROICalculator() {
+export default function ROICalculator() {
   const [hours, setHours] = useState(20)
   const [salary, setSalary] = useState(20)
   const [revenue, setRevenue] = useState(10)

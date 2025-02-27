@@ -20,7 +20,7 @@ interface PricingProps {
   id?: string;
 }
 
-export function Pricing({ id }: PricingProps) {
+export default function Pricing({ id }: PricingProps) {
   return (
     <section
       id={id}
