@@ -59,7 +59,7 @@ export default function TypewriterDemo() {
   return (
     <div className="flex flex-col gap-3 w-full">
       <div className="flex gap-2">
-        <Input value={text} className="w-full bg-white shadow-sm" placeholder="Type your search query..." readOnly />
+        <Input value={text} className="w-full bg-white dark:bg-black shadow-sm" placeholder="Type your search query..." readOnly />
         <Button
           className={`px-4 transition-all duration-300 ${
             isSearching ? "bg-purple-700 scale-95" : "bg-purple-600 hover:bg-purple-700"
@@ -68,7 +68,7 @@ export default function TypewriterDemo() {
           <Search className={`w-4 h-4 ${isSearching ? "animate-ping" : ""}`} />
         </Button>
       </div>
-      <div className="text-sm text-gray-500 text-center">Watch AI-powered search in action</div>
+      <div className="text-sm text-gray-500 dark:text-gray-200 text-center">Watch AI-powered search in action</div>
     </div>
   )
 }

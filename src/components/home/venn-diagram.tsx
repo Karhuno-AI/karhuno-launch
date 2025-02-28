@@ -20,7 +20,7 @@ export default function VennDiagram() {
   return (
     // TODO: CHECK THE REPOSNSIBLE WAY OF THE WEBSITE
     <div ref={ref} className="max-w-4xl mx-auto px-8">
-      <h2 className="text-3xl md:text-4xl font-bold my-12 text-center">
+      <h2 className="text-3xl md:text-4xl my-12 text-center">
         Who will benefit of your solution most
       </h2>
 
@@ -62,7 +62,7 @@ export default function VennDiagram() {
           <span className="text-sm lg:text-xl font-bold translate-y-1/4 lg:translate-y-3/4">
             $2-50K
             <br />
-            average check
+            average deal size
           </span>
         </motion.div>
 

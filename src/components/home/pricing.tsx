@@ -33,7 +33,7 @@ export default function Pricing({ id }: PricingProps) {
           viewport={{ once: true }}
           className="text-center mb-8"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Pricing</h2>
+          <h2 className="text-3xl md:text-4xl mb-4">Pricing</h2>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">

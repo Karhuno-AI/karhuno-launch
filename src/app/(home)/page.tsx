@@ -1,7 +1,7 @@
 "use client";
 // REACT
 import { useState, useEffect } from "react";
-import { CheckCircle2, Menu } from "lucide-react";
+import { CheckCircle2, Menu, Moon, Sun } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -16,10 +16,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
 
 // COMPONENTS
-
+import { Textarea } from "@/components/ui/textarea";
 import VennDiagram from "@/components/home/venn-diagram";
 import WhatYouGet from "@/components/home/what-you-get";
 import CaseStudies from "@/components/home/case-studies";
@@ -31,6 +30,10 @@ import FAQ from "@/components/home/faq";
 import Footer from "@/components/home/footer";
 import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
+import AnimatedComponent from "@/components/home/nextjs-animation";
+
+import { useTheme } from "next-themes";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -39,6 +42,7 @@ const placeholderTexts = [
 ];
 
 export default function Home() {
+  const { setTheme } = useTheme();
   const [isICPDialogOpen, setIsICPDialogOpen] = useState(false);
   const [buttonAction, setButtonAction] = useState<() => void>(() => {});
   const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
@@ -55,24 +59,6 @@ export default function Home() {
   const [placeholder, setPlaceholder] = useState("");
   const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const vh = window.innerHeight;
-      document
-        .querySelectorAll('[id$="-pattern"]')
-        .forEach((pattern, index) => {
-          const offset = index * vh;
-          const distance = Math.abs(scrolled - offset);
-          const opacity = Math.max(0, 1 - distance / vh);
-          (pattern as HTMLElement).style.opacity = String(opacity * 0.15);
-        });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -101,8 +87,6 @@ export default function Home() {
     timeout = setTimeout(animatePlaceholder, 20.5);
     return () => clearTimeout(timeout);
   }, [placeholder, placeholderIndex, isDeleting]);
-
-
 
   const handleButtonClick = (action: () => void) => {
     if (action === handleFind) {
@@ -133,9 +117,9 @@ export default function Home() {
   return (
     <div>
       {/* TODO: MOVE TO HEADER COMPONENT */}
-      <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100">
+      <header className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 dark:from-purple-900 dark:via-purple-950 dark:to-purple-900">
         {/* Transparent Header */}
-        <header className="absolute top-0 left-0 right-0 z-[48] backdrop-blur-sm bg-white/30">
+        <div className="absolute top-0 left-0 right-0 z-[48] backdrop-blur-sm bg-white/30 dark:bg-black/30">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -172,6 +156,33 @@ export default function Home() {
               </nav>
 
               <div className="relative md:flex items-center hidden">
+                {/* TODO:ADD DARK MODE TO THE WEBSITE */}
+                <div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="outline-none"
+                        size="icon"
+                      >
+                        <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                        <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                        <span className="sr-only">Toggle theme</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="border-none" align="end">
+                      <DropdownMenuItem onClick={() => setTheme("light")}>
+                        Light
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("dark")}>
+                        Dark
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("system")}>
+                        System
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
                 <Button
                   onClick={() =>
                     handleButtonClick(() => setIsFirstDialogOpen(true))
@@ -182,6 +193,7 @@ export default function Home() {
                   Free Trial
                 </Button>
               </div>
+
               <div className="md:hidden">
                 <Button
                   variant="accent"
@@ -194,30 +206,30 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </header>
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <nav className="absolute z-20 top-16 left-0 right-0 bg-white p-4 shadow-md flex flex-col gap-4 md:hidden">
-            <a
-              href="#features"
-              className="text-gray-700 hover:text-gray-900 transition-colors"
-            >
-              What we do
-            </a>
-            <a
-              href="#case-studies"
-              className="text-gray-700 hover:text-gray-900 transition-colors"
-            >
-              Case studies
-            </a>
-            <a
-              href="#pricing"
-              className="text-gray-700 hover:text-gray-900 transition-colors"
-            >
-              Pricing
-            </a>
-          </nav>
-        )}
+          {/* Mobile Navigation */}
+          {isMobileMenuOpen && (
+            <nav className="absolute z-20 top-16 left-0 right-0 bg-white p-4 shadow-md flex flex-col gap-4 md:hidden">
+              <a
+                href="#features"
+                className="text-gray-700 hover:text-gray-900 transition-colors"
+              >
+                What we do
+              </a>
+              <a
+                href="#case-studies"
+                className="text-gray-700 hover:text-gray-900 transition-colors"
+              >
+                Case studies
+              </a>
+              <a
+                href="#pricing"
+                className="text-gray-700 hover:text-gray-900 transition-colors"
+              >
+                Pricing
+              </a>
+            </nav>
+          )}
+        </div>
 
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-[-30px] bg-[url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/67ba18b037bb033987acf44b_hero-gradient-zg3Lsi42q4ylbWfIvlKRkwHf3LNfpi.png')] bg-cover bg-center filter blur-[30px] scale-105 opacity-40 animate-spin-slow"></div>
@@ -225,7 +237,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 opacity-60"></div>
         <div className="container mx-auto px-4 py-8 relative z-10 pt-20">
           {/* Hero Content */}
-          <main className="max-w-5xl mx-auto text-center space-y-8 mb-32 mt-[13vh]">
+          <div className="max-w-5xl mx-auto text-center space-y-8 mb-32 mt-[13vh]">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-gray-900">
               Stop searching,{" "}
               <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
@@ -255,7 +267,7 @@ export default function Home() {
                 Find
               </Button>
             </div>
-          </main>
+          </div>
         </div>
         <div className="absolute bottom-8 left-0 right-0">
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-gray-600">
@@ -273,7 +285,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* Accelerate lead generation with boundless filters */}
       <Feature />
@@ -285,7 +297,7 @@ export default function Home() {
       <section className="py-20 relative before:absolute before:inset-0  before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80 before:animate-gradient-shift before:opacity-75 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-10 md:mb-20">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900">
+            <h2 className="text-3xl md:text-5xl  mb-6 text-gray-900">
               Get leads with{" "}
               <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
                 full contact info
@@ -384,6 +396,8 @@ export default function Home() {
       <WhatYouGet />
 
       <Pricing id="pricing" />
+
+      <AnimatedComponent />
 
       <ROICalculator />
 

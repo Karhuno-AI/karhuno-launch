@@ -15,7 +15,7 @@ export default function SaleSignal() {
       </div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-gray-900">
+          <h2 className="text-3xl md:text-4xl mb-4 text-gray-900">
             Supercharge your conversions with{" "}
             <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
               sales signals

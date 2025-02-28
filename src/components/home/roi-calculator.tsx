@@ -11,7 +11,7 @@ export default function ROICalculator() {
   const [revenue, setRevenue] = useState(10)
 
   const timeWithKarhuno = 0.5
-  const possibleEconomy = Math.round(salary * (hours - timeWithKarhuno))
+  const possibleEconomy = Math.round(salary * (hours - timeWithKarhuno) *  4)
   const possibleNewRevenue = Math.round((hours / 40) * revenue * 1000) // Convert to dollars
 
   return (
@@ -32,7 +32,7 @@ export default function ROICalculator() {
 
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl p-8 border border-gray-700">
             <h3 className="text-xl font-semibold mb-4 text-center">
-              How Many Hours does your team spend trying to find companies to reach out to per week?
+              How many hours does your team spend trying to find companies to reach out to per week?
             </h3>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -85,11 +85,11 @@ export default function ROICalculator() {
                   <div className="text-3xl font-bold text-purple-400">{timeWithKarhuno} hours</div>
                 </div>
                 <div className="bg-gray-700/30 p-4 rounded-xl">
-                  <div className="text-gray-300 text-sm mb-1">Possible economy</div>
+                  <div className="text-gray-300 text-sm mb-1">Possible economy, $ per month </div>
                   <div className="text-3xl font-bold text-green-400">${possibleEconomy}</div>
                 </div>
                 <div className="bg-gray-700/30 p-4 rounded-xl">
-                  <div className="text-gray-300 text-sm mb-1">Possible new revenue</div>
+                  <div className="text-gray-300 text-sm mb-1">Possible new revenue, $ per month</div>
                   <div className="text-3xl font-bold text-green-400">${possibleNewRevenue}</div>
                 </div>
               </div>

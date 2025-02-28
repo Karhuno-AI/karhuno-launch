@@ -8,11 +8,11 @@ export default function Feature() {
   return (
     <section
       id="features"
-      className="py-24  relative  before:absolute before:inset-0   before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80  before:animate-gradient-shift before:opacity-75  overflow-hidden"
+      className="py-24  relative  before:absolute before:inset-0  before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80  before:animate-gradient-shift before:opacity-75  overflow-hidden"
     >
       <div className="absolute inset-0">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-purple-100/80 via-pink-100/60 to-indigo-100/80"
+          className="absolute inset-0 bg-gradient-to-br from-purple-100/80 via-pink-100/60 to-indigo-100/80 dark:from-purple-900/80 dark:via-pink-900/60 dark:to-indigo-900/80"
           style={{
             opacity: useTransform(scrollYProgress, [0, 0.3], [0, 0.75]),
             scale: useTransform(scrollYProgress, [0, 0.3], [1.1, 1]),
@@ -21,13 +21,13 @@ export default function Feature() {
       </div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-10 md:mb-20">
-          <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-3xl md:text-4xl text-gray-900 dark:text-white">
             Accelerate lead generation with{" "}
             <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
               boundless filters
             </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">
             We discover precisely matched prospects that fit any ideal customer
             profile
           </p>
@@ -35,20 +35,20 @@ export default function Feature() {
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative bg-transparent rounded-2xl flex justify-center overflow-hidden">
-            <div className="w-full max-w-md p-8 rounded-2xl select-none backdrop-blur-sm bg-white/50">
+            <div className="w-full max-w-md p-8 rounded-2xl select-none backdrop-blur-sm bg-white/50 dark:bg-black/50">
               <div className="space-y-6">
                 <div className="flex items-center justify-center">
                   <TypewriterDemo />
                 </div>
                 <div className="flex items-center justify-center">
-                  <div className="w-full h-10 bg-white/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
+                  <div className="w-full h-10 bg-white/50 dark:bg-black/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
                     <div className="animate-typing whitespace-nowrap">
                       Excluding:
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center justify-center">
-                  <div className="w-full h-10 bg-white/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
+                  <div className="w-full h-10 bg-white/50 dark:bg-black/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
                     <div className="animate-typing whitespace-nowrap">
                       Other conditions:
                     </div>
@@ -113,7 +113,7 @@ export default function Feature() {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className="p-6 rounded-xl bg-white/80 hover:bg-white/95 hover:shadow-xl transition-all duration-300 ease-in-out group relative overflow-hidden shadow-md hover:shadow-indigo-100/50 border border-gray-100 hover:border-indigo-200"
+                className="p-6 rounded-xl bg-white/80 dark:bg-black/80 dark:hover:bg-black/95 hover:bg-white/95 hover:shadow-xl transition-all duration-300 ease-in-out group relative overflow-hidden shadow-md hover:shadow-indigo-100/50 border dark:border-gray-900 border-gray-100 hover:border-indigo-200 dark:hover:border-indigo-900"
                 variants={{
                   visible: {
                     opacity: 1,
@@ -126,10 +126,10 @@ export default function Feature() {
                 <div className="flex gap-4 items-start">
                   <div className="mt-1 shrink-0">{item.icon}</div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600">{item.description}</p>
+                    <p className="text-gray-600 dark:text-gray-200">{item.description}</p>
                   </div>
                 </div>
               </motion.div>
