@@ -32,7 +32,12 @@ import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
 
 import { useTheme } from "next-themes";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -286,6 +291,8 @@ export default function Home() {
         </div>
       </header>
 
+      <WhatYouGet />
+
       {/* Accelerate lead generation with boundless filters */}
       <Feature />
 
@@ -391,8 +398,6 @@ export default function Home() {
       <VennDiagram />
 
       <CaseStudies id="case-studies" />
-
-      <WhatYouGet />
 
       <Pricing id="pricing" />
 
