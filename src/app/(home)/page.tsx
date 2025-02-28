@@ -30,7 +30,6 @@ import FAQ from "@/components/home/faq";
 import Footer from "@/components/home/footer";
 import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
-import AnimatedComponent from "@/components/home/nextjs-animation";
 
 import { useTheme } from "next-themes";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -397,7 +396,7 @@ export default function Home() {
 
       <Pricing id="pricing" />
 
-      <AnimatedComponent />
+      {/* <AnimatedComponent /> */}
 
       <ROICalculator />
 
