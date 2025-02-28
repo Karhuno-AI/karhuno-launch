@@ -76,15 +76,6 @@ export default function Pricing({ id }: PricingProps) {
                       </TooltipProvider>
                     </h4>
                   </div>
-                  <p className="text-base text-gray-600">
-                    Your ICP -{">"}
-                    <Link
-                      href="#"
-                      className="underline decoration-2 decoration-purple-400 font-medium pl-2"
-                    >
-                      our leads
-                    </Link>
-                  </p>
                 </div>
               </div>
 
