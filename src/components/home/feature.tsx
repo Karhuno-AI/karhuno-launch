@@ -24,7 +24,7 @@ export default function Feature() {
           <h2 className="text-3xl md:text-4xl text-gray-900 dark:text-white">
             Accelerate lead generation with{" "}
             <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
-              filters
+              limitless filters
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">

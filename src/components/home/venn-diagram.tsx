@@ -31,9 +31,11 @@ export default function VennDiagram() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <span className="text-sm lg:text-xl font-bold -translate-x-[150%] -translate-y-[150%] lg:-translate-x-full lg:-translate-y-full">B2B</span>
+          <span className="text-sm lg:text-xl font-bold -translate-x-[150%] -translate-y-[150%] lg:-translate-x-full lg:-translate-y-full">
+            B2B
+          </span>
         </motion.div>
 
         {/* Global sales Circle */}
@@ -42,7 +44,7 @@ export default function VennDiagram() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
           <span className="text-sm lg:text-xl font-bold translate-x-3/4 -translate-y-3/4">
             Global
@@ -57,7 +59,7 @@ export default function VennDiagram() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={circleVariants}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
           <span className="text-sm lg:text-xl font-bold translate-y-1/4 lg:translate-y-3/4">
             $2-50K
@@ -74,18 +76,16 @@ export default function VennDiagram() {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               variants={lineVariants}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: 1 }}
             />
             <motion.div
               className="my-0 lg:my-4"
               initial={{ opacity: 0, x: -10 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-              transition={{ duration: 0.6}}
+              transition={{ duration: 0.6, delay: 1.2 }}
             >
               <p className="text-xl lg:ml-[3.8rem]">
-                The segment where
-                we are doing the
-                magic ✨
+                The segment where we are doing the magic ✨
               </p>
             </motion.div>
           </div>
