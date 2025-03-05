@@ -157,7 +157,7 @@ export default function Pricing({ id }: PricingProps) {
             100% money-back guarantee if you&apos;re not satisfied with the
             results.
           </p>
-          <p className="text-sm text-gray-600">Minimal package is $50.</p>
+          <p className="text-sm text-gray-600">minimum package is $50.</p>
         </div>
       </div>
       <style jsx global>{`

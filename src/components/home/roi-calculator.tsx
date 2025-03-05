@@ -39,7 +39,7 @@ export default function ROICalculator() {
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm text-gray-400 mb-1">
-                    # of Hours Spent on Finding Companies per Week
+                    Number of hours spent per week on finding companies
                   </label>
                   <input
                     type="range"
@@ -53,7 +53,7 @@ export default function ROICalculator() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">Gross salary with taxes, $ per Hour</label>
+                  <label className="block text-sm text-gray-400 mb-1">Gross salary with taxes, $ per hour</label>
                   <input
                     type="range"
                     min="1"
@@ -81,7 +81,7 @@ export default function ROICalculator() {
 
               <div className="space-y-6">
                 <div className="bg-gray-700/30 p-4 rounded-xl">
-                  <div className="text-gray-300 text-sm mb-1">Time spent with Karhuno</div>
+                  <div className="text-gray-300 text-sm mb-1">How many hours per week does your team spend trying to find companies to reach out to?</div>
                   <div className="text-3xl font-bold text-purple-400">{timeWithKarhuno} hours</div>
                 </div>
                 <div className="bg-gray-700/30 p-4 rounded-xl">

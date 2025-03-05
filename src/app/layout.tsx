@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Roboto } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 // import { CookieConsent } from "@/components/cookie-content";
@@ -9,11 +9,6 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
-const roboto = Roboto({
-  variable: "--font-roboto-mono",
-  subsets: ["latin"],
-  weight: "300",
-});
 
 export const metadata: Metadata = {
   title: "Karhuno AI",
@@ -30,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${montserrat.variable} ${roboto.variable} antialiased`}>
+      <body className={`${montserrat.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

@@ -58,7 +58,7 @@ export default function SaleSignal() {
                 ),
                 title: "Reach clients at the perfect moment.",
                 description:
-                  "We analyze thousands of news articles across the web, social media and specialized databases to deliver only what truly matters",
+                  "We analyze thousands of news articles across the web, social media and specialized databases to deliver only what truly matters.",
               },
               {
                 icon: (

@@ -1,7 +1,7 @@
 "use client";
 // REACT
 import { useState, useEffect, useRef } from "react";
-import { CheckCircle2, Menu, MessageCircleMoreIcon } from "lucide-react";
+import { CheckCircle2, Menu } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -58,7 +58,7 @@ export default function Home() {
   const [placeholder, setPlaceholder] = useState("");
   const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
-  const tawkMessengerRef = useRef();
+  const tawkMessengerRef = useRef(null);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -160,33 +160,6 @@ export default function Home() {
               </nav>
 
               <div className="relative md:flex items-center hidden">
-                {/* TODO:ADD DARK MODE TO THE WEBSITE */}
-                {/* <div>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className="outline-none"
-                        size="icon"
-                      >
-                        <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                        <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                        <span className="sr-only">Toggle theme</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="border-none" align="end">
-                      <DropdownMenuItem onClick={() => setTheme("light")}>
-                        Light
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("dark")}>
-                        Dark
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("system")}>
-                        System
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div> */}
                 <Button
                   onClick={() =>
                     handleButtonClick(() => setIsFirstDialogOpen(true))
@@ -243,9 +216,9 @@ export default function Home() {
           {/* Hero Content */}
           <div className="max-w-5xl mx-auto text-center space-y-8 mb-32 mt-[13vh]">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-gray-900">
-              Stop searching,{" "}
+              Stop Searching,{" "}
               <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
-                Start selling
+                Start Selling
               </span>
             </h1>
 
@@ -304,7 +277,7 @@ export default function Home() {
       <section className="py-20 relative before:absolute before:inset-0  before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80 before:animate-gradient-shift before:opacity-75 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-10 md:mb-20">
-            <h2 className="text-3xl md:text-5xl  mb-6 text-gray-900">
+            <h2 className="text-3xl md:text-4xl mb-6 text-gray-900">
               Get leads with{" "}
               <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
                 full contact info
