@@ -57,7 +57,7 @@ export default function Home() {
   const [placeholder, setPlaceholder] = useState("");
   const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
-  const tawkMessengerRef = useRef(null);
+  const tawkMessengerRef = useRef(null);;
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -114,7 +114,11 @@ export default function Home() {
   };
 
   const handleMinimize = () => {
-    tawkMessengerRef.current.minimize();
+    if (tawkMessengerRef.current) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (tawkMessengerRef.current as any).minimize();
+    }
+    return;
 };
 
   return (
