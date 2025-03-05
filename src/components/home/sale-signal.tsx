@@ -56,7 +56,7 @@ export default function SaleSignal() {
                     <path d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 ),
-                title: "Reach clients at the perfect moment.",
+                title: "Reach clients at the perfect moment",
                 description:
                   "We analyze thousands of news articles across the web, social media and specialized databases to deliver only what truly matters.",
               },
@@ -72,7 +72,7 @@ export default function SaleSignal() {
                     <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                   </svg>
                 ),
-                title: "Empower your sales team with actionable insights.",
+                title: "Empower your sales team with actionable insights",
                 description:
                   "Get the proofs and sources for perfect sales hooks.",
               },
@@ -88,7 +88,7 @@ export default function SaleSignal() {
                     <path d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
                   </svg>
                 ),
-                title: "Unlock new markets.",
+                title: "Unlock new markets",
                 description: "Track key customer actions across any language.",
               },
             ].map((item, index) => (

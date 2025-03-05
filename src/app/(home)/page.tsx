@@ -170,7 +170,7 @@ export default function Home() {
                   variant="accent"
                   className="px-8 py-3"
                 >
-                  Free Trial
+                  Click Free Trial
                 </Button>
               </div>
 
@@ -370,9 +370,6 @@ export default function Home() {
         </div>
       </section>
     
-
-      <button onClick={handleMinimize}> Minimize the Chat </button>
-
       <TawkMessengerReact
                 useRef={tawkMessengerRef}
                 propertyId="67c737fea75982190889c426"

@@ -14,14 +14,14 @@ export default function VennDiagram() {
 
   const lineVariants = {
     hidden: { opacity: 0, width: 0 },
-    visible: { opacity: 1, width: "18rem" },
+    visible: { opacity: 1, width: "17.5rem" },
   };
 
   return (
     // TODO: CHECK THE REPOSNSIBLE WAY OF THE WEBSITE
     <div ref={ref} className="max-w-4xl mx-auto px-8">
       <h2 className="text-3xl md:text-4xl my-12 text-center">
-        Who will benefit of your solution most
+        Designed for SMEs with Global Reach
       </h2>
 
       <div className="relative h-[500px]">
@@ -68,7 +68,7 @@ export default function VennDiagram() {
 
         {/* Center line and text */}
         <div className="lg:absolute lg:top-[35%] lg:left-[48%] lg:-translate-y-1/2">
-          <div className="relative block lg:flex items-center">
+          <div className="relative block lg:grid grid-cols-2 gap-x-8 items-center">
             <motion.div
               className="hidden lg:block h-[2px] bg-black origin-left"
               initial="hidden"
@@ -82,7 +82,7 @@ export default function VennDiagram() {
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
               transition={{ duration: 0.6}}
             >
-              <p className="lg:whitespace-nowrap text-xl lg:ml-2">
+              <p className="text-xl lg:ml-[3.8rem]">
                 The segment where
                 we are doing the
                 magic ✨

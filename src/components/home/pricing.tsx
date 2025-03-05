@@ -113,13 +113,13 @@ export default function Pricing({ id }: PricingProps) {
             <div className="flex flex-col flex-grow">
               <div className="text-center mb-4">
                 <h3 className="text-xl font-bold mb-2">
-                  Enrich your sales funnel with hot lead
+                  Power your funnel with fresh leads
                 </h3>
                 <div className="space-y-1">
                   <div className="flex items-center justify-center">
                     <h4 className="text-lg">
-                      Receive curated weekly list of leads, based on live sales
-                      signals
+                      Stay ahead with real-time sales signals and fresh leads
+                      added weekly, so you always reach the most engaged buyers.
                     </h4>
                   </div>
                 </div>
