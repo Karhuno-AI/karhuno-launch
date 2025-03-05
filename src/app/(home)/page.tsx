@@ -32,7 +32,6 @@ import FAQ from "@/components/home/faq";
 import Footer from "@/components/home/footer";
 import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
-import EmailSender from "../email/page";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -366,8 +365,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
-      <EmailSender />
+    
 
       <button onClick={handleMinimize}> Minimize the Chat </button>
 
