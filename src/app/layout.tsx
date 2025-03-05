@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Roboto } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
+// import { CookieConsent } from "@/components/cookie-content";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          {/* <CookieConsent /> */}
         </ThemeProvider>
       </body>
     </html>

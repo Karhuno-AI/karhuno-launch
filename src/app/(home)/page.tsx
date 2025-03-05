@@ -1,9 +1,11 @@
 "use client";
 // REACT
-import { useState, useEffect } from "react";
-import { CheckCircle2, Menu, Moon, Sun } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { CheckCircle2, Menu, MessageCircleMoreIcon } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 // UI
 import { Button } from "@/components/ui/button";
@@ -30,14 +32,7 @@ import FAQ from "@/components/home/faq";
 import Footer from "@/components/home/footer";
 import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
-
-import { useTheme } from "next-themes";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import EmailSender from "../email/page";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -46,7 +41,7 @@ const placeholderTexts = [
 ];
 
 export default function Home() {
-  const { setTheme } = useTheme();
+  // const { setTheme } = useTheme();
   const [isICPDialogOpen, setIsICPDialogOpen] = useState(false);
   const [buttonAction, setButtonAction] = useState<() => void>(() => {});
   const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
@@ -63,6 +58,7 @@ export default function Home() {
   const [placeholder, setPlaceholder] = useState("");
   const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
+  const tawkMessengerRef = useRef();
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -118,6 +114,10 @@ export default function Home() {
     setIsThankYouDialogOpen(true);
   };
 
+  const handleMinimize = () => {
+    tawkMessengerRef.current.minimize();
+};
+
   return (
     <div>
       {/* TODO: MOVE TO HEADER COMPONENT */}
@@ -161,7 +161,7 @@ export default function Home() {
 
               <div className="relative md:flex items-center hidden">
                 {/* TODO:ADD DARK MODE TO THE WEBSITE */}
-                <div>
+                {/* <div>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
@@ -186,7 +186,7 @@ export default function Home() {
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                </div>
+                </div> */}
                 <Button
                   onClick={() =>
                     handleButtonClick(() => setIsFirstDialogOpen(true))
@@ -291,6 +291,7 @@ export default function Home() {
         </div>
       </header>
 
+
       <WhatYouGet />
 
       {/* Accelerate lead generation with boundless filters */}
@@ -392,6 +393,15 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
+      <EmailSender />
+
+      <button onClick={handleMinimize}> Minimize the Chat </button>
+
+      <TawkMessengerReact
+                useRef={tawkMessengerRef}
+                propertyId="67c737fea75982190889c426"
+                widgetId="1ilh35elm"/>
 
       <ComparisonTable />
 
