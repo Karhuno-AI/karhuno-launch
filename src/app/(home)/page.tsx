@@ -113,14 +113,6 @@ export default function Home() {
     setIsThankYouDialogOpen(true);
   };
 
-  const handleMinimize = () => {
-    if (tawkMessengerRef.current) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (tawkMessengerRef.current as any).minimize();
-    }
-    return;
-};
-
   return (
     <div>
       {/* TODO: MOVE TO HEADER COMPONENT */}
