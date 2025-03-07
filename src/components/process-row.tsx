@@ -120,7 +120,6 @@ export function ProcessRow({
               <CheckCircle className="w-4 h-4" />
               <span>Outcome</span>
             </h3>
-            <ArrowRight className="w-4 h-4 text-white/70" />
           </div>
 
           <div className="p-4">

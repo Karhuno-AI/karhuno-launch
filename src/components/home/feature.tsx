@@ -41,14 +41,14 @@ export default function Feature() {
                   <TypewriterDemo />
                 </div>
                 <div className="flex items-center justify-center">
-                  <div className="w-full h-10 bg-white/50 dark:bg-black/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
+                  <div className="w-full h-10 flex items-center bg-white/50 dark:bg-black/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
                     <div className="animate-typing whitespace-nowrap">
                       Excluding:
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center justify-center">
-                  <div className="w-full h-10 bg-white/50 dark:bg-black/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
+                  <div className="w-full h-10 flex items-center bg-white/50 dark:bg-black/50 rounded-md px-3 text-gray-400 backdrop-blur-sm overflow-hidden">
                     <div className="animate-typing whitespace-nowrap">
                       Other conditions:
                     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 
 interface StepCardProps {
@@ -20,7 +20,6 @@ export function StepCard({
 }: StepCardProps) {
   const controls = useAnimation();
   const lineControls = useAnimation();
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (isInView) {
@@ -58,8 +57,6 @@ export function StepCard({
       initial={{ opacity: 0, scale: 0.9 }}
       animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.5 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
     >
       <motion.div
         className="flex flex-col items-center text-center px-2"
@@ -72,28 +69,6 @@ export function StepCard({
 
         {children}
 
-        {/* Bottom line with animation */}
-        <div className="relative w-full h-6">
-          <motion.div
-            className="absolute bottom-0 left-1/4 right-1/4 h-1 bg-gradient-to-r overflow-hidden rounded-full"
-            style={{ backgroundImage: `linear-gradient(to right, white, primary)`, originX: 0 }}
-            initial={{ scaleX: 0 }}
-            animate={lineControls}
-          >
-            {isHovered && (
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
-                initial={{ x: "-100%" }}
-                animate={{ x: "200%" }}
-                transition={{
-                  repeat: Number.POSITIVE_INFINITY,
-                  duration: 1.5,
-                  ease: "linear",
-                }}
-              />
-            )}
-          </motion.div>
-        </div>
       </motion.div>
     </motion.div>
   );

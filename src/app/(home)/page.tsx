@@ -162,7 +162,7 @@ export default function Home() {
                   variant="accent"
                   className="px-8 py-3"
                 >
-                  Click Free Trial
+                  Free Trial
                 </Button>
               </div>
 
