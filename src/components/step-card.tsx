@@ -52,7 +52,7 @@ export function StepCard({
   }, [isInView, controls, lineControls, onComplete]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative">
       <motion.div
         className="flex-1 relative h-full flex flex-col items-center justify-center"
         initial={{ opacity: 0, scale: 0.9 }}

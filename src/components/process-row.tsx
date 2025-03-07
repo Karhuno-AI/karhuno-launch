@@ -108,7 +108,7 @@ export function ProcessRow({
               step={1}
               color="#4169e1"
               content=""
-              animationDelay={0}
+              animationDelay={index === 0 ? 1 : 2}
             />
           </StepCard>
         ))}
@@ -179,7 +179,7 @@ function StepWithLine({
   animationDelay: number;
 }) {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {/* Animated underline */}
       <motion.div
         className="h-0.5 absolute -bottom-4 left-0"
