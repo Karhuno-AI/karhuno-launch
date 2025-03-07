@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { CheckCircle, ArrowRight } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 import { StepCard } from "./step-card"
 import { StepContent } from "./step-content"
 

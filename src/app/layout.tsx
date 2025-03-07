@@ -3,23 +3,18 @@ import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 import { CookieConsent } from "@/components/cookie-content";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat-sans",
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
   title: "Karhuno AI",
   description: "This karhuno AI dashboard",
   icons: [
-    {
-      rel: "icon",
-      type: "image/png",
-      sizes: "48x48",
-      url: "/images/favicon.ico",
-    },
+    { rel: "icon", type: "image/png", sizes: "48x48", url: "/images/favicon.ico" },
   ],
 };
 
@@ -41,7 +36,6 @@ export default function RootLayout({
           <CookieConsent />
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId="G-XYZ" />
     </html>
   );
 }

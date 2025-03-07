@@ -5,7 +5,7 @@ import { CheckCircle2, Menu } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
+import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 
 // UI
 import { Button } from "@/components/ui/button";
@@ -57,7 +57,7 @@ export default function Home() {
   const [placeholder, setPlaceholder] = useState("");
   const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
-  const tawkMessengerRef = useRef(null);;
+  const tawkMessengerRef = useRef(false);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -86,6 +86,10 @@ export default function Home() {
     timeout = setTimeout(animatePlaceholder, 20.5);
     return () => clearTimeout(timeout);
   }, [placeholder, placeholderIndex, isDeleting]);
+
+  useEffect(() => {
+    tawkMessengerRef.current = true;
+  }, []);
 
   const handleButtonClick = (action: () => void) => {
     if (action === handleFind) {
@@ -259,7 +263,6 @@ export default function Home() {
         </div>
       </header>
 
-
       <WhatYouGet />
 
       {/* Accelerate lead generation with boundless filters */}
@@ -361,11 +364,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-    
+
       <TawkMessengerReact
-                useRef={tawkMessengerRef}
-                propertyId="67c737fea75982190889c426"
-                widgetId="1ilh35elm"/>
+        propertyId="67cb23b4d19cb2190dbd2fbb"
+        widgetId="1iloo6u5l"
+      />
 
       <ComparisonTable />
 
