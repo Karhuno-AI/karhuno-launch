@@ -38,6 +38,7 @@ export function CookieConsent() {
   const [isSending, setIsSending] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [preferences, setPreferences] = useState<CookiePreferences>({
     necessary: true, // Always required
     analytics: true,
@@ -76,10 +77,6 @@ export function CookieConsent() {
     setShowBanner(false)
   }
 
-  const savePreferences = () => {
-    setCookie("cookie-consent", JSON.stringify(preferences), 365)
-    setShowBanner(false)
-  }
 
   const decline = () => {
     const minimal = {
@@ -173,9 +170,6 @@ export function CookieConsent() {
               <div className="flex justify-end space-x-2">
                 <Button variant="outline" onClick={decline}>
                   Decline All
-                </Button>
-                <Button variant="outline" onClick={savePreferences}>
-                  Save Preferences
                 </Button>
                 <Button onClick={acceptAll}>Accept All</Button>
               </div>
