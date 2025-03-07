@@ -2,10 +2,8 @@
 import type React from "react";
 
 import { motion } from "framer-motion";
-import { Database, Camera } from "lucide-react";
-
 import { ProcessRow } from "../process-row";
-
+import Image from "next/image";
 
 export default function WhatYouGet() {
   return (
@@ -31,7 +29,15 @@ export default function WhatYouGet() {
           <ProcessRow
             leftText="Build a comprehensive database of complex profiles using our artificial intelligence"
             rightText="Get the prospects base ideally matched with the ICP."
-            icon={<Camera className="w-full h-full" strokeWidth={1} />}
+            icon={
+              <Image
+                src="/images/database-storage.png"
+                alt="database-storage"
+                width="100"
+                height="100"
+                className="cover flex justify-center invert bg-transparent"
+              />
+            }
             accentColor="from-blue-500 to-cyan-400"
             rightAccentColor="blue"
             bgGradient="from-blue-500/20 to-cyan-500/5"
@@ -44,11 +50,20 @@ export default function WhatYouGet() {
               },
             ]}
           />
-
+          {/* <Camera className="w-full h-full" strokeWidth={1} /> */}
+          {/* <Database className="w-full h-full" strokeWidth={1} /> */}
           <ProcessRow
             leftText="Quickly replenish your sales pipeline with new clients based on sales signals"
             rightText="Get enriched leads with contact details into your inbox, refreshed and updated in real-time"
-            icon={<Database className="w-full h-full" strokeWidth={1} />}
+            icon={
+              <Image
+                src="/images/sales-pipeline.png"
+                alt="database-storage"
+                width="100"
+                height="100"
+                className="cover flex justify-center invert bg-transparent"
+              />
+            }
             accentColor="from-violet-500 to-fuchsia-400"
             rightAccentColor="purple"
             bgGradient="from-violet-500/20 to-fuchsia-500/5"

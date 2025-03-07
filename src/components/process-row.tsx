@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useRef, useState } from "react"
-import { motion, useInView } from "framer-motion"
-import { CheckCircle } from "lucide-react"
-import { StepCard } from "./step-card"
-import { StepContent } from "./step-content"
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { CheckCircle } from "lucide-react";
+import { StepCard } from "./step-card";
+import { StepContent } from "./step-content";
 
 interface ProcessRowProps {
-  leftText: string
-  rightText: string
-  icon: React.ReactNode
-  accentColor: string
-  rightAccentColor: "blue" | "purple"
-  bgGradient: string
-  steps: { text: string }[]
+  leftText: string;
+  rightText: string;
+  icon: React.ReactNode;
+  accentColor: string;
+  rightAccentColor: "blue" | "purple";
+  bgGradient: string;
+  steps: { text: string }[];
 }
 
 export function ProcessRow({
@@ -27,27 +27,33 @@ export function ProcessRow({
   bgGradient,
   steps,
 }: ProcessRowProps) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
-  const [completedSteps, setCompletedSteps] = useState<boolean[]>(Array(steps.length).fill(false))
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const [completedSteps, setCompletedSteps] = useState<boolean[]>(
+    Array(steps.length).fill(false)
+  );
 
   // Define colors based on the rightAccentColor
-  const accentBgColor = rightAccentColor === "blue" ? "bg-blue-500" : "bg-purple-500"
-  const accentBorderColor = rightAccentColor === "blue" ? "border-blue-400" : "border-purple-400"
-  const textColor = rightAccentColor === "blue" ? "text-blue-100" : "text-purple-100"
-  const stepTextColor = rightAccentColor === "blue" ? "text-blue-300" : "text-purple-300"
+  const accentBgColor =
+    rightAccentColor === "blue" ? "bg-blue-500" : "bg-purple-500";
+  const accentBorderColor =
+    rightAccentColor === "blue" ? "border-blue-400" : "border-purple-400";
+  const textColor =
+    rightAccentColor === "blue" ? "text-blue-100" : "text-purple-100";
+  const stepTextColor =
+    rightAccentColor === "blue" ? "text-blue-300" : "text-purple-300";
 
   // Extract accent colors for CSS variables
-  const accentStartColor = accentColor.split(" ")[0].replace("from-", "")
-  const accentEndColor = accentColor.split(" ")[1].replace("to-", "")
+  const accentStartColor = accentColor.split(" ")[0].replace("from-", "");
+  const accentEndColor = accentColor.split(" ")[1].replace("to-", "");
 
   const handleStepComplete = (index: number) => {
-    const newCompletedSteps = [...completedSteps]
-    newCompletedSteps[index] = true
-    setCompletedSteps(newCompletedSteps)
-  }
+    const newCompletedSteps = [...completedSteps];
+    newCompletedSteps[index] = true;
+    setCompletedSteps(newCompletedSteps);
+  };
 
-  const allStepsCompleted = completedSteps[completedSteps.length - 1]
+  const allStepsCompleted = completedSteps[completedSteps.length - 1];
 
   return (
     <div
@@ -67,17 +73,17 @@ export function ProcessRow({
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
       >
-        <div className={`relative rounded-xl overflow-hidden h-full min-h-[160px] flex items-center`}>
+        <div
+          className={`relative rounded-xl overflow-hidden h-full min-h-[160px] flex items-center`}
+        >
           {/* Background gradient */}
-          <div className={`absolute inset-0 bg-gradient-to-br ${bgGradient}`}></div>
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${bgGradient}`}
+          ></div>
 
           {/* Large semi-transparent icon covering the entire background */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-15">
-            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-              <foreignObject width="100%" height="100%" x="0" y="0">
-                <div className="w-full h-full flex items-center justify-center">{icon}</div>
-              </foreignObject>
-            </svg>
+          <div className="absolute inset-0 flex items-center justify-center opacity-30">
+            {icon}
           </div>
 
           {/* Text overlay */}
@@ -98,6 +104,12 @@ export function ProcessRow({
             onComplete={() => handleStepComplete(index)}
           >
             <StepContent text={step.text} />
+            <StepWithLine
+              step={1}
+              color="#4169e1"
+              content=""
+              animationDelay={0}
+            />
           </StepCard>
         ))}
       </div>
@@ -112,10 +124,14 @@ export function ProcessRow({
         <motion.div
           className={`bg-slate-800/80 backdrop-blur-sm rounded-xl border ${accentBorderColor} shadow-lg overflow-hidden`}
           initial={{ y: 20, opacity: 0 }}
-          animate={allStepsCompleted ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+          animate={
+            allStepsCompleted ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }
+          }
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className={`${accentBgColor} px-4 py-2 flex items-center justify-between`}>
+          <div
+            className={`${accentBgColor} px-4 py-2 flex items-center justify-between`}
+          >
             <h3 className="font-semibold text-white flex items-center gap-2">
               <CheckCircle className="w-4 h-4" />
               <span>Outcome</span>
@@ -128,7 +144,10 @@ export function ProcessRow({
 
           <motion.div
             className="h-1 w-full relative overflow-hidden"
-            style={{ backgroundImage: `linear-gradient(to right, var(--accent-start), var(--accent-end))`,originX: 0 }}
+            style={{
+              backgroundImage: `linear-gradient(to right, var(--accent-start), var(--accent-end))`,
+              originX: 0,
+            }}
             initial={{ scaleX: 0 }}
             animate={allStepsCompleted ? { scaleX: 1 } : { scaleX: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -141,13 +160,41 @@ export function ProcessRow({
                 repeat: Number.POSITIVE_INFINITY,
                 duration: 2,
                 ease: "linear",
-                delay: 1,
               }}
             />
           </motion.div>
         </motion.div>
       </motion.div>
     </div>
-  )
+  );
 }
 
+function StepWithLine({
+  color,
+  animationDelay,
+}: {
+  step: number;
+  color: string;
+  content: string;
+  animationDelay: number;
+}) {
+  return (
+    <div className="relative">
+      {/* Animated underline */}
+      <motion.div
+        className="h-0.5 absolute -bottom-4 left-0"
+        style={{ backgroundColor: color }}
+        initial={{ width: 0 }}
+        animate={{
+          width: "100%",
+          transition: {
+            duration: 1,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatDelay: 5,
+            delay: animationDelay,
+          },
+        }}
+      />
+    </div>
+  );
+}

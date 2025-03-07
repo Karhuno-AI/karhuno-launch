@@ -29,7 +29,7 @@ export default function SaleSignal() {
 
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <motion.div
-            className="space-y-4 overflow-hidden"
+            className="space-y-4 overflow-hidden pb-4"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}

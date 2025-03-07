@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search } from "lucide-react"
@@ -16,6 +16,17 @@ export default function TypewriterDemo() {
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const [isSearching, setIsSearching] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleMouseDown = (event: React.MouseEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const input = inputRef.current;
+    if (input) {
+      input.focus();
+      const length = input.value.length;
+      input.setSelectionRange(length, length); // cursor always at end
+    }
+  };
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
@@ -58,8 +69,8 @@ export default function TypewriterDemo() {
 
   return (
     <div className="flex flex-col gap-3 w-full">
-      <div className="flex gap-2">
-        <Input value={text} className="w-full bg-white dark:bg-black shadow-sm" placeholder="Type your search query..." readOnly />
+      <div className="flex gap-2 select-none">
+        <Input value={text} ref={inputRef} onMouseDown={handleMouseDown} className="w-full bg-white dark:bg-black shadow-sm" size={0} placeholder="Type your search query..." readOnly />
         <Button
           className={`px-4 transition-all duration-300 ${
             isSearching ? "bg-purple-700 scale-95" : "bg-purple-600 hover:bg-purple-700"

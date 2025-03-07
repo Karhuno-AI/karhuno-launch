@@ -52,24 +52,27 @@ export function StepCard({
   }, [isInView, controls, lineControls, onComplete]);
 
   return (
-    <motion.div
-      className="flex-1 relative h-full flex flex-col items-center justify-center"
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="relative w-full">
       <motion.div
-        className="flex flex-col items-center text-center px-2"
-        initial={{ y: 30, opacity: 0 }}
-        animate={controls}
+        className="flex-1 relative h-full flex flex-col items-center justify-center"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={
+          isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+        }
+        transition={{ duration: 0.5 }}
       >
-        <h3 className={`${stepColor} font-semibold text-sm mb-4`}>
-          Step {stepNumber}
-        </h3>
+        <motion.div
+          className="flex flex-col items-center text-center px-2"
+          initial={{ y: 30, opacity: 0 }}
+          animate={controls}
+        >
+          <h3 className={`${stepColor} font-semibold text-sm mb-4`}>
+            Step {stepNumber}
+          </h3>
 
-        {children}
-
+          {children}
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
