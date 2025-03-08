@@ -32,6 +32,8 @@ import FAQ from "@/components/home/faq";
 import Footer from "@/components/home/footer";
 import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
+import { sendEmail, type SendEmailParams } from "../api/mail/route";
+import {sendAdminEmail} from "../api/mail/route";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -46,18 +48,21 @@ export default function Home() {
   const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [details, setDetails] = useState("");
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isSecondDialogOpen, setIsSecondDialogOpen] = useState(false);
   const [isThirdDialogOpen, setIsThirdDialogOpen] = useState(false);
-  const [company, setCompany] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [tempICP, setTempICP] = useState("");
   const [placeholder, setPlaceholder] = useState("");
   const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
   const tawkMessengerRef = useRef(false);
+  const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState<SendEmailParams>({
+    to: "",
+    ICP: "",
+    moreDetails: "",
+    company: "",
+    name: "",
+  })
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -101,10 +106,14 @@ export default function Home() {
   };
 
   const handleICPSubmit = () => {
-    setIcp(tempICP);
     setIsICPDialogOpen(false);
     buttonAction();
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const { name, value } = e.target
+  setFormData((prev) => ({ ...prev, [name]: value }))
+}
 
   const handleFind = () => {
     if (icp.trim()) {
@@ -112,13 +121,39 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsThirdDialogOpen(false);
-    setIsThankYouDialogOpen(true);
+    setIsLoading(true);
+    try {
+      const result = await sendEmail(formData)
+      const adminResult = await sendAdminEmail(formData)
+      console.log(adminResult)
+      if (result.success) {
+        console.log(result.success)
+        console.log(adminResult.success)
+        // Reset form or handle success
+      } else {
+        console.log(result.error)
+        console.log(adminResult.error)
+      }
+    } catch (error) {
+        console.log(error)
+    } finally {
+      setIsLoading(false);
+      setIsThankYouDialogOpen(true);
+      setFormData({
+        to: "",
+        ICP: "",
+        moreDetails: "",
+        company: "",
+        name: "",
+      })
+    }
   };
 
   return (
     <div>
+      
       {/* TODO: MOVE TO HEADER COMPONENT */}
       <header className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 dark:from-purple-900 dark:via-purple-950 dark:to-purple-900">
         {/* Transparent Header */}
@@ -393,16 +428,18 @@ export default function Home() {
               Do you want to add some details?
             </DialogTitle>
             <DialogDescription className="dialogDescriptionStyle">
-              Your ICP: <span className="font-semibold">{icp}</span>
+              Your ICP: <span className="font-semibold">{formData.ICP}</span>
               <br />
               Should we know something else?
             </DialogDescription>
           </DialogHeader>
           <Textarea
-            value={details}
-            onChange={(e) => setDetails(e.target.value)}
+            name="moreDetails"
+            value={formData.moreDetails}
+            onChange={handleChange}
             placeholder="Enter additional details here..."
             className="inputStyle"
+            required
           />
           <DialogFooter className="flex justify-center mt-4">
             <Button
@@ -438,10 +475,12 @@ export default function Home() {
               </label>
               <Input
                 id="company"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
+                name="company"
+                value={formData.company}
+                onChange={handleChange}
                 placeholder="Company name"
                 className="inputStyle"
+                required
               />
             </div>
           </div>
@@ -478,10 +517,12 @@ export default function Home() {
               </label>
               <Input
                 id="name"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 placeholder="Your name"
                 className="inputStyle"
+                required
               />
             </div>
             <div>
@@ -489,21 +530,23 @@ export default function Home() {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Your work email:
+                Your Email:
               </label>
               <Input
-                id="email"
+                id="to"
+                name="to"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your work email"
+                value={formData.to}
+                onChange={handleChange}
+                placeholder="Your Email"
                 className="inputStyle"
+                required
               />
             </div>
           </div>
           <DialogFooter className="flex justify-center mt-4">
-            <Button variant="accent" className="w-full" onClick={handleSubmit}>
-              Submit
+            <Button variant="accent" className="w-full" onClick={handleSubmit} disabled={isLoading}>
+              {isLoading ? "Sending..." : "Submit"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -549,10 +592,12 @@ export default function Home() {
             </DialogTitle>
           </DialogHeader>
           <Textarea
-            value={tempICP}
-            onChange={(e) => setTempICP(e.target.value)}
+            name="ICP"
+            value={formData.ICP}
+            onChange={handleChange}
             placeholder="Enter your Ideal Customer Profile here..."
             className="inputStyle"
+            required
           />
           <DialogFooter className="flex justify-center mt-4">
             <Button

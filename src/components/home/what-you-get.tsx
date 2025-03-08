@@ -8,8 +8,6 @@ import Image from "next/image";
 export default function WhatYouGet() {
   return (
     <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-6 md:p-10 font-montserrat">
-      <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] bg-cover opacity-5"></div>
-
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
