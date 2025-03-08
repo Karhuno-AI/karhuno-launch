@@ -32,8 +32,7 @@ import FAQ from "@/components/home/faq";
 import Footer from "@/components/home/footer";
 import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
-import { sendEmail, type SendEmailParams } from "../api/mail/route";
-import {sendAdminEmail} from "../api/mail/route";
+import { type SendEmailParams } from "../api/mail/route";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -55,14 +54,15 @@ export default function Home() {
   const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
   const tawkMessengerRef = useRef(false);
-  const [isLoading, setIsLoading] = useState(false)
-  const [formData, setFormData] = useState<SendEmailParams>({
+  const [isLoading, setIsLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [formData, setFormData] = useState<any>({
     to: "",
     ICP: "",
     moreDetails: "",
     company: "",
     name: "",
-  })
+  });
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -110,10 +110,13 @@ export default function Home() {
     buttonAction();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  const { name, value } = e.target
-  setFormData((prev) => ({ ...prev, [name]: value }))
-}
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
+  };
 
   const handleFind = () => {
     if (icp.trim()) {
@@ -125,19 +128,47 @@ export default function Home() {
     setIsThirdDialogOpen(false);
     setIsLoading(true);
     try {
-      const result = await sendEmail(formData)
-      const adminResult = await sendAdminEmail(formData)
-      console.log(adminResult)
-      if (result.success) {
-        console.log(result.success)
-        console.log(adminResult.success)
-        // Reset form or handle success
+      // Send user email
+      const userEmailData: SendEmailParams = {
+        type: "user",
+        to: formData.to,
+      };
+      const result = await fetch("/api/mail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userEmailData),
+      }).then((res) => res.json());
+
+      // Send admin email
+      const adminEmailData: SendEmailParams = {
+        type: "admin",
+        to: formData.to, // Admin email is auto-set in the API
+        ICP: formData.ICP,
+        moreDetails: formData.moreDetails,
+        company: formData.company,
+        name: formData.name,
+      };
+      const adminResult = await fetch("/api/mail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(adminEmailData),
+      }).then((res) => res.json());
+
+      console.log("User Email Sent:", result);
+      console.log("Admin Email Sent:", adminResult);
+
+      if (result.success && adminResult.success) {
+        console.log("Emails sent successfully!");
       } else {
-        console.log(result.error)
-        console.log(adminResult.error)
+        console.log("User Email Error:", result.error);
+        console.log("Admin Email Error:", adminResult.error);
       }
     } catch (error) {
-        console.log(error)
+      console.error("Error sending emails:", error);
     } finally {
       setIsLoading(false);
       setIsThankYouDialogOpen(true);
@@ -147,13 +178,12 @@ export default function Home() {
         moreDetails: "",
         company: "",
         name: "",
-      })
+      });
     }
   };
 
   return (
     <div>
-      
       {/* TODO: MOVE TO HEADER COMPONENT */}
       <header className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 dark:from-purple-900 dark:via-purple-950 dark:to-purple-900">
         {/* Transparent Header */}
@@ -545,7 +575,12 @@ export default function Home() {
             </div>
           </div>
           <DialogFooter className="flex justify-center mt-4">
-            <Button variant="accent" className="w-full" onClick={handleSubmit} disabled={isLoading}>
+            <Button
+              variant="accent"
+              className="w-full"
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
               {isLoading ? "Sending..." : "Submit"}
             </Button>
           </DialogFooter>

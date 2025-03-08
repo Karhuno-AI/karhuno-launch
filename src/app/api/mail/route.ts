@@ -1,70 +1,88 @@
-"use server"
+"use server";
 
 import { Resend } from "resend";
 import WelcomeEmail from "../../../../emails/index";
 import KarhunoAdminEmail from "../../../../emails/getData";
-import { renderAsync } from "@react-email/render";
+import { render } from "@react-email/render";
+import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export interface SendEmailParams {
-  to: string
-  ICP: string
-  moreDetails: string
-  company: string
-  name: string
+  type: "user" | "admin"; // Determine if the email is for user signup or admin notification
+  to: string;
+  ICP?: string;
+  moreDetails?: string;
+  company?: string;
+  name?: string;
 }
 
-
-export async function sendEmail({ to }: SendEmailParams) {
+export async function POST(req: Request) {
   try {
-    // Render the React Email component to HTML
-    const html = await renderAsync(WelcomeEmail())
+    const body: SendEmailParams = await req.json();
+
+    if (!body.to || !body.type) {
+      return NextResponse.json(
+        { success: false, error: "Missing required fields." },
+        { status: 400 }
+      );
+    }
+
+    let html;
+    let subject;
+    let recipient = body.to; // Default recipient
+
+    if (body.type === "user") {
+      // Render Welcome Email
+      html = await render(WelcomeEmail());
+      subject = "Thanks For Signing Up";
+    } else if (body.type === "admin") {
+      // Render Admin Notification Email
+      html = await render(
+        KarhunoAdminEmail({
+          to: "",
+          ICP: "",
+          moreDetails: "",
+          company: "",
+          name: "",
+        })
+      );
+      subject = "The Info";
+      recipient = "dstepkin@gmail.com"; // Fixed admin email
+    } else {
+      return NextResponse.json(
+        { success: false, error: "Invalid email type." },
+        { status: 400 }
+      );
+    }
 
     // Send the email using Resend
     const { data, error } = await resend.emails.send({
-      from: "Karhuno Team <team@karhuno.com>",
-      to,
-      subject:"Thanks For Signing Up",
+      from:
+        body.type === "user"
+          ? "Karhuno Team <team@karhuno.com>"
+          : "ds@karhuno.com",
+      to: recipient,
+      subject,
       html,
-    })
+    });
+
     if (error) {
-      return { success: false, error: error.message }
+      return NextResponse.json(
+        { success: false, error: error.message },
+        { status: 500 }
+      );
     }
 
-    return { success: true, data }
+    return NextResponse.json({ success: true, data });
   } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "An unknown error occurred",
-    }
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          error instanceof Error ? error.message : "An unknown error occurred",
+      },
+      { status: 500 }
+    );
   }
 }
-
-
-
-export async function sendAdminEmail({to,ICP,moreDetails,company,name}: SendEmailParams) {
-  try {
-    // Render the React Email component to HTML
-    const html = await renderAsync(KarhunoAdminEmail({to,ICP,moreDetails,company,name}))
-
-    // Send the email using Resend
-    const { data, error } = await resend.emails.send({
-      from: "ds@karhuno.com",
-      to: "dstepkin@gmail.com",
-      subject:"The Info",
-      html,
-    })
-    if (error) {
-      return { success: false, error: error.message }
-    }
-
-    return { success: true, data }
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "An unknown error occurred",
-    }
-  }
-}
-
