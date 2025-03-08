@@ -37,7 +37,7 @@ export default function KarhunoAdminEmail({to,ICP,moreDetails,company,name}: Kar
 
           <Text style={text}>I am looking for this ICP: {ICP}</Text>
           <Text style={text}>more details: {moreDetails}</Text>
-          <Text style={text}>The company name is: {company}</Text>
+          <Text style={text}>My company name is: {company}</Text>
           <Text style={text}>My name is: {name}</Text>
           <Text style={text}>my Email address is: {to}</Text>
         </Container>
