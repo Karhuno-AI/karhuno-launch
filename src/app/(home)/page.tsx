@@ -97,6 +97,16 @@ export default function Home() {
 
   useEffect(() => {
     tawkMessengerRef.current = true;
+    if (typeof window !== "undefined" && window.Tawk_API) {
+      window.Tawk_API.onBeforeLoad = function () {
+        console.log("hey")
+        // Ensure chat doesn't auto-pop up
+        window.Tawk_API.hideWidget();
+      };
+      window.Tawk_API.onLoad = function () {
+        window.Tawk_API.showWidget();
+      }
+    }
   }, []);
 
   const handleButtonClick = (action: () => void) => {
