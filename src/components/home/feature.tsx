@@ -34,7 +34,7 @@ export default function Feature() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative bg-transparent rounded-2xl flex justify-center overflow-hidden">
+          <div className="relative h-full bg-transparent rounded-2xl flex justify-center overflow-hidden">
             <div className="w-full max-w-md p-8 rounded-2xl select-none backdrop-blur-sm bg-white/50 dark:bg-black/50">
               <div className="space-y-6">
                 <div className="flex items-center justify-center">

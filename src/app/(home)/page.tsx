@@ -26,13 +26,18 @@ import WhatYouGet from "@/components/home/what-you-get";
 import CaseStudies from "@/components/home/case-studies";
 import ContactCarousel from "@/components/home/contact-carousel";
 import ComparisonTable from "@/components/home/comparison-table";
-import Pricing from "@/components/home/pricing";
 import ROICalculator from "@/components/home/roi-calculator";
 import FAQ from "@/components/home/faq";
 import Footer from "@/components/home/footer";
 import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
 import { type SendEmailParams } from "../api/mail/route";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -51,10 +56,9 @@ export default function Home() {
   const [isSecondDialogOpen, setIsSecondDialogOpen] = useState(false);
   const [isThirdDialogOpen, setIsThirdDialogOpen] = useState(false);
   const [placeholder, setPlaceholder] = useState("");
-  const [icp, setIcp] = useState("");
+
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
   const tawkMessengerRef = useRef(false);
-  const [isLoading, setIsLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [formData, setFormData] = useState<any>({
     to: "",
@@ -97,12 +101,8 @@ export default function Home() {
   }, []);
 
   const handleButtonClick = (action: () => void) => {
-    if (action === handleFind) {
-      action();
-    } else {
-      setButtonAction(() => action);
+    setButtonAction(() => action);
       setIsICPDialogOpen(true);
-    }
   };
 
   const handleICPSubmit = () => {
@@ -118,15 +118,16 @@ export default function Home() {
     setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
-  const handleFind = () => {
-    if (icp.trim()) {
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleKeyDown = (event:any) => {
+    if (event.key === "Enter") {
       setIsFirstDialogOpen(true);
     }
   };
 
   const handleSubmit = async () => {
     setIsThirdDialogOpen(false);
-    setIsLoading(true);
     try {
       // Send user email
       const userEmailData: SendEmailParams = {
@@ -170,7 +171,6 @@ export default function Home() {
     } catch (error) {
       console.error("Error sending emails:", error);
     } finally {
-      setIsLoading(false);
       setIsThankYouDialogOpen(true);
       setFormData({
         to: "",
@@ -296,14 +296,15 @@ export default function Home() {
                   type="text"
                   placeholder={placeholder}
                   className="w-full h-12 rounded-xl bg-white/80 border-gray-200 text-gray-900 placeholder:text-gray-500"
-                  value={icp}
-                  onChange={(e) => setIcp(e.target.value)}
+                  value={formData.ICP}
+                  onChange={handleChange}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
               <Button
                 variant="accent"
                 className="px-8 py-3"
-                onClick={handleFind}
+                onClick={handleICPSubmit}
               >
                 Find
               </Button>
@@ -430,10 +431,12 @@ export default function Home() {
         </div>
       </section>
 
-      <TawkMessengerReact
-        propertyId="67cb23b4d19cb2190dbd2fbb"
-        widgetId="1iloo6u5l"
-      />
+      {tawkMessengerRef.current && (
+        <TawkMessengerReact
+          propertyId="67cb23b4d19cb2190dbd2fbb"
+          widgetId="1iloo6u5l"
+        />
+      )}
 
       <ComparisonTable />
 
@@ -441,7 +444,141 @@ export default function Home() {
 
       <CaseStudies id="case-studies" />
 
-      <Pricing id="pricing" />
+      <section
+        id="pricing"
+        className="py-12 bg-gradient-to-tr from-purple-50 via-indigo-100 to-pink-50 min-h-screen flex items-center relative z-10"
+      >
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <h2 className="text-3xl md:text-4xl mb-4">Pricing</h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto justify-items-center">
+            {/* Explorer Plan */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative p-6 max-w-96 rounded-2xl border-2 border-purple-300 bg-white/80 backdrop-blur-sm hover:border-purple-400 transition-all duration-300 flex flex-col"
+            >
+              <div className="flex flex-col flex-grow">
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold mb-2">
+                    Build your sales funnel
+                  </h3>
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-center">
+                      <h4 className="text-lg">
+                        Get the curated list of companies, perfectly aligned
+                        with your ICP
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <span
+                                className="inline-block text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                                style={{
+                                  fontSize: "70%",
+                                  verticalAlign: "super",
+                                }}
+                              >
+                                ⓘ
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent className="bg-white/90 backdrop-blur-sm shadow-lg p-2 tooltip-content">
+                              <p>Ideal Customer Profile -</p>
+                              <p>a perfect customer who&apos;s</p>
+                              <p>most likely to love your product</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-grow flex flex-col justify-end">
+                  <div className="space-y-1 text-center mb-4">
+                    <div className="text-3xl font-bold">$0.59 - $0.89</div>
+                    <div className="text-sm text-gray-600">per one lead</div>
+                  </div>
+
+                  <Button
+                    variant="accent"
+                    size="xl"
+                    onClick={() =>
+                      handleButtonClick(() => setIsFirstDialogOpen(true))
+                    }
+                  >
+                    Try For Free
+                  </Button>
+
+                  <div className="text-center text-sm text-gray-600 mt-4">
+                    Volume-based discounts apply
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            {/* Signal Tracker Plan */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative p-6 max-w-96 rounded-2xl border-2 border-purple-300 bg-white/80 backdrop-blur-sm hover:border-purple-400 transition-all duration-300 flex flex-col"
+            >
+              <div className="flex flex-col flex-grow">
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold mb-2">
+                    Power your funnel with fresh leads
+                  </h3>
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-center">
+                      <h4 className="text-lg">
+                        Stay ahead with real-time sales signals and fresh leads
+                        added weekly, so you always reach the most engaged
+                        buyers.
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-grow flex flex-col justify-end">
+                  <div className="space-y-1 text-center mb-4">
+                    <div className="text-3xl font-bold">$1.50 - $1.94</div>
+                    <div className="text-sm text-gray-600">per one lead</div>
+                  </div>
+
+                  <Button
+                    variant="accent"
+                    size="xl"
+                    onClick={() =>
+                      handleButtonClick(() => setIsFirstDialogOpen(true))
+                    }
+                  >
+                    Try For Free
+                  </Button>
+
+                  <div className="text-center text-sm text-gray-600 mt-4">
+                    Volume-based discounts apply
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="text-center mt-6 space-y-1">
+            <p className="font-medium text-sm">
+              100% money-back guarantee if you&apos;re not satisfied with the
+              results.
+            </p>
+            <p className="text-sm text-gray-600">Minimum package is $50.</p>
+          </div>
+        </div>
+      </section>
 
       {/* <AnimatedComponent /> */}
 
@@ -454,13 +591,15 @@ export default function Home() {
       <Dialog open={isFirstDialogOpen} onOpenChange={setIsFirstDialogOpen}>
         <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className="dialogTitleStyle">
+            <DialogTitle className="dialogTitleStyle mb-3">
               Do you want to add some details?
             </DialogTitle>
             <DialogDescription className="dialogDescriptionStyle">
               Your ICP: <span className="font-semibold">{formData.ICP}</span>
               <br />
               Should we know something else?
+              <br />
+              Should we exclude any companies?
             </DialogDescription>
           </DialogHeader>
           <Textarea
@@ -469,7 +608,6 @@ export default function Home() {
             onChange={handleChange}
             placeholder="Enter additional details here..."
             className="inputStyle"
-            required
           />
           <DialogFooter className="flex justify-center mt-4">
             <Button
@@ -479,6 +617,7 @@ export default function Home() {
                 setIsFirstDialogOpen(false);
                 setIsSecondDialogOpen(true);
               }}
+              disabled={!formData.moreDetails}
             >
               Next
             </Button>
@@ -511,6 +650,7 @@ export default function Home() {
                 placeholder="Company name"
                 className="inputStyle"
                 required
+                aria-required="true"
               />
             </div>
           </div>
@@ -522,6 +662,7 @@ export default function Home() {
                 setIsSecondDialogOpen(false);
                 setIsThirdDialogOpen(true);
               }}
+              disabled={!formData.company}
             >
               Next
             </Button>
@@ -553,6 +694,7 @@ export default function Home() {
                 placeholder="Your name"
                 className="inputStyle"
                 required
+                aria-required="true"
               />
             </div>
             <div>
@@ -571,6 +713,7 @@ export default function Home() {
                 placeholder="Your Email"
                 className="inputStyle"
                 required
+                aria-required="true"
               />
             </div>
           </div>
@@ -579,9 +722,9 @@ export default function Home() {
               variant="accent"
               className="w-full"
               onClick={handleSubmit}
-              disabled={isLoading}
+              disabled={!formData.to && !formData.name}
             >
-              {isLoading ? "Sending..." : "Submit"}
+              Submit
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -599,7 +742,7 @@ export default function Home() {
           <div className="space-y-4">
             <p className="text-lg">
               Karhuno has already started finding your ideal leads. You&apos;ll
-              have them in 3 business days* by email.
+              have them in 5 business days* by email.
             </p>
             <p className="text-sm text-gray-600">
               *as we carefully collect, analyze, filter, and enrich the data to
@@ -633,19 +776,28 @@ export default function Home() {
             placeholder="Enter your Ideal Customer Profile here..."
             className="inputStyle"
             required
+            aria-required="true"
           />
           <DialogFooter className="flex justify-center mt-4">
             <Button
               variant="accent"
               className="w-full"
               onClick={handleICPSubmit}
+              disabled={!formData.ICP}
             >
               Next
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
+      <style jsx global>{`
+        .z-index-100 {
+          z-index: 100;
+        }
+        .tooltip-content {
+          z-index: 9999 !important;
+        }
+      `}</style>
       <style jsx global>{`
         @keyframes gradient-shift {
           0% {

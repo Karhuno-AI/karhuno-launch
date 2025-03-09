@@ -5,5 +5,5 @@ interface StepContentProps {
 }
 
 export function StepContent({ text }: StepContentProps) {
-  return <p className="text-white text-center mb-8">{text}</p>;
+  return <p className="text-white text-center mb-8 h-4">{text}</p>;
 }

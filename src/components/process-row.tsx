@@ -94,7 +94,7 @@ export function ProcessRow({
       </motion.div>
 
       {/* Flow steps - now just centered text with bottom line */}
-      <div className="md:col-span-6 flex flex-col md:flex-row gap-6">
+      <div className="md:col-span-6 flex justify-center flex-col md:flex-row gap-6">
         {steps.map((step, index) => (
           <StepCard
             key={index}
@@ -105,8 +105,7 @@ export function ProcessRow({
           >
             <StepContent text={step.text} />
             <StepWithLine
-              step={1}
-              color="#4169e1"
+              color={index === 0 ? "#4169e1" : "#d8b4fe"} 
               content=""
               animationDelay={index === 0 ? 1 : 2}
             />
@@ -127,7 +126,7 @@ export function ProcessRow({
           animate={
             allStepsCompleted ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }
           }
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6 }}
         >
           <div
             className={`${accentBgColor} px-4 py-2 flex items-center justify-between`}
@@ -173,7 +172,6 @@ function StepWithLine({
   color,
   animationDelay,
 }: {
-  step: number;
   color: string;
   content: string;
   animationDelay: number;
