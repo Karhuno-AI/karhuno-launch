@@ -141,6 +141,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     setIsThirdDialogOpen(false);
+    setIsThankYouDialogOpen(true);
     try {
       const userEmailData: SendEmailParams = {
         to: formData.to, // Admin email is auto-set in the API
@@ -165,7 +166,6 @@ export default function Home() {
     } catch (error) {
       console.error("Error sending emails:", error);
     } finally {
-      setIsThankYouDialogOpen(true);
       setFormData({
         to: "",
         ICP: "",
@@ -179,7 +179,10 @@ export default function Home() {
   return (
     <div>
       <div className="w-full h-full relative ">
-        <button className="bottom-5 right-5 fixed flex justify-center items-center rounded-full z-50 border-none w-[60px] h-[60px] leading-[3.75rem] bg-primary focus-visible:outline-none cursor-pointer" onClick={openChat}>
+        <button
+          className="bottom-5 right-5 fixed flex justify-center items-center rounded-full z-50 border-none w-[60px] h-[60px] leading-[3.75rem] bg-primary focus-visible:outline-none cursor-pointer"
+          onClick={openChat}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 800 800"
@@ -193,8 +196,8 @@ export default function Home() {
             <title id="openIconTitle">Opens Chat</title>
             <desc id="openIconDesc">This icon Opens the chat window.</desc>
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M400 26.2c-193.3 0-350 156.7-350 350 0 136.2 77.9 254.3 191.5 312.1 15.4 8.1 31.4 15.1 48.1 20.8l-16.5 63.5c-2 7.8 5.4 14.7 13 12.1l229.8-77.6c14.6-5.3 28.8-11.6 42.4-18.7C672 630.6 750 512.5 750 376.2c0-193.3-156.7-350-350-350zm211.1 510.7c-10.8 26.5-41.9 77.2-121.5 77.2-79.9 0-110.9-51-121.6-77.4-2.8-6.8 5-13.4 13.8-11.8 76.2 13.7 147.7 13 215.3.3 8.9-1.8 16.8 4.8 14 11.7z"
             ></path>
           </svg>
@@ -739,6 +742,11 @@ export default function Home() {
                 placeholder="Your Email"
                 className="inputStyle"
                 required
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmit();
+                  }
+                }}
               />
             </div>
           </div>
@@ -757,6 +765,36 @@ export default function Home() {
       </Dialog>
 
       {/* Thank You Dialog */}
+      <Dialog
+        open={isThankYouDialogOpen}
+        onOpenChange={setIsThankYouDialogOpen}
+      >
+        <DialogContent className="dialogContentStyle">
+          <DialogHeader>
+            <DialogTitle className="dialogTitleStyle">Thank You!</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-lg">
+              Karhuno has already started finding your ideal leads. You&apos;ll
+              have them in 5 business days* by email.
+            </p>
+            <p className="text-sm text-gray-600">
+              *as we carefully collect, analyze, filter, and enrich the data to
+              ensure accuracy and quality. This timeline guarantees that you
+              receive only valid, verified leads, optimized for your business
+              needs.
+            </p>
+          </div>
+          <DialogFooter className="flex justify-center mt-4">
+            <Button
+              variant="accent"
+              onClick={() => setIsThankYouDialogOpen(false)}
+            >
+              Good!
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <Dialog
         open={isThankYouDialogOpen}
         onOpenChange={setIsThankYouDialogOpen}

@@ -8,7 +8,7 @@ export default function Feature() {
   return (
     <section
       id="features"
-      className="py-24  relative  before:absolute before:inset-0  before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80  before:animate-gradient-shift before:opacity-75  overflow-hidden"
+      className="py-24 relative before:absolute before:inset-0  before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80  before:animate-gradient-shift before:opacity-75  overflow-hidden"
     >
       <div className="absolute inset-0">
         <motion.div
@@ -34,8 +34,8 @@ export default function Feature() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative h-full bg-transparent rounded-2xl flex justify-center overflow-hidden">
-            <div className="w-full max-w-md p-8 rounded-2xl select-none backdrop-blur-sm bg-white/50 dark:bg-black/50">
+          <div className="order-last md:order-first relative h-full bg-transparent rounded-2xl flex justify-center overflow-hidden">
+            <div className="w-full max-w-md h-[90%] p-8 rounded-2xl select-none backdrop-blur-sm bg-white/50 dark:bg-black/50">
               <div className="space-y-6">
                 <div className="flex items-center justify-center">
                   <TypewriterDemo />
@@ -62,7 +62,7 @@ export default function Feature() {
           {/* Features List */}
           <motion.div
             ref={featuresRef}
-            className="space-y-8 overflow-hidden md:grid-cols-2"
+            className="order-first md:order-last space-y-8 overflow-hidden md:grid-cols-2"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}

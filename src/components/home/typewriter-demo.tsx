@@ -70,7 +70,7 @@ export default function TypewriterDemo() {
   return (
     <div className="flex flex-col gap-3 w-full">
       <div className="flex gap-2 select-none">
-        <Input value={text} ref={inputRef} onMouseDown={handleMouseDown} className="w-full bg-white dark:bg-black shadow-sm focus:outline-none focus-visible:ring-0" size={0} placeholder="Type your search query..." readOnly />
+        <Input value={text} ref={inputRef} onMouseDown={handleMouseDown} className="w-full text-gray-500 bg-gray-100 border-none border-gray-300 shadow-sm focus:outline-none focus-visible:ring-0" size={0} placeholder="Type your search query..." readOnly />
         <Button
           className={`px-4 transition-all duration-300 ${
             isSearching ? "bg-purple-700 scale-95" : "bg-purple-600 hover:bg-purple-700"
