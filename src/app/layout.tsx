@@ -11,8 +11,8 @@ const montserrat = Montserrat({
 
 
 export const metadata: Metadata = {
-  title: "Karhuno AI",
-  description: "This karhuno AI dashboard",
+  title: "Karhuno - Al Insights for Sales",
+  description: "Karhuno scans news and social media to identify signals indicating that a potential client will soon be interested in purchasing certain products or services.",
   icons: [
     { rel: "icon", type: "image/png", sizes: "48x48", url: "/images/favicon.ico" },
   ],
