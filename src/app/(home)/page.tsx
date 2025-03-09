@@ -56,11 +56,10 @@ export default function Home() {
   const [isSecondDialogOpen, setIsSecondDialogOpen] = useState(false);
   const [isThirdDialogOpen, setIsThirdDialogOpen] = useState(false);
   const [placeholder, setPlaceholder] = useState("");
-
+  const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
   const tawkMessengerRef = useRef(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [formData, setFormData] = useState<any>({
+  const [formData, setFormData] = useState<SendEmailParams>({
     to: "",
     ICP: "",
     moreDetails: "",
@@ -101,8 +100,12 @@ export default function Home() {
   }, []);
 
   const handleButtonClick = (action: () => void) => {
-    setButtonAction(() => action);
+    if (action === handleFind) {
+      action();
+    } else {
+      setButtonAction(() => action);
       setIsICPDialogOpen(true);
+    }
   };
 
   const handleICPSubmit = () => {
@@ -114,59 +117,39 @@ export default function Home() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setFormData((prev: any) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleKeyDown = (event:any) => {
-    if (event.key === "Enter") {
+  const handleFind = () => {
+    if (icp.trim()) {
       setIsFirstDialogOpen(true);
+      formData.ICP = icp;
+      setFormData({ ...formData, ICP: icp });
     }
   };
 
   const handleSubmit = async () => {
     setIsThirdDialogOpen(false);
     try {
-      // Send user email
       const userEmailData: SendEmailParams = {
-        type: "user",
-        to: formData.to,
-      };
-      const result = await fetch("/api/mail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userEmailData),
-      }).then((res) => res.json());
-
-      // Send admin email
-      const adminEmailData: SendEmailParams = {
-        type: "admin",
         to: formData.to, // Admin email is auto-set in the API
         ICP: formData.ICP,
         moreDetails: formData.moreDetails,
         company: formData.company,
         name: formData.name,
       };
-      const adminResult = await fetch("/api/mail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(adminEmailData),
-      }).then((res) => res.json());
-
-      console.log("User Email Sent:", result);
-      console.log("Admin Email Sent:", adminResult);
-
-      if (result.success && adminResult.success) {
+    const result = await fetch("/api/mail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userEmailData),
+    }).then((res) => res.json());
+      if (result.success) {
         console.log("Emails sent successfully!");
+        // Reset form or handle success
       } else {
-        console.log("User Email Error:", result.error);
-        console.log("Admin Email Error:", adminResult.error);
+        console.log(result.error);
       }
     } catch (error) {
       console.error("Error sending emails:", error);
@@ -296,15 +279,19 @@ export default function Home() {
                   type="text"
                   placeholder={placeholder}
                   className="w-full h-12 rounded-xl bg-white/80 border-gray-200 text-gray-900 placeholder:text-gray-500"
-                  value={formData.ICP}
-                  onChange={handleChange}
-                  onKeyDown={handleKeyDown}
+                  value={icp}
+                  onChange={(e) => setIcp(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleFind();
+                    }
+                  }}
                 />
               </div>
               <Button
                 variant="accent"
                 className="px-8 py-3"
-                onClick={handleICPSubmit}
+                onClick={handleFind}
               >
                 Find
               </Button>
@@ -431,12 +418,10 @@ export default function Home() {
         </div>
       </section>
 
-      {tawkMessengerRef.current && (
-        <TawkMessengerReact
-          propertyId="67cb23b4d19cb2190dbd2fbb"
-          widgetId="1iloo6u5l"
-        />
-      )}
+      <TawkMessengerReact
+        propertyId="67cb23b4d19cb2190dbd2fbb"
+        widgetId="1iloo6u5l"
+      />
 
       <ComparisonTable />
 
@@ -579,7 +564,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* <AnimatedComponent /> */}
 
       <ROICalculator />
@@ -587,18 +571,16 @@ export default function Home() {
       <FAQ className="bg-gradient-to-b from-white via-purple-50/50 to-white" />
 
       {/* Dialogs */}
-      {/* First Dialog */}
       <Dialog open={isFirstDialogOpen} onOpenChange={setIsFirstDialogOpen}>
         <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className="dialogTitleStyle mb-3">
+            <DialogTitle className="dialogTitleStyle mb-5">
               Do you want to add some details?
             </DialogTitle>
             <DialogDescription className="dialogDescriptionStyle">
               Your ICP: <span className="font-semibold">{formData.ICP}</span>
               <br />
-              Should we know something else?
-              <br />
+              Should we know something else? <br />
               Should we exclude any companies?
             </DialogDescription>
           </DialogHeader>
@@ -608,6 +590,13 @@ export default function Home() {
             onChange={handleChange}
             placeholder="Enter additional details here..."
             className="inputStyle"
+            required
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setIsFirstDialogOpen(false);
+                setIsSecondDialogOpen(true);
+              }
+            }}
           />
           <DialogFooter className="flex justify-center mt-4">
             <Button
@@ -650,7 +639,12 @@ export default function Home() {
                 placeholder="Company name"
                 className="inputStyle"
                 required
-                aria-required="true"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    setIsSecondDialogOpen(false);
+                    setIsThirdDialogOpen(true);
+                  }
+                }}
               />
             </div>
           </div>
@@ -694,7 +688,6 @@ export default function Home() {
                 placeholder="Your name"
                 className="inputStyle"
                 required
-                aria-required="true"
               />
             </div>
             <div>
@@ -713,7 +706,6 @@ export default function Home() {
                 placeholder="Your Email"
                 className="inputStyle"
                 required
-                aria-required="true"
               />
             </div>
           </div>
@@ -721,8 +713,9 @@ export default function Home() {
             <Button
               variant="accent"
               className="w-full"
+              type="submit"
               onClick={handleSubmit}
-              disabled={!formData.to && !formData.name}
+              disabled={!formData.name && !formData.to}
             >
               Submit
             </Button>
@@ -776,7 +769,11 @@ export default function Home() {
             placeholder="Enter your Ideal Customer Profile here..."
             className="inputStyle"
             required
-            aria-required="true"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleICPSubmit();
+              }
+            }}
           />
           <DialogFooter className="flex justify-center mt-4">
             <Button
@@ -790,6 +787,7 @@ export default function Home() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
       <style jsx global>{`
         .z-index-100 {
           z-index: 100;
