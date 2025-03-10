@@ -361,14 +361,14 @@ export default function Home() {
 
       <WhatYouGet />
 
-      {/* Accelerate lead generation with boundless filters */}
+
       <Feature />
 
       {/* Supercharge your conversions with sales signals */}
       <SaleSignal />
 
       {/* Get leads with full contact info */}
-      <section className="py-20 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-purple-300/80 before:via-pink-300/60 before:to-white before:animate-gradient-shift before:opacity-75 overflow-hidden">
+      <section className="py-20 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-purple-200/80 before:via-pink-200/60 before:to-white before:animate-gradient-shift before:opacity-75 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-10 md:mb-20">
             <h2 className="text-3xl md:text-4xl mb-6 text-gray-900">

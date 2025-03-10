@@ -119,9 +119,9 @@ export function ProcessRow({
           className={`bg-slate-800/80 backdrop-blur-sm rounded-xl border ${accentBorderColor} shadow-lg overflow-hidden`}
           initial={{ y: 20, opacity: 0 }}
           animate={
-            allStepsCompleted ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }
+            allStepsCompleted ? { y: 20, opacity: 1 } : { y: 20, opacity: 0 }
           }
-          transition={{ duration: 0.5,delay:0.35 }}
+          transition={{ duration: 0.5, delay:0.35 }}
         >
           <div
             className={`${accentBgColor} px-4 py-2 flex items-center justify-between`}

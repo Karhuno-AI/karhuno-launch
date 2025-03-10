@@ -8,11 +8,11 @@ export default function Feature() {
   return (
     <section
       id="features"
-      className="py-20 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-purple-300/80 before:via-pink-300/60 before:to-indigo-300/80  before:animate-gradient-shift before:opacity-75 overflow-hidden"
+      className="py-20 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-purple-200/80 before:via-pink-200/60 before:to-indigo-200/80  before:animate-gradient-shift before:opacity-75 overflow-hidden"
     >
       <div className="absolute">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-purple-300/80 via-pink-300/60 to-indigo-300/80"
+          className="absolute inset-0 bg-gradient-to-b from-purple-200/80 via-pink-200/60 to-indigo-200/80"
           style={{
             opacity: useTransform(scrollYProgress, [0, 0.3], [0, 0.75]),
             scale: useTransform(scrollYProgress, [0, 0.3], [1.1, 1]),
