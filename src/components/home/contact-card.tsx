@@ -20,7 +20,7 @@ export default function ContactCard({
 }: ContactCardProps) {
   return (
     <motion.div
-      className="w-full h-full max-w-sm p-6 bg-white/90 backdrop-blur-lg rounded-xl border border-purple-400/30 hover:border-purple-500/50 transition-all duration-300 shadow-lg flex flex-col"
+      className="relative w-full h-full max-w-sm min-h-80 p-6 bg-white/90 backdrop-blur-lg rounded-xl border border-purple-400/30 hover:border-purple-500/50 transition-all duration-300 shadow-lg flex flex-col"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -69,7 +69,7 @@ export default function ContactCard({
         </Button>
       </div>
 
-      <Button variant="accent" size="lg">
+      <Button variant="accent" className="absolute bottom-4 w-4/5" size="lg">
         Contact
       </Button>
     </motion.div>

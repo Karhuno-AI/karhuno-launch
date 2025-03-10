@@ -82,7 +82,7 @@ export function ProcessRow({
           ></div>
 
           {/* Large semi-transparent icon covering the entire background */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-30">
+          <div className="absolute inset-0 flex items-center justify-center opacity-10">
             {icon}
           </div>
 
@@ -103,12 +103,7 @@ export function ProcessRow({
             isInView={index === 0 ? isInView : completedSteps[index - 1]}
             onComplete={() => handleStepComplete(index)}
           >
-            <StepContent text={step.text} />
-            <StepWithLine
-              color={index === 0 ? "#4169e1" : "#d8b4fe"} 
-              content=""
-              animationDelay={index === 0 ? 1 : 2}
-            />
+            <StepContent text={step.text} color={rightAccentColor === "blue" ? "#4169e1" : "#d8b4fe"}  num={index === 0 ? 1 : 2} />
           </StepCard>
         ))}
       </div>
@@ -168,31 +163,3 @@ export function ProcessRow({
   );
 }
 
-function StepWithLine({
-  color,
-  animationDelay,
-}: {
-  color: string;
-  content: string;
-  animationDelay: number;
-}) {
-  return (
-    <div className="relative w-full">
-      {/* Animated underline */}
-      <motion.div
-        className="h-0.5 absolute -bottom-4 left-0"
-        style={{ backgroundColor: color }}
-        initial={{ width: 0 }}
-        animate={{
-          width: "100%",
-          transition: {
-            duration: 1,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatDelay: 5,
-            delay: animationDelay,
-          },
-        }}
-      />
-    </div>
-  );
-}

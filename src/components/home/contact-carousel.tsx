@@ -6,7 +6,7 @@ import ContactCard from "./contact-card"
 
 const CONTACTS = [
   {
-    name: "Sarah Chen",
+    name: "Marco giovani",
     role: "Head of Growth",
     company: "TechVision Inc.",
     image: "/image.jpeg",
@@ -15,25 +15,25 @@ const CONTACTS = [
     name: "Michael Rodriguez",
     role: "VP of Sales",
     company: "CloudScale Solutions",
-    image: "/image.jpeg",
+    image: "/micheal.jpeg",
   },
   {
     name: "Emma Thompson",
     role: "Chief Revenue Officer",
     company: "DataFlow Systems",
-    image: "/image.jpeg",
+    image: "/emma.jpeg",
   },
   {
     name: "Alex Johnson",
     role: "Sales Director",
     company: "InnoTech Enterprises",
-    image: "/image.jpeg",
+    image: "/alex.jpeg",
   },
   {
     name: "Olivia Lee",
     role: "Business Development Manager",
     company: "FutureSoft Inc.",
-    image: "/image.jpeg",
+    image: "/olivia.jpeg",
   },
 ]
 

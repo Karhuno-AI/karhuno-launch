@@ -80,14 +80,18 @@ export default function Feature() {
               {
                 icon: (
                   <svg
-                    className="w-6 h-6 text-indigo-600"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="currentColor"
+                    stroke="#7b2bc2"
                     strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-filter"
                   >
-                    <path d="M4 4l16 16" />
-                    <path d="M6.5 4h11a2 2 0 012 2v3a2 2 0 01-.59 1.41L13 16.32V19l-4 2v-4.68l-4.91-4.91A2 2 0 013.5 10V6a2 2 0 012-2z" />
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                   </svg>
                 ),
                 title: "Leads beyond basic filters",
@@ -97,13 +101,20 @@ export default function Feature() {
               {
                 icon: (
                   <svg
-                    className="w-6 h-6 text-indigo-600"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="currentColor"
+                    stroke="#7b2bc2"
                     strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-database"
                   >
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <ellipse cx="12" cy="5" rx="9" ry="3" />
+                    <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+                    <path d="M3 12A9 3 0 0 0 21 12" />
                   </svg>
                 ),
                 title: "Real-time data updates",
@@ -129,7 +140,9 @@ export default function Feature() {
                     <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-200">{item.description}</p>
+                    <p className="text-gray-600 dark:text-gray-200">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               </motion.div>

@@ -38,7 +38,7 @@ export default function WhatYouGet() {
             }
             accentColor="from-blue-500 to-cyan-400"
             rightAccentColor="blue"
-            bgGradient="from-blue-500/20 to-cyan-500/5"
+            bgGradient="from-blue-500/10 to-cyan-500/5"
             steps={[
               {
                 text: "Submit your Ideal Customer Profile (ICP) in plain language",
@@ -48,8 +48,6 @@ export default function WhatYouGet() {
               },
             ]}
           />
-          {/* <Camera className="w-full h-full" strokeWidth={1} /> */}
-          {/* <Database className="w-full h-full" strokeWidth={1} /> */}
           <ProcessRow
             leftText="Quickly replenish your sales pipeline with new clients based on sales signals"
             rightText="Get enriched leads with contact details into your inbox, refreshed and updated in real-time"
@@ -64,7 +62,7 @@ export default function WhatYouGet() {
             }
             accentColor="from-violet-500 to-fuchsia-400"
             rightAccentColor="purple"
-            bgGradient="from-violet-500/20 to-fuchsia-500/5"
+            bgGradient="from-violet-500/10 to-fuchsia-500/5"
             steps={[
               {
                 text: "Submit your Ideal Customer Profile (ICP) in plain language",
