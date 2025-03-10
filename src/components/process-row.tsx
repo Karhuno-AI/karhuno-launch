@@ -58,7 +58,7 @@ export function ProcessRow({
   return (
     <div
       ref={ref}
-      className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
+      className="grid grid-cols-1 md:grid-cols-12 items-center"
       style={
         {
           "--accent-start": `var(--${accentStartColor})`,
@@ -94,7 +94,7 @@ export function ProcessRow({
       </motion.div>
 
       {/* Flow steps - now just centered text with bottom line */}
-      <div className="md:col-span-6 flex justify-center flex-col md:flex-row gap-6">
+      <div className="md:col-span-6 flex justify-evenly flex-col md:flex-row gap-6 min-h-80 md:min-h-4">
         {steps.map((step, index) => (
           <StepCard
             key={index}
