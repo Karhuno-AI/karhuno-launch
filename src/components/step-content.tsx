@@ -8,7 +8,7 @@ interface StepContentProps {
 import { motion } from "framer-motion";
 export function StepContent({ text,color,num }: StepContentProps) {
   return (
-    <div>
+    <div className="w-full">
       <p className="text-white text-center mb-8 h-4">{text}</p>
       <StepWithLine
         color={color}

@@ -62,7 +62,7 @@ export function StepCard({
         transition={{ duration: 0.5 }}
       >
         <motion.div
-          className="flex flex-col items-center text-center px-2 max-w-[16rem]"
+          className="flex flex-col items-center text-center px-2 max-w-[16rem] min-w-[16rem]"
           initial={{ y: 30, opacity: 0 }}
           animate={controls}
         >
