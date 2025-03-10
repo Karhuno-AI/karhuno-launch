@@ -40,7 +40,7 @@ const Indicator = ({ positive }: { positive: boolean }) => {
 
 export default function ComparisonTable() {
   return (
-    <section className="py-24 bg-gradient-to-br from-white via-purple-50 to-white relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-white via-purple-50 to-white relative overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

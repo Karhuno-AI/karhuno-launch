@@ -3,10 +3,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 export default function SaleSignal() {
   const { scrollYProgress } = useScroll();
   return (
-    <section className="py-20 relative before:absolute before:inset-0 before:bg-gradient-to-br before:from-purple-100/80 before:via-pink-100/60 before:to-indigo-100/80 before:animate-gradient-shift before:opacity-75 overflow-hidden">
-      <div className="absolute inset-0">
+    <section className="py-20 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-indigo-300/80 before:via-pink-300/60 before:to-purple-300/80 before:animate-gradient-shift before:opacity-75 overflow-hidden">
+      <div className="absolute">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-tr from-indigo-100/80 via-purple-100/60 to-pink-100/80"
+          className="absolute inset-0 bg-gradient-to-b from-indigo-300/80 via-pink-300/60 to-purple-300/80"
           style={{
             opacity: useTransform(scrollYProgress, [0.3, 0.6], [0, 0.75]),
             scale: useTransform(scrollYProgress, [0.3, 0.6], [1.1, 1]),
