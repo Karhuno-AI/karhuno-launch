@@ -3,18 +3,24 @@ import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 import { CookieConsent } from "@/components/cookie-content";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 const montserrat = Montserrat({
   variable: "--font-montserrat-sans",
   subsets: ["latin"],
 });
 
-
 export const metadata: Metadata = {
   title: "Karhuno - Al Insights for Sales",
-  description: "Karhuno scans news and social media to identify signals indicating that a potential client will soon be interested in purchasing certain products or services.",
+  description:
+    "Karhuno scans news and social media to identify signals indicating that a potential client will soon be interested in purchasing certain products or services.",
   icons: [
-    { rel: "icon", type: "image/png", sizes: "48x48", url: "/images/favicon.ico" },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "48x48",
+      url: "/images/favicon.ico",
+    },
   ],
 };
 
@@ -36,7 +42,7 @@ export default function RootLayout({
           <CookieConsent />
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId="G-XYZ" />
+      <GoogleAnalytics gaId="G-MVN8Y0BGRM" />
     </html>
   );
 }

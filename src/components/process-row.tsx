@@ -116,7 +116,7 @@ export function ProcessRow({
         transition={{ duration: 0.5 }}
       >
         <motion.div
-          className={`bg-slate-800/80 backdrop-blur-sm rounded-xl border ${accentBorderColor} shadow-lg overflow-hidden`}
+          className={`bg-slate-800/80 backdrop-blur-sm rounded-xl border my-2 md:my-0 ${accentBorderColor} shadow-lg overflow-hidden`}
           initial={{ y: 20, opacity: 0 }}
           animate={
             allStepsCompleted ? { y: 20, opacity: 1 } : { y: 20, opacity: 0 }
