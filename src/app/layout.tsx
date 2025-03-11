@@ -39,10 +39,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <CookieConsent />
+          {/* <CookieConsent /> */}
+          <GoogleAnalytics gaId="G-MVN8Y0BGRM" />
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId="G-MVN8Y0BGRM" />
     </html>
   );
 }
