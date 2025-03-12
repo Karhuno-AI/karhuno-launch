@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
-// import { CookieConsent } from "@/components/cookie-content";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { CookieConsent } from "@/components/cookie-content";
+import Script from "next/script";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat-sans",
@@ -31,6 +31,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-MVN8Y0BGRM`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MVN8Y0BGRM', {
+      page_path: window.location.pathname,
+    });
+  `}
+        </Script>
+      </head>
       <body className={`${montserrat.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
@@ -39,8 +55,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          {/* <CookieConsent /> */}
-          <GoogleAnalytics gaId="G-MVN8Y0BGRM" />
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>
