@@ -103,8 +103,6 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [placeholder, placeholderIndex, isDeleting]);
 
-
-
   // const onTawkLoad = () => {
   //   if (tawkMessengerRef.current.isChatOngoing()) {
   //     tawkMessengerRef.current.hideWidget(); // Hide chat on load
@@ -112,17 +110,29 @@ export default function Home() {
   // };
 
   const onLoad = () => {
-    if (tawkMessengerRef.current.onBeforeLoaded()) {
-        tawkMessengerRef.current.hideWidget();
-    }
     if (tawkMessengerRef.current.onLoaded()) {
-      tawkMessengerRef.current.showWidget();
+      tawkMessengerRef.current.hideWidget();
+    }
+    if (tawkMessengerRef.current.isChatHidden()) {
+      // do something if chat widget is hidden
+      console.log("hello chat hidden")
+    }
+  };
+
+  const onBeforeLoad = () => {
+    if (tawkMessengerRef.current.onBeforeLoaded()) {
+      tawkMessengerRef.current.hideWidget();
+    }
   }
-};
+
+  // useEffect(() => {
+  //   tawkMessengerRef.current.();
+  // },[])
 
   const openChat = () => {
     tawkMessengerRef.current.showWidget();
   };
+
   const handleButtonClick = (action: () => void) => {
     if (action === handleFind) {
       action();
@@ -193,7 +203,7 @@ export default function Home() {
     <div>
       <div className="w-full h-full relative ">
         <button
-          className="bottom-5 right-6 fixed flex justify-center items-center rounded-full z-50 border-none w-[60px] h-[60px] leading-[3.75rem] bg-primary focus-visible:outline-none cursor-pointer"
+          className="bottom-5 right-6 fixed flex justify-center items-center rounded-full z-[9999] border-none w-[60px] h-[60px] leading-[3.75rem] bg-primary focus-visible:outline-none cursor-pointer"
           onClick={openChat}
         >
           <svg
@@ -469,8 +479,10 @@ export default function Home() {
       <TawkMessengerReact
         propertyId="67cb23b4d19cb2190dbd2fbb"
         widgetId="1iloo6u5l"
-        onLoad={onLoad} 
+        onLoad={onLoad}
+        onBeforeLoad={onBeforeLoad}
         ref={tawkMessengerRef}
+        onChatHidden={() => console.log("Chat Hidden")}
       />
 
       <ComparisonTable />
