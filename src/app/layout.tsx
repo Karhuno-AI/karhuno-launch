@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   ],
 };
 
+const GA_TRACKING_ID = "G-VQ94784XQM";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,19 +35,21 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-MVN8Y0BGRM`}
           strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-MVN8Y0BGRM', {
-      page_path: window.location.pathname,
-    });
-  `}
-        </Script>
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}');
+          `,
+          }}
+        />
       </head>
       <body className={`${montserrat.variable} antialiased`}>
         <ThemeProvider

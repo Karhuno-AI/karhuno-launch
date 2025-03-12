@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 // REACT
 import { useState, useEffect, useRef } from "react";
@@ -57,10 +58,10 @@ export default function Home() {
   const [placeholder, setPlaceholder] = useState("");
   const [icp, setIcp] = useState("");
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
-  const tawkMessengerRef = useRef(null);
   const [hours, setHours] = useState(20);
   const [salary, setSalary] = useState(20);
   const [revenue, setRevenue] = useState(10);
+  const tawkMessengerRef = useRef();
 
   const timeWithKarhuno = 0.5;
   const possibleEconomy = Math.round(salary * (hours - timeWithKarhuno) * 4);
@@ -102,7 +103,13 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [placeholder, placeholderIndex, isDeleting]);
 
+  const onTawkLoad = () => {
+    tawkMessengerRef.current.hideWidget();
+  }
 
+
+  const openChat = () => {
+  };
 
   const handleButtonClick = (action: () => void) => {
     if (action === handleFind) {
@@ -175,6 +182,7 @@ export default function Home() {
       <div className="w-full h-full relative ">
         <button
           className="bottom-5 right-5 fixed flex justify-center items-center rounded-full z-50 border-none w-[60px] h-[60px] leading-[3.75rem] bg-primary focus-visible:outline-none cursor-pointer"
+          onClick={openChat}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -347,6 +355,7 @@ export default function Home() {
 
       <WhatYouGet />
 
+
       <Feature />
 
       {/* Supercharge your conversions with sales signals */}
@@ -447,9 +456,9 @@ export default function Home() {
       </section>
 
       <TawkMessengerReact
-        useRef={tawkMessengerRef}
         propertyId="67cb23b4d19cb2190dbd2fbb"
         widgetId="1iloo6u5l"
+        onLoad={onTawkLoad}
       />
 
       <ComparisonTable />
@@ -904,6 +913,7 @@ export default function Home() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      {/*  */}
       <Dialog
         open={isThankYouDialogOpen}
         onOpenChange={setIsThankYouDialogOpen}
