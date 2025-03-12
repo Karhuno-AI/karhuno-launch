@@ -103,12 +103,20 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [placeholder, placeholderIndex, isDeleting]);
 
+  useEffect(() => {
+    if (tawkMessengerRef.current) {
+      tawkMessengerRef.current.hideWidget();
+    }
+  }, []);
+
   const onTawkLoad = () => {
     tawkMessengerRef.current.hideWidget();
-  }
-
+  };
 
   const openChat = () => {
+    if(tawkMessengerRef.current) {
+      tawkMessengerRef.current.showWidget();
+    }
   };
 
   const handleButtonClick = (action: () => void) => {
@@ -181,7 +189,7 @@ export default function Home() {
     <div>
       <div className="w-full h-full relative ">
         <button
-          className="bottom-5 right-5 fixed flex justify-center items-center rounded-full z-50 border-none w-[60px] h-[60px] leading-[3.75rem] bg-primary focus-visible:outline-none cursor-pointer"
+          className="bottom-5 right-6 fixed flex justify-center items-center rounded-full z-50 border-none w-[60px] h-[60px] leading-[3.75rem] bg-red-500 focus-visible:outline-none cursor-pointer"
           onClick={openChat}
         >
           <svg
@@ -355,7 +363,6 @@ export default function Home() {
 
       <WhatYouGet />
 
-
       <Feature />
 
       {/* Supercharge your conversions with sales signals */}
@@ -458,6 +465,7 @@ export default function Home() {
       <TawkMessengerReact
         propertyId="67cb23b4d19cb2190dbd2fbb"
         widgetId="1iloo6u5l"
+        onBeforeLoad={onTawkLoad}
         onLoad={onTawkLoad}
       />
 
