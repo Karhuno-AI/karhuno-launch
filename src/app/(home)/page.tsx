@@ -44,6 +44,15 @@ const placeholderTexts = [
   "Companies developing internal entrepreneurship",
 ];
 
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Tawk_API:any;
+  }
+}
+
+const Tawk_API = window.Tawk_API; // ok now
+
 export default function Home() {
   // const { setTheme } = useTheme();
   const [isICPDialogOpen, setIsICPDialogOpen] = useState(false);
@@ -105,8 +114,8 @@ export default function Home() {
   useEffect(() => {
     tawkMessengerRef.current = true;
     if (typeof window !== "undefined" && window.Tawk_API) {
-      window.Tawk_API.onBeforeLoad = function () {
-        window.Tawk_API.hideWidget();
+      Tawk_API.onBeforeLoad = function () {
+        Tawk_API.hideWidget();
       };
     }
   }, []);
@@ -918,7 +927,6 @@ export default function Home() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      {/*  */}
       <Dialog
         open={isThankYouDialogOpen}
         onOpenChange={setIsThankYouDialogOpen}
