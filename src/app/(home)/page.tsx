@@ -110,19 +110,17 @@ export default function Home() {
   // };
 
   const onLoad = () => {
-    if (tawkMessengerRef.current.onLoaded()) {
-      tawkMessengerRef.current.hideWidget();
-    }
+    tawkMessengerRef.current.hideWidget();
+
     if (tawkMessengerRef.current.isChatHidden()) {
       // do something if chat widget is hidden
-      console.log("hello chat hidden")
+      tawkMessengerRef.current.hideWidget();
+
     }
   };
 
   const onBeforeLoad = () => {
-    if (tawkMessengerRef.current.onBeforeLoaded()) {
-      tawkMessengerRef.current.hideWidget();
-    }
+    tawkMessengerRef.current.hideWidget();
   }
 
   // useEffect(() => {
