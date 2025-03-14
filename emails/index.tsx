@@ -41,7 +41,7 @@ import {
             </Text>
   
             <Text style={listItem}>
-              <strong>3.</strong> In <strong>7 days, you&#39;ll get a report</strong> via email with details about events, companies, and contacts.
+              <strong>3.</strong> In <strong>5 business days, you&#39;ll get a report</strong> via email with details about events, companies, and contacts.
             </Text>
   
             <Text style={listItem}>
