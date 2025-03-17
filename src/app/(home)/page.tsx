@@ -7,7 +7,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
-
 // UI
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +21,7 @@ import {
 
 // COMPONENTS
 import { Textarea } from "@/components/ui/textarea";
-import VennDiagram from "@/components/home/venn-diagram";
+// import VennDiagram from "@/components/home/venn-diagram";
 import WhatYouGet from "@/components/home/what-you-get";
 import CaseStudies from "@/components/home/case-studies";
 import ContactCarousel from "@/components/home/contact-carousel";
@@ -38,6 +37,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { redirect } from "next/navigation";
+import { Toaster, toast } from "sonner";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -46,7 +47,6 @@ const placeholderTexts = [
 ];
 
 export default function Home() {
-  // const { setTheme } = useTheme();
   const [isICPDialogOpen, setIsICPDialogOpen] = useState(false);
   const [buttonAction, setButtonAction] = useState<() => void>(() => {});
   const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
@@ -103,29 +103,18 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [placeholder, placeholderIndex, isDeleting]);
 
-  // const onTawkLoad = () => {
-  //   if (tawkMessengerRef.current.isChatOngoing()) {
-  //     tawkMessengerRef.current.hideWidget(); // Hide chat on load
-  //   }
-  // };
-
   const onLoad = () => {
     tawkMessengerRef.current.hideWidget();
 
     if (tawkMessengerRef.current.isChatHidden()) {
       // do something if chat widget is hidden
       tawkMessengerRef.current.hideWidget();
-
     }
   };
 
   const onBeforeLoad = () => {
     tawkMessengerRef.current.hideWidget();
-  }
-
-  // useEffect(() => {
-  //   tawkMessengerRef.current.();
-  // },[])
+  };
 
   const openChat = () => {
     tawkMessengerRef.current.showWidget();
@@ -179,13 +168,12 @@ export default function Home() {
         body: JSON.stringify(userEmailData),
       }).then((res) => res.json());
       if (result.success) {
-        console.log("Emails sent successfully!");
-        // Reset form or handle success
+        toast.success("Emails sent successfully!")
       } else {
-        console.log(result.error);
+        toast.error(result.error)
       }
     } catch (error) {
-      console.error("Error sending emails:", error);
+      toast.error('Error sending emails:', error)
     } finally {
       setFormData({
         to: "",
@@ -199,6 +187,7 @@ export default function Home() {
 
   return (
     <div>
+      <Toaster position="bottom-left" richColors />
       <div className="w-full h-full relative ">
         <button
           className="bottom-5 right-6 fixed flex justify-center items-center rounded-full z-[9999] border-none w-[60px] h-[60px] leading-[3.75rem] bg-primary focus-visible:outline-none cursor-pointer"
@@ -485,7 +474,7 @@ export default function Home() {
 
       <ComparisonTable />
 
-      <VennDiagram />
+      {/* <VennDiagram /> */}
 
       <CaseStudies id="case-studies" />
 
@@ -896,7 +885,7 @@ export default function Home() {
               className="w-full"
               type="submit"
               onClick={handleSubmit}
-              disabled={!formData.name && !formData.to}
+              disabled={!formData.name || !formData.to}
             >
               Submit
             </Button>
@@ -959,7 +948,10 @@ export default function Home() {
           <DialogFooter className="flex justify-center mt-4">
             <Button
               variant="accent"
-              onClick={() => setIsThankYouDialogOpen(false)}
+              onClick={() => {
+                setIsThankYouDialogOpen(false);
+                redirect('/sign-in')
+              }}
             >
               Good!
             </Button>
