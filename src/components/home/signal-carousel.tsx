@@ -20,11 +20,11 @@ export default function SignalCarousel() {
     {
       icon: (
         <Image
-          src="/Kickstarter_logo.svg"
+          src="/kickstarter.svg"
           alt="hiring"
           width={40}
           height={40}
-          className="size-10 object-contain filter brightness-0 invert-[20%] sepia saturate-200 hue-rotate-[180deg]"
+          className="size-7"
         />
       ),
       text: "The product pledged >100%.",
@@ -44,11 +44,11 @@ export default function SignalCarousel() {
     {
       icon: (
         <Image
-          src="/hiring.png"
+          src="/hiring.svg"
           alt="hiring"
           width={40}
           height={40}
-          className="size-8 object-contain filter brightness-0 invert-[20%] sepia saturate-200 hue-rotate-[180deg]"
+          className="size-8"
         />
       ),
       text: "A company is hiring a biochemist",
@@ -93,10 +93,13 @@ export default function SignalCarousel() {
       <div className="container mx-auto flex h-full flex-col overflow-hidden">
         {/* Heading */}
         <div className="w-full pt-16 pb-8 px-4">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800">
+          <div className="text-center mb-0">
+          <h2 className="text-3xl md:text-4xl mb-4 text-gray-900">
             Some examples of{" "}
-            <span className="text-[#8a4fff]">signals we can track</span>
-          </h1>
+            <span className="text-primary">signals we can track</span>
+          </h2>
+
+          </div>
         </div>
 
         {/* Scrolling container */}
