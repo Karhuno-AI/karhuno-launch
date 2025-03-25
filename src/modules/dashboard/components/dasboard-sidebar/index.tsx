@@ -2,8 +2,6 @@
 
 import { Sidebar, SidebarContent, useSidebar } from "@/components/ui/sidebar";
 import { MainSection } from "./main-section";
-import { PersonalSection } from "./personal-section";
-import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -25,8 +23,6 @@ export const HomeSidebar = () => {
       </Link>
       <SidebarContent className="bg-surface">
         <MainSection />
-        <Separator />
-        <PersonalSection />
       </SidebarContent>
     </Sidebar>
   );

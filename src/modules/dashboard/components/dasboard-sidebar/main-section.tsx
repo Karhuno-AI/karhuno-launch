@@ -1,120 +1,73 @@
 "use client";
 
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import {
-  ChevronDown,
-  ChevronUp,
-  FlameIcon,
-  HomeIcon,
-  PlaySquareIcon,
-  VideoIcon,
-} from "lucide-react";
-import Link from "next/link";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { useState } from "react";
 
-const items = [
-  {
-    title: "Home",
-    url: "/",
-    icon: HomeIcon,
-    children: [
-      {
-        title: "All Videos",
-        url: "/feed/subscriptions/videos",
-        icon: VideoIcon,
-      },
-      {
-        title: "All Videos 2",
-        url: "/feed/subscriptions/video",
-        icon: VideoIcon,
-      },
-    ],
-  },
-  {
-    title: "Subscriptions",
-    url: "/feed/subscriptions",
-    icon: PlaySquareIcon,
-    auth: true,
-  },
-  {
-    title: "Trending",
-    url: "/feed/trending",
-    icon: FlameIcon,
-  },
-];
+import {
+  BarChartIcon,
+  BookOpen,
+  FileTextIcon,
+  HomeIcon,
+  Settings,
+  User2Icon,
+  UsersIcon,
+  WalletIcon,
+} from "lucide-react";
+
+import Link from "next/link";
 
 export const MainSection = () => {
+  const sidebarItems = [
+    {
+      group: "Main",
+      items: [
+        { title: "Dashboard", url: "/dashboard", icon: HomeIcon },
+        { title: "ICP Requests", url: "/dashboard/icp-requests", icon: BookOpen },
+        { title: "Reports", url: "/dashboard/reports", icon: FileTextIcon },
+        { title: "Clients", url: "/dashboard/clients", icon: UsersIcon },
+        { title: "Analysts", url: "/dashboard/analysts", icon: User2Icon },
+        { title: "Billing", url: "/dashboard/billing", icon: WalletIcon },
+      ],
+    },
+    {
+      group: "Analytics",
+      items: [{ title: "Statistics", url: "/statistics", icon: BarChartIcon }],
+    },
+    {
+      group: "System",
+      items: [{ title: "Settings", url: "/settings", icon: Settings }],
+    },
+  ];
+
   return (
-    <SidebarGroup>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {items.map((item) => {
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const [isOpen, setIsOpen] = useState(false);
-            return (
-              <SidebarMenuItem key={item.title}>
-                {item.children && item.children?.length > 0 ? (
-                  <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuButton>
-                        <item.icon className="size-4" />
-                        <span>{item.title}</span>
-                        {isOpen ? (
-                          <ChevronUp className="ml-auto size-4" />
-                        ) : (
-                          <ChevronDown className="ml-auto size-4" />
-                        )}
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {item.children.map((child) => (
-                          <SidebarMenuSubItem key={child.title}>
-                            <SidebarMenuSubButton asChild>
-                              <Link
-                                href={child.url}
-                                className="flex items-center gap-4"
-                              >
-                                <child.icon className="size-4" />
-                                <span>{child.title}</span>
-                              </Link>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  </Collapsible>
-                ) : (
-                  <SidebarMenuButton
-                    tooltip={item.title}
-                    asChild
-                    isActive={false}
-                  >
+    <>
+      {sidebarItems.map((section) => (
+        <SidebarGroup key={section.group} title={section.group}>
+          <SidebarGroupLabel className="text-sm font-bold py-2">{section.group}</SidebarGroupLabel>
+          <Separator />
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {section.items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton tooltip={item.title} asChild>
                     <Link href={item.url} className="flex items-center gap-4">
-                      <item.icon />
+                      <item.icon className="size-4" />
                       <span className="text-sm">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
-                )}
-              </SidebarMenuItem>
-            );
-          })}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
+    </>
   );
 };

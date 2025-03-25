@@ -31,7 +31,7 @@ export const HomeNavbar = () => {
   // const [hasNotification, setHasNotification] = useState([]);
 
   return (
-    <nav className="fixed w-3/4 left-[20%] rounded-xl top-4 h-16 bg-surface flex items-center shadow-md pr-5 pl-2 z-50">
+    <nav className="bg-white fixed w-3/4 left-[20%] rounded-xl top-4 h-16 bg-surface flex items-center shadow-md pr-5 pl-2 z-50">
       <div className="flex items-center justify-between w-full">
         <div className="flex-shrink-0">
           <SidebarTrigger />
