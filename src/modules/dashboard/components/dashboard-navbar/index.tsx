@@ -24,17 +24,27 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useState } from "react";
 
 export const HomeNavbar = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const sidebarWidth = collapsed ? "8%" : "25%";
+
   const { setTheme } = useTheme();
   // TODO: WRITE A CONDITION WHEN USER HAS A NOTIFICTION
   // const [hasNotification, setHasNotification] = useState([]);
 
   return (
-    <nav className="bg-white fixed w-3/4 left-[20%] rounded-xl top-4 h-16 bg-surface flex items-center shadow-md pr-5 pl-2 z-50">
+    <nav
+      className="bg-white fixed rounded-xl top-4 h-16 bg-surface transition flex items-center shadow-md pr-5 pl-2 z-50"
+      style={{
+        left: `calc(${sidebarWidth} - 3rem)`,
+        width: `calc(100% - ${sidebarWidth})`,
+      }}
+    >
       <div className="flex items-center justify-between w-full">
         <div className="flex-shrink-0">
-          <SidebarTrigger />
+          <SidebarTrigger onClick={() => {setCollapsed(!collapsed)}} />
         </div>
         <div className="flex gap-2">
           <div>

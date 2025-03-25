@@ -1,4 +1,4 @@
-import { DashboardCards } from "@/components/dashboard/DashboardCards";
+import DashboardCards from "@/components/dashboard/DashboardCards";
 import RegularReportsCard from "@/components/dashboard/RegularReportsCard";
 import TrialRequestsCard from "@/components/dashboard/TrialRequestsCard";
 

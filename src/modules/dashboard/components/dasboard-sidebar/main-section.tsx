@@ -56,7 +56,7 @@ export const MainSection = () => {
             <SidebarMenu>
               {section.items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton tooltip={item.title} asChild>
+                  <SidebarMenuButton className="hover:bg-muted hover:text-primary transition-colors" tooltip={item.title} asChild>
                     <Link href={item.url} className="flex items-center gap-4">
                       <item.icon className="size-4" />
                       <span className="text-sm">{item.title}</span>

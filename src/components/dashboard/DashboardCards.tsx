@@ -23,7 +23,7 @@ const cardData = [
   },
 ]
 
-export function DashboardCards() {
+export default function  DashboardCards() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       {cardData.map((item, index) => (
