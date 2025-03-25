@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/tooltip";
 import { redirect } from "next/navigation";
 import { Toaster, toast } from "sonner";
+import SignalCarousel from "@/components/home/signal-carousel";
 
 const placeholderTexts = [
   "European energy companies working with startups",
@@ -368,6 +369,9 @@ export default function Home() {
 
       {/* Supercharge your conversions with sales signals */}
       <SaleSignal />
+
+{/* infinite scroll here */}
+      <SignalCarousel />
 
       {/* Get leads with full contact info */}
       <section className="py-20 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-purple-200/80 before:via-pink-200/60 before:to-white before:animate-gradient-shift before:opacity-75 overflow-hidden">

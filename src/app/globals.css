@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* globals.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @layer base {
   :root {
     --font-montserrat-sans: "Montserrat", sans-serif;
