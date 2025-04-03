@@ -1,4 +1,5 @@
 "use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,8 +26,11 @@ import {
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useState } from "react";
+import { useUser } from '@clerk/nextjs';
+import { SignOutButton } from '@clerk/nextjs'
 
 export const HomeNavbar = () => {
+  const { user, isLoaded } = useUser()
   const [collapsed, setCollapsed] = useState(false);
   const sidebarWidth = collapsed ? "8%" : "25%";
 
@@ -34,6 +38,9 @@ export const HomeNavbar = () => {
   // TODO: WRITE A CONDITION WHEN USER HAS A NOTIFICTION
   // const [hasNotification, setHasNotification] = useState([]);
 
+
+  if (!isLoaded) return <div>Loading...</div>
+  
   return (
     <nav
       className="bg-white fixed rounded-xl top-4 h-16 bg-surface transition flex items-center shadow-md pr-5 pl-2 z-50"
@@ -92,7 +99,7 @@ export const HomeNavbar = () => {
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage alt="User avatar" />
-                    <AvatarFallback>JD</AvatarFallback>
+                    <AvatarFallback>US</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -103,35 +110,32 @@ export const HomeNavbar = () => {
               >
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">John Doe</p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      Admin
-                    </p>
+                    <p className="text-sm font-medium leading-none">{user?.emailAddresses[0]?.emailAddress}</p>
                   </div>
                 </DropdownMenuLabel>
                 <Separator />
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem asChild>
-                    <Link href="/profile">
+                    <Link href="/dashboard/profile" className="flex items-center space-x-2 text-gray-700 hover:cursor-pointer hover:text-blue-600 transition-colors">
                       <User className="mr-2 h-4 w-4" />
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/settings">
+                    <Link href="/dashboard/settings" className="flex items-center space-x-2 text-gray-700 hover:cursor-pointer hover:text-blue-600 transition-colors">
                       <Settings className="mr-2 h-4 w-4" />
                       <span>Settings</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/pricing">
+                    <Link href="/dashboard/pricing" className="flex items-center space-x-2 text-gray-700 hover:cursor-pointer hover:text-blue-600 transition-colors">
                       <DollarSign className="mr-2 h-4 w-4" />
                       <span>Pricing</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/faq">
+                    <Link href="/dashboard/faq" className="flex items-center space-x-2 text-gray-700 hover:cursor-pointer hover:text-blue-600 transition-colors">
                       <HelpCircle className="mr-2 h-4 w-4" />
                       <span>FAQ</span>
                     </Link>
@@ -139,8 +143,12 @@ export const HomeNavbar = () => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <SignOutButton>
+                    <div className="flex space-x-1 items-center hover:text-blue-600 hover:cursor-pointer transition-colors">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </div>
+                  </SignOutButton>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
