@@ -4,9 +4,6 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 import { CookieConsent } from "@/components/cookie-content";
 import Script from "next/script";
-import {
-  ClerkProvider,
-} from '@clerk/nextjs'
 
 
 const montserrat = Montserrat({
@@ -36,7 +33,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <head>
           <Script
@@ -68,6 +64,5 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }

@@ -17,7 +17,6 @@ import {
   BellIcon,
   DollarSign,
   HelpCircle,
-  LogOut,
   Moon,
   Settings,
   Sun,
@@ -26,11 +25,8 @@ import {
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useState } from "react";
-import { useUser } from '@clerk/nextjs';
-import { SignOutButton } from '@clerk/nextjs'
 
 export const HomeNavbar = () => {
-  const { user, isLoaded } = useUser()
   const [collapsed, setCollapsed] = useState(false);
   const sidebarWidth = collapsed ? "8%" : "25%";
 
@@ -38,9 +34,6 @@ export const HomeNavbar = () => {
   // TODO: WRITE A CONDITION WHEN USER HAS A NOTIFICTION
   // const [hasNotification, setHasNotification] = useState([]);
 
-
-  if (!isLoaded) return <div>Loading...</div>
-  
   return (
     <nav
       className="bg-white fixed rounded-xl top-4 h-16 bg-surface transition flex items-center shadow-md pr-5 pl-2 z-50"
@@ -110,7 +103,7 @@ export const HomeNavbar = () => {
               >
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{user?.emailAddresses[0]?.emailAddress}</p>
+                    <p className="text-sm font-medium leading-none">User</p>
                   </div>
                 </DropdownMenuLabel>
                 <Separator />
@@ -143,12 +136,12 @@ export const HomeNavbar = () => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <SignOutButton>
+                  {/* <SignOutButton>
                     <div className="flex space-x-1 items-center hover:text-blue-600 hover:cursor-pointer transition-colors">
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>Log out</span>
                     </div>
-                  </SignOutButton>
+                  </SignOutButton> */}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
