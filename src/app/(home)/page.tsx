@@ -954,7 +954,6 @@ export default function Home() {
               variant="accent"
               onClick={() => {
                 setIsThankYouDialogOpen(false);
-                redirect('/sign-in')
               }}
             >
               Good!
