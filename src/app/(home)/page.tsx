@@ -37,7 +37,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { redirect } from "next/navigation";
 import { Toaster, toast } from "sonner";
 import SignalCarousel from "@/components/home/signal-carousel";
 
