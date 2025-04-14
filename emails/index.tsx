@@ -33,7 +33,7 @@ import {
             </Text>
   
             <Text style={listItem}>
-              <strong>1.</strong> We&#39;ll <strong>review the signals</strong> you mentioned in the email. If we need more information, we&#39;ll get in touch with you.
+              <strong>1.</strong> We&#39;ll <strong>review the signals</strong> you mentioned in the Form. If we need more information, we&#39;ll get in touch with you.
             </Text>
   
             <Text style={listItem}>
