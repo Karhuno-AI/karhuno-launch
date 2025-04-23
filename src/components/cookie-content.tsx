@@ -1,32 +1,39 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { X, Send } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { sendChatMessage } from "@/app/actions/chat"
-import { useToast } from "@/components/ui/use-toast"
+import { useState, useEffect, useRef } from "react";
+import { X, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { sendChatMessage } from "@/app/actions/chat";
+import { useToast } from "@/components/ui/use-toast";
 
 type CookiePreferences = {
-  necessary: boolean
-  analytics: boolean
-  marketing: boolean
-}
+  necessary: boolean;
+  analytics: boolean;
+  marketing: boolean;
+};
 
 type Message = {
-  id: string
-  text: string
-  isUser: boolean
-  timestamp: Date
-}
+  id: string;
+  text: string;
+  isUser: boolean;
+  timestamp: Date;
+};
 
 export function CookieConsent() {
-  const { toast } = useToast()
-  const [showBanner, setShowBanner] = useState(false)
-  const [showChatPanel, setShowChatPanel] = useState(false)
-  const [chatMessage, setChatMessage] = useState("")
-  const [email, setEmail] = useState("")
-  const [showEmailField, setShowEmailField] = useState(true)
+  const { toast } = useToast();
+  const [showBanner, setShowBanner] = useState(false);
+  const [showChatPanel, setShowChatPanel] = useState(false);
+  const [chatMessage, setChatMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [showEmailField, setShowEmailField] = useState(true);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -34,66 +41,66 @@ export function CookieConsent() {
       isUser: false,
       timestamp: new Date(),
     },
-  ])
-  const [isSending, setIsSending] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  ]);
+  const [isSending, setIsSending] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [preferences, setPreferences] = useState<CookiePreferences>({
     necessary: true, // Always required
     analytics: true,
     marketing: true,
-  })
+  });
 
   // Check if cookies are already accepted on component mount
   useEffect(() => {
-    const cookieConsent = getCookie("cookie-consent")
+    const cookieConsent = getCookie("cookie-consent");
     if (!cookieConsent) {
-      setShowBanner(true)
+      setShowBanner(true);
     } else {
       try {
-        const savedPreferences = JSON.parse(cookieConsent)
-        setPreferences(savedPreferences)
+        const savedPreferences = JSON.parse(cookieConsent);
+        setPreferences(savedPreferences);
       } catch (e) {
-        setShowBanner(true)
+        console.warn("Failed to parse cookie consent", e);
+        setShowBanner(true);
       }
     }
-  }, [])
+  }, []);
 
   // Scroll to bottom of messages when new message is added
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [])
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   const acceptAll = () => {
     const allAccepted = {
       necessary: true,
       analytics: true,
       marketing: true,
-    }
-    setPreferences(allAccepted)
-    setCookie("cookie-consent", JSON.stringify(allAccepted), 365)
-    setShowBanner(false)
-  }
-
+    };
+    setPreferences(allAccepted);
+    setCookie("cookie-consent", JSON.stringify(allAccepted), 365);
+    setShowBanner(false);
+  };
 
   const decline = () => {
     const minimal = {
       necessary: true,
       analytics: false,
       marketing: false,
-    }
-    setPreferences(minimal)
-    setCookie("cookie-consent", JSON.stringify(minimal), 365)
-    setShowBanner(false)
-  }
+    };
+    setPreferences(minimal);
+    setCookie("cookie-consent", JSON.stringify(minimal), 365);
+    setShowBanner(false);
+  };
 
   const toggleChatPanel = () => {
-    setShowChatPanel(!showChatPanel)
-  }
+    setShowChatPanel(!showChatPanel);
+  };
 
   const handleSendMessage = async () => {
-    if (!chatMessage.trim()) return
+    if (!chatMessage.trim()) return;
 
     // Add user message to chat
     const userMessage: Message = {
@@ -101,25 +108,25 @@ export function CookieConsent() {
       text: chatMessage,
       isUser: true,
       timestamp: new Date(),
-    }
-    setMessages((prev) => [...prev, userMessage])
+    };
+    setMessages((prev) => [...prev, userMessage]);
 
     // Clear input
-    const messageToSend = chatMessage
-    setChatMessage("")
+    const messageToSend = chatMessage;
+    setChatMessage("");
 
     // Send message to server
-    setIsSending(true)
+    setIsSending(true);
 
     try {
-      const formData = new FormData()
-      formData.append("message", messageToSend)
-      formData.append("email", email)
+      const formData = new FormData();
+      formData.append("message", messageToSend);
+      formData.append("email", email);
 
-      const result = await sendChatMessage(formData)
+      const result = await sendChatMessage(formData);
 
       if (result.error) {
-        throw new Error(result.error)
+        throw new Error(result.error);
       }
 
       // Add response message
@@ -132,20 +139,20 @@ export function CookieConsent() {
             isUser: false,
             timestamp: new Date(),
           },
-        ])
-        setIsSending(false)
-      }, 1000)
+        ]);
+        setIsSending(false);
+      }, 1000);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast({
         title: "Error",
         description: error.message || "Failed to send message",
         variant: "destructive",
-      })
-      setIsSending(false)
+      });
+      setIsSending(false);
     }
-  }
+  };
 
   return (
     <>
@@ -158,11 +165,16 @@ export function CookieConsent() {
                 <div>
                   <h3 className="text-lg font-semibold">Cookie Preferences</h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze
-                    our traffic.
+                    We use cookies to enhance your browsing experience, serve
+                    personalized ads or content, and analyze our traffic.
                   </p>
                 </div>
-                <Button variant="ghost" size="sm" onClick={decline} className="h-8 w-8 p-0">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={decline}
+                  className="h-8 w-8 p-0"
+                >
                   <X className="h-4 w-4" />
                 </Button>
               </div>
@@ -183,11 +195,18 @@ export function CookieConsent() {
           <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
               <CardTitle className="text-lg">Chat with us</CardTitle>
-              <Button variant="ghost" size="sm" onClick={toggleChatPanel} className="h-8 w-8 p-0">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleChatPanel}
+                className="h-8 w-8 p-0"
+              >
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            <CardDescription>We typically reply within a few minutes</CardDescription>
+            <CardDescription>
+              We typically reply within a few minutes
+            </CardDescription>
           </CardHeader>
 
           {showEmailField && (
@@ -200,7 +219,11 @@ export function CookieConsent() {
                 className="w-full px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <div className="flex justify-end mt-2">
-                <Button variant="ghost" size="sm" onClick={() => setShowEmailField(false)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowEmailField(false)}
+                >
                   Skip
                 </Button>
                 <Button
@@ -229,7 +252,10 @@ export function CookieConsent() {
                     >
                       <p className="text-sm">{message.text}</p>
                       <p className="text-xs opacity-70 mt-1">
-                        {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        {message.timestamp.toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </p>
                     </div>
                   ))}
@@ -258,8 +284,8 @@ export function CookieConsent() {
                 <form
                   className="flex w-full space-x-2"
                   onSubmit={(e) => {
-                    e.preventDefault()
-                    handleSendMessage()
+                    e.preventDefault();
+                    handleSendMessage();
                   }}
                 >
                   <input
@@ -269,7 +295,11 @@ export function CookieConsent() {
                     placeholder="Type your message..."
                     className="flex-1 px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   />
-                  <Button size="sm" type="submit" disabled={isSending || !chatMessage.trim()}>
+                  <Button
+                    size="sm"
+                    type="submit"
+                    disabled={isSending || !chatMessage.trim()}
+                  >
                     <Send className="h-4 w-4" />
                   </Button>
                 </form>
@@ -279,23 +309,23 @@ export function CookieConsent() {
         </Card>
       )}
     </>
-  )
+  );
 }
 
 // Helper functions for cookie management
 function setCookie(name: string, value: string, days: number) {
-  const expires = new Date()
-  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000)
-  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`
+  const expires = new Date();
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
 }
 
 function getCookie(name: string): string | null {
-  const nameEQ = `${name}=`
-  const ca = document.cookie.split(";")
+  const nameEQ = `${name}=`;
+  const ca = document.cookie.split(";");
   for (let i = 0; i < ca.length; i++) {
-    let c = ca[i]
-    while (c.charAt(0) === " ") c = c.substring(1, c.length)
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length)
+    let c = ca[i];
+    while (c.charAt(0) === " ") c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
   }
-  return null
+  return null;
 }

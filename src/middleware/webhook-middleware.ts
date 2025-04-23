@@ -18,12 +18,13 @@ export async function webhookMiddleware(request: NextRequest) {
         body = await clonedRequest.json()
       } catch (e) {
         // If it's not JSON, try to parse as form data
+        console.warn("Could not parse request body as JSON, trying form data", e)
         try {
           const formData = await clonedRequest.formData()
           body = Object.fromEntries(formData.entries())
         } catch (formError) {
           // If we can't parse the body, just continue
-          console.warn("Could not parse request body in webhook middleware")
+          console.warn("Could not parse request body in webhook middleware" + formError)
           return NextResponse.next()
         }
       }
