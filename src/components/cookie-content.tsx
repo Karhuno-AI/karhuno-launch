@@ -56,7 +56,6 @@ export function CookieConsent() {
         setPreferences(savedPreferences)
       } catch (e) {
         setShowBanner(true)
-        console.log(e)
       }
     }
   }, [])
