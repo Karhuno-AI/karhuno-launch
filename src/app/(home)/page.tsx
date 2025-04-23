@@ -34,7 +34,7 @@ import SaleSignal from "@/components/home/sale-signal"
 import Feature from "@/components/home/feature"
 import type { SendEmailParams } from "../api/mail/route"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Toaster, toast } from "sonner"
+import { Toaster } from "sonner"
 import SignalCarousel from "@/components/home/signal-carousel"
 import { sendToWebhook } from "@/lib/webhook"
 
