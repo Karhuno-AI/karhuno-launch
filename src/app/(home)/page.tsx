@@ -34,7 +34,6 @@ import SaleSignal from "@/components/home/sale-signal"
 import Feature from "@/components/home/feature"
 import type { SendEmailParams } from "../api/mail/route"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Toaster } from "sonner"
 import SignalCarousel from "@/components/home/signal-carousel"
 import { sendToWebhook } from "@/lib/webhook"
 
@@ -357,7 +356,6 @@ export default function Home() {
   // The rest of your component remains the same...
   return (
     <div>
-      <Toaster position="bottom-left" richColors />
       <div className="w-full h-full relative ">
         <button
           className="bottom-5 right-6 fixed flex justify-center items-center rounded-full z-[9999] border-none w-[60px] h-[60px] leading-[3.75rem] bg-primary focus-visible:outline-none cursor-pointer"
