@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-// Use our own API endpoint as the webhook URL instead of the external one
-const WEBHOOK_PROXY_URL = "/api/webhook"
 
 /**
  * Middleware to capture form submissions and send them to the webhook
