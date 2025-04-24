@@ -76,6 +76,13 @@ export default function Home() {
   useEffect(() => {
     sendToWebhook(
       {
+        data: {
+          to: "",
+          ICP: "",
+          moreDetails: "",
+          company: "",
+          name: "",
+        },
         type: "page_view",
         page: "home",
         url: window.location.href,
@@ -144,27 +151,9 @@ export default function Home() {
 
   const openChat = () => {
     tawkMessengerRef.current.showWidget()
-    // Track chat open event
-    sendToWebhook(
-      {
-        type: "chat_open",
-        timestamp: new Date().toISOString(),
-      },
-      { eventType: "chat_interaction" },
-    )
   }
 
   const handleButtonClick = (action: () => void) => {
-    // Track button click
-    sendToWebhook(
-      {
-        type: "button_click",
-        button: action === handleFind ? "find" : "other_action",
-        timestamp: new Date().toISOString(),
-      },
-      { eventType: "button_interaction" },
-    )
-
     if (action === handleFind) {
       action()
     } else {
@@ -229,12 +218,14 @@ export default function Home() {
 
     // Track form submission
     sendToWebhook({
+      data: {
+        to: formData.to,
+        ICP: formData.ICP,
+        moreDetails: formData.moreDetails,
+        company: formData.company,
+        name: formData.name,
+      },
       type: "lead_submission",
-      icp: formData.ICP,
-      moreDetails: formData.moreDetails,
-      company: formData.company,
-      name: formData.name,
-      email: "email_provided", // Anonymized for security
       timestamp: new Date().toISOString(),
     })
 
@@ -289,48 +280,16 @@ export default function Home() {
 
   // Track dialog state changes
   useEffect(() => {
-    if (isFirstDialogOpen) {
-      sendToWebhook(
-        {
-          type: "dialog_open",
-          dialog: "first_dialog",
-          timestamp: new Date().toISOString(),
-        },
-        { eventType: "dialog_interaction" },
-      )
-    }
-  }, [isFirstDialogOpen])
-
-  useEffect(() => {
-    if (isSecondDialogOpen) {
-      sendToWebhook(
-        {
-          type: "dialog_open",
-          dialog: "second_dialog",
-          timestamp: new Date().toISOString(),
-        },
-        { eventType: "dialog_interaction" },
-      )
-    }
-  }, [isSecondDialogOpen])
-
-  useEffect(() => {
-    if (isThirdDialogOpen) {
-      sendToWebhook(
-        {
-          type: "dialog_open",
-          dialog: "third_dialog",
-          timestamp: new Date().toISOString(),
-        },
-        { eventType: "dialog_interaction" },
-      )
-    }
-  }, [isThirdDialogOpen])
-
-  useEffect(() => {
     if (isThankYouDialogOpen) {
       sendToWebhook(
         {
+          data: {
+            to: formData.to,
+            ICP: formData.ICP,
+            moreDetails: formData.moreDetails,
+            company: formData.company,
+            name: formData.name,
+          },
           type: "dialog_open",
           dialog: "thank_you_dialog",
           timestamp: new Date().toISOString(),
@@ -338,20 +297,7 @@ export default function Home() {
         { eventType: "dialog_interaction" },
       )
     }
-  }, [isThankYouDialogOpen])
-
-  // Track mobile menu interactions
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      sendToWebhook(
-        {
-          type: "mobile_menu_open",
-          timestamp: new Date().toISOString(),
-        },
-        { eventType: "navigation_interaction" },
-      )
-    }
-  }, [isMobileMenuOpen])
+  }, [formData.ICP, formData.company, formData.moreDetails, formData.name, formData.to, isThankYouDialogOpen])
 
   // The rest of your component remains the same...
   return (
@@ -1039,15 +985,7 @@ export default function Home() {
               if (e.key === "Enter") {
                 setIsFirstDialogOpen(false)
                 setIsSecondDialogOpen(true)
-                sendToWebhook(
-                  {
-                    type: "dialog_next",
-                    from: "first_dialog",
-                    to: "second_dialog",
-                    timestamp: new Date().toISOString(),
-                  },
-                  { eventType: "dialog_interaction" },
-                )
+
               }
             }}
           />
@@ -1058,15 +996,7 @@ export default function Home() {
               onClick={() => {
                 setIsFirstDialogOpen(false)
                 setIsSecondDialogOpen(true)
-                sendToWebhook(
-                  {
-                    type: "dialog_next",
-                    from: "first_dialog",
-                    to: "second_dialog",
-                    timestamp: new Date().toISOString(),
-                  },
-                  { eventType: "dialog_interaction" },
-                )
+       
               }}
               disabled={!formData.moreDetails}
             >
@@ -1099,15 +1029,7 @@ export default function Home() {
                   if (e.key === "Enter") {
                     setIsSecondDialogOpen(false)
                     setIsThirdDialogOpen(true)
-                    sendToWebhook(
-                      {
-                        type: "dialog_next",
-                        from: "second_dialog",
-                        to: "third_dialog",
-                        timestamp: new Date().toISOString(),
-                      },
-                      { eventType: "dialog_interaction" },
-                    )
+                
                   }
                 }}
               />
@@ -1120,15 +1042,6 @@ export default function Home() {
               onClick={() => {
                 setIsSecondDialogOpen(false)
                 setIsThirdDialogOpen(true)
-                sendToWebhook(
-                  {
-                    type: "dialog_next",
-                    from: "second_dialog",
-                    to: "third_dialog",
-                    timestamp: new Date().toISOString(),
-                  },
-                  { eventType: "dialog_interaction" },
-                )
               }}
               disabled={!formData.company}
             >
@@ -1238,6 +1151,13 @@ export default function Home() {
                 setIsThankYouDialogOpen(false)
                 sendToWebhook(
                   {
+                    data: {
+                      to: formData.to,
+                      ICP: formData.ICP,
+                      moreDetails: formData.moreDetails,
+                      company: formData.company,
+                      name: formData.name,
+                    },
                     type: "dialog_close",
                     dialog: "thank_you_dialog",
                     timestamp: new Date().toISOString(),
