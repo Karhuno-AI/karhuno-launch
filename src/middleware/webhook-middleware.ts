@@ -40,8 +40,6 @@ export async function webhookMiddleware(request: NextRequest) {
         url: request.url,
         method: request.method,
         path: new URL(request.url).pathname,
-        userAgent: request.headers.get("user-agent") || "Unknown",
-        ipAddress: request.headers.get("x-forwarded-for") || "Unknown",
         data: redactedBody,
       }
 

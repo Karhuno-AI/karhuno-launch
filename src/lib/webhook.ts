@@ -37,8 +37,6 @@ export async function sendToWebhook(
     timestamp: new Date().toISOString(),
     data,
     url: typeof window !== "undefined" ? window.location.href : null,
-    referrer: typeof window !== "undefined" ? document.referrer : null,
-    userAgent: typeof window !== "undefined" ? navigator.userAgent : null,
   }
 
   try {

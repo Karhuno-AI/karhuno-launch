@@ -184,6 +184,11 @@ export default function Home() {
       const debounceTimeout = setTimeout(() => {
         sendToWebhook(
           {
+            icp: formData.ICP,
+            name: formData.name,
+            to: formData.to,
+            moreDetails: formData.moreDetails,
+            company: formData.company,
             type: "form_field_change",
             field: name,
             value: name === "to" ? "email_provided" : value, // Anonymize email

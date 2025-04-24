@@ -17,9 +17,6 @@ export async function POST(request: NextRequest) {
       ...data,
       timestamp: new Date().toISOString(),
       source: "karhuno.com",
-      userAgent: request.headers.get("user-agent") || "Unknown",
-      ipAddress: request.headers.get("x-forwarded-for") || "Unknown",
-      referer: request.headers.get("referer") || "Unknown",
     }
 
     // Only send to external webhook if enabled
