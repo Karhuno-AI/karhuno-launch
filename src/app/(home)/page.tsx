@@ -894,22 +894,7 @@ export default function Home() {
             <Button
               variant="accent"
               onClick={() => {
-                setIsThankYouDialogOpen(false)
-                sendToWebhook(
-                  {
-                    data: {
-                      to: formData.to,
-                      ICP: formData.ICP,
-                      moreDetails: formData.moreDetails,
-                      company: formData.company,
-                      name: formData.name,
-                    },
-                    type: "dialog_close",
-                    dialog: "thank_you_dialog",
-                    timestamp: new Date().toISOString(),
-                  },
-                  { eventType: "dialog_interaction" },
-                )
+                setIsThankYouDialogOpen(false)        
               }}
             >
               Good!
