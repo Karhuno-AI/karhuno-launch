@@ -1,17 +1,17 @@
 // @ts-nocheck
-"use client"
+"use client";
 // REACT
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect, useRef } from "react"
-import { CheckCircle2, Menu } from "lucide-react"
-import Image from "next/image"
-import { motion } from "framer-motion"
+import { useState, useEffect, useRef } from "react";
+import { CheckCircle2, Menu } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-import TawkMessengerReact from "@tawk.to/tawk-messenger-react"
+import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 // UI
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -19,50 +19,55 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 // COMPONENTS
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/textarea";
 // import VennDiagram from "@/components/home/venn-diagram";
-import WhatYouGet from "@/components/home/what-you-get"
-import CaseStudies from "@/components/home/case-studies"
-import ContactCarousel from "@/components/home/contact-carousel"
-import ComparisonTable from "@/components/home/comparison-table"
-import FAQ from "@/components/home/faq"
-import Footer from "@/components/home/footer"
-import SaleSignal from "@/components/home/sale-signal"
-import Feature from "@/components/home/feature"
-import type { SendEmailParams } from "../api/mail/route"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import SignalCarousel from "@/components/home/signal-carousel"
-import { sendToWebhook } from "@/lib/webhook"
+import WhatYouGet from "@/components/home/what-you-get";
+import CaseStudies from "@/components/home/case-studies";
+import ContactCarousel from "@/components/home/contact-carousel";
+import ComparisonTable from "@/components/home/comparison-table";
+import FAQ from "@/components/home/faq";
+import Footer from "@/components/home/footer";
+import SaleSignal from "@/components/home/sale-signal";
+import Feature from "@/components/home/feature";
+import type { SendEmailParams } from "../api/mail/route";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import SignalCarousel from "@/components/home/signal-carousel";
+import { sendToWebhook } from "@/lib/webhook";
 
 const placeholderTexts = [
   "European energy companies working with startups",
   "Companies announcing warehouse launch plans",
   "Companies developing internal entrepreneurship",
-]
+];
 
 export default function Home() {
-  const [isICPDialogOpen, setIsICPDialogOpen] = useState(false)
-  const [buttonAction, setButtonAction] = useState<() => void>(() => {})
-  const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [placeholderIndex, setPlaceholderIndex] = useState(0)
-  const [isSecondDialogOpen, setIsSecondDialogOpen] = useState(false)
-  const [isThirdDialogOpen, setIsThirdDialogOpen] = useState(false)
-  const [placeholder, setPlaceholder] = useState("")
-  const [icp, setIcp] = useState("")
-  const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false)
-  const [hours, setHours] = useState(20)
-  const [salary, setSalary] = useState(20)
-  const [revenue, setRevenue] = useState(10)
-  const tawkMessengerRef = useRef(null)
+  const [isICPDialogOpen, setIsICPDialogOpen] = useState(false);
+  const [buttonAction, setButtonAction] = useState<() => void>(() => {});
+  const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [isSecondDialogOpen, setIsSecondDialogOpen] = useState(false);
+  const [isThirdDialogOpen, setIsThirdDialogOpen] = useState(false);
+  const [placeholder, setPlaceholder] = useState("");
+  const [icp, setIcp] = useState("");
+  const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
+  const [hours, setHours] = useState(20);
+  const [salary, setSalary] = useState(20);
+  const [revenue, setRevenue] = useState(10);
+  const tawkMessengerRef = useRef(null);
 
-  const timeWithKarhuno = 0.5
-  const possibleEconomy = Math.round(salary * (hours - timeWithKarhuno) * 4)
-  const possibleNewRevenue = Math.round((hours / 40) * revenue * 1000) // Convert to dollars
+  const timeWithKarhuno = 0.5;
+  const possibleEconomy = Math.round(salary * (hours - timeWithKarhuno) * 4);
+  const possibleNewRevenue = Math.round((hours / 40) * revenue * 1000); // Convert to dollars
 
   const [formData, setFormData] = useState<SendEmailParams>({
     to: "",
@@ -70,88 +75,92 @@ export default function Home() {
     moreDetails: "",
     company: "",
     name: "",
-  })
+  });
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout
+    let timeout: NodeJS.Timeout;
 
     const animatePlaceholder = () => {
-      const currentText = placeholderTexts[placeholderIndex]
+      const currentText = placeholderTexts[placeholderIndex];
 
       if (!isDeleting) {
         if (placeholder.length < currentText.length) {
-          setPlaceholder(currentText.slice(0, placeholder.length + 1))
-          timeout = setTimeout(animatePlaceholder, 12.5)
+          setPlaceholder(currentText.slice(0, placeholder.length + 1));
+          timeout = setTimeout(animatePlaceholder, 12.5);
         } else {
-          timeout = setTimeout(() => setIsDeleting(true), 2000)
+          timeout = setTimeout(() => setIsDeleting(true), 2000);
         }
       } else {
         if (placeholder.length === 0) {
-          setIsDeleting(false)
-          setPlaceholderIndex((prev) => (prev + 1) % placeholderTexts.length)
+          setIsDeleting(false);
+          setPlaceholderIndex((prev) => (prev + 1) % placeholderTexts.length);
         } else {
-          setPlaceholder(placeholder.slice(0, -1))
-          timeout = setTimeout(animatePlaceholder, 2)
+          setPlaceholder(placeholder.slice(0, -1));
+          timeout = setTimeout(animatePlaceholder, 2);
         }
       }
-    }
+    };
 
-    timeout = setTimeout(animatePlaceholder, 20.5)
-    return () => clearTimeout(timeout)
-  }, [placeholder, placeholderIndex, isDeleting])
+    timeout = setTimeout(animatePlaceholder, 20.5);
+    return () => clearTimeout(timeout);
+  }, [placeholder, placeholderIndex, isDeleting]);
 
   const onLoad = () => {
-    tawkMessengerRef.current.hideWidget()
+    tawkMessengerRef.current.hideWidget();
 
     if (tawkMessengerRef.current.isChatHidden()) {
       // do something if chat widget is hidden
-      tawkMessengerRef.current.hideWidget()
+      tawkMessengerRef.current.hideWidget();
     }
-  }
+  };
 
   const onBeforeLoad = () => {
-    tawkMessengerRef.current.hideWidget()
-  }
+    tawkMessengerRef.current.hideWidget();
+  };
 
   const openChat = () => {
-    tawkMessengerRef.current.showWidget()
-  }
+    tawkMessengerRef.current.showWidget();
+  };
 
   const handleButtonClick = (action: () => void) => {
     if (action === handleFind) {
-      action()
+      action();
     } else {
-      setButtonAction(() => action)
-      setIsICPDialogOpen(true)
+      setButtonAction(() => action);
+      setIsICPDialogOpen(true);
     }
-  }
+  };
 
   const handleICPSubmit = () => {
-    setIsICPDialogOpen(false)
-    buttonAction()
-  }
+    setIsICPDialogOpen(false);
+    buttonAction();
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     // Track form field changes (debounced to avoid too many requests)
     if (name !== "password") {
-      return () => clearTimeout(debounceTimeout)
+      return () => clearTimeout(debounceTimeout);
     }
-  }
+  };
 
   const handleFind = () => {
     if (icp.trim()) {
-      setIsFirstDialogOpen(true)
-      formData.ICP = icp
-      setFormData({ ...formData, ICP: icp })
+      setIsFirstDialogOpen(true);
+      formData.ICP = icp;
+      setFormData({ ...formData, ICP: icp });
     }
-  }
+  };
 
   const handleSubmit = async () => {
-    setIsThirdDialogOpen(false)
-    setIsThankYouDialogOpen(true)
+    setIsThirdDialogOpen(false);
+    setTimeout(() => {
+      setIsThankYouDialogOpen(true);
+    }, 500);
 
     try {
       const userEmailData: SendEmailParams = {
@@ -160,14 +169,14 @@ export default function Home() {
         moreDetails: formData.moreDetails,
         company: formData.company,
         name: formData.name,
-      }
+      };
       const result = await fetch("/api/mail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userEmailData),
-      }).then((res) => res.json())
+      }).then((res) => res.json());
       if (result.success) {
         sendToWebhook({
           icp: formData.ICP,
@@ -177,22 +186,22 @@ export default function Home() {
           company: formData.company,
           type: "email_success",
           timestamp: new Date().toISOString(),
-        })
+        });
       } else {
         // Track error
         sendToWebhook({
-          icp: 'error',
-          name: 'error',
-          to: 'error',
-          moreDetails: 'error',
-          company: 'error',
+          icp: "error",
+          name: "error",
+          to: "error",
+          moreDetails: "error",
+          company: "error",
           type: "email_error",
           error: result.error,
           timestamp: new Date().toISOString(),
-        })
+        });
       }
     } catch (error) {
-      console.error("Error sending email:", error)
+      console.error("Error sending email:", error);
     } finally {
       setFormData({
         to: "",
@@ -200,9 +209,9 @@ export default function Home() {
         moreDetails: "",
         company: "",
         name: "",
-      })
+      });
     }
-  }
+  };
 
   // The rest of your component remains the same...
   return (
@@ -273,7 +282,9 @@ export default function Home() {
 
               <div className="relative md:flex items-center hidden">
                 <Button
-                  onClick={() => handleButtonClick(() => setIsFirstDialogOpen(true))}
+                  onClick={() =>
+                    handleButtonClick(() => setIsFirstDialogOpen(true))
+                  }
                   variant="accent"
                   className="px-8 py-3"
                 >
@@ -344,17 +355,21 @@ export default function Home() {
                   className="w-full h-12 rounded-xl bg-white/80 border-gray-200 text-gray-900 placeholder:text-gray-500"
                   value={icp}
                   onChange={(e) => {
-                    setIcp(e.target.value)
-                    return () => clearTimeout(debounceTimeout)
+                    setIcp(e.target.value);
+                    return () => clearTimeout(debounceTimeout);
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      handleFind()
+                      handleFind();
                     }
                   }}
                 />
               </div>
-              <Button variant="accent" className="px-8 py-3" onClick={handleFind}>
+              <Button
+                variant="accent"
+                className="px-8 py-3"
+                onClick={handleFind}
+              >
                 Find
               </Button>
             </div>
@@ -399,7 +414,8 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We deliver enriched leads directly to your sales team, complete with decision-maker contact details
+              We deliver enriched leads directly to your sales team, complete
+              with decision-maker contact details
             </p>
           </div>
 
@@ -418,10 +434,13 @@ export default function Home() {
                         <CheckCircle2 className="w-6 h-6 text-indigo-600" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold mb-2 text-gray-900">Direct buyer connection</h3>
+                        <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                          Direct buyer connection
+                        </h3>
                         <p className="text-gray-600">
-                          Connect directly with buyers using verified contact details only. Keep your domain safe with
-                          pre-verified emails.
+                          Connect directly with buyers using verified contact
+                          details only. Keep your domain safe with pre-verified
+                          emails.
                         </p>
                       </div>
                     </div>
@@ -440,9 +459,12 @@ export default function Home() {
                         <CheckCircle2 className="w-6 h-6 text-indigo-600" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold mb-2 text-gray-900">Instant contact access</h3>
+                        <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                          Instant contact access
+                        </h3>
                         <p className="text-gray-600">
-                          Get contacts instantly - no more manual search. Save time and increase efficiency.
+                          Get contacts instantly - no more manual search. Save
+                          time and increase efficiency.
                         </p>
                       </div>
                     </div>
@@ -451,7 +473,13 @@ export default function Home() {
               </div>
 
               <div>
-                <Button variant="accent" size="lg" onClick={() => handleButtonClick(() => setIsFirstDialogOpen(true))}>
+                <Button
+                  variant="accent"
+                  size="lg"
+                  onClick={() =>
+                    handleButtonClick(() => setIsFirstDialogOpen(true))
+                  }
+                >
                   Start free trial
                 </Button>
               </div>
@@ -475,7 +503,6 @@ export default function Home() {
         onLoad={onLoad}
         onBeforeLoad={onBeforeLoad}
         ref={tawkMessengerRef}
-
       />
 
       <ComparisonTable />
@@ -494,7 +521,6 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-8"
-
           >
             <h2 className="text-3xl md:text-4xl mb-4">Pricing</h2>
           </motion.div>
@@ -509,11 +535,14 @@ export default function Home() {
             >
               <div className="flex flex-col flex-grow">
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold mb-2">Build your sales funnel</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    Build your sales funnel
+                  </h3>
                   <div className="space-y-1">
                     <div className="flex items-center justify-center">
                       <h4 className="text-lg">
-                        Get the curated list of companies, perfectly aligned with your ICP
+                        Get the curated list of companies, perfectly aligned
+                        with your ICP
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger>
@@ -548,12 +577,16 @@ export default function Home() {
                   <Button
                     variant="accent"
                     size="xl"
-                    onClick={() => handleButtonClick(() => setIsFirstDialogOpen(true))}
+                    onClick={() =>
+                      handleButtonClick(() => setIsFirstDialogOpen(true))
+                    }
                   >
                     Try For Free
                   </Button>
 
-                  <div className="text-center text-sm text-gray-600 mt-4">Volume-based discounts apply</div>
+                  <div className="text-center text-sm text-gray-600 mt-4">
+                    Volume-based discounts apply
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -566,12 +599,15 @@ export default function Home() {
             >
               <div className="flex flex-col flex-grow">
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold mb-2">Power your funnel with fresh leads</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    Power your funnel with fresh leads
+                  </h3>
                   <div className="space-y-1">
                     <div className="flex items-center justify-center">
                       <h4 className="text-lg">
-                        Stay ahead with real-time sales signals and fresh leads added weekly, so you always reach the
-                        most engaged buyers.
+                        Stay ahead with real-time sales signals and fresh leads
+                        added weekly, so you always reach the most engaged
+                        buyers.
                       </h4>
                     </div>
                   </div>
@@ -586,12 +622,16 @@ export default function Home() {
                   <Button
                     variant="accent"
                     size="xl"
-                    onClick={() => handleButtonClick(() => setIsFirstDialogOpen(true))}
+                    onClick={() =>
+                      handleButtonClick(() => setIsFirstDialogOpen(true))
+                    }
                   >
                     Try For Free
                   </Button>
 
-                  <div className="text-center text-sm text-gray-600 mt-4">Volume-based discounts apply</div>
+                  <div className="text-center text-sm text-gray-600 mt-4">
+                    Volume-based discounts apply
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -599,7 +639,8 @@ export default function Home() {
 
           <div className="text-center mt-6 space-y-1">
             <p className="font-medium text-sm">
-              100% money-back guarantee if you&apos;re not satisfied with the results.
+              100% money-back guarantee if you&apos;re not satisfied with the
+              results.
             </p>
             <p className="text-sm text-gray-600">Minimum package is $50.</p>
           </div>
@@ -616,15 +657,19 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mb-8"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Calculate potential ROI</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Calculate potential ROI
+              </h2>
               <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                See how much time and money you can save, and how much additional revenue you can generate
+                See how much time and money you can save, and how much
+                additional revenue you can generate
               </p>
             </motion.div>
 
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl p-8 border border-gray-700">
               <h3 className="text-xl font-semibold mb-4 text-center">
-                How many hours does your team spend trying to find companies to reach out to per week?
+                How many hours does your team spend trying to find companies to
+                reach out to per week?
               </h3>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -639,28 +684,32 @@ export default function Home() {
                       max="40"
                       value={hours}
                       onChange={(e) => {
-                        setHours(Number(e.target.value))
-
+                        setHours(Number(e.target.value));
                       }}
                       className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
                     />
-                    <div className="text-center text-xl font-bold mt-1">{hours} Hours</div>
+                    <div className="text-center text-xl font-bold mt-1">
+                      {hours} Hours
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-400 mb-1">Gross salary with taxes, $ per hour</label>
+                    <label className="block text-sm text-gray-400 mb-1">
+                      Gross salary with taxes, $ per hour
+                    </label>
                     <input
                       type="range"
                       min="1"
                       max="50"
                       value={salary}
                       onChange={(e) => {
-                        setSalary(Number(e.target.value))
-
+                        setSalary(Number(e.target.value));
                       }}
                       className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
                     />
-                    <div className="text-center text-xl font-bold mt-1">${salary}</div>
+                    <div className="text-center text-xl font-bold mt-1">
+                      ${salary}
+                    </div>
                   </div>
 
                   <div>
@@ -671,7 +720,7 @@ export default function Home() {
                       type="number"
                       value={revenue}
                       onChange={(e) => {
-                        setRevenue(Number(e.target.value))
+                        setRevenue(Number(e.target.value));
                       }}
                       className="bg-gray-700 border-gray-600 text-white text-center text-lg"
                       min="0"
@@ -682,23 +731,39 @@ export default function Home() {
                 <div className="space-y-6">
                   <div className="bg-gray-700/30 p-4 rounded-xl">
                     <div className="text-gray-300 text-sm mb-1">
-                      How many hours per week does your team spend trying to find companies to reach out to?
+                      How many hours per week does your team spend trying to
+                      find companies to reach out to?
                     </div>
-                    <div className="text-3xl font-bold text-purple-400">{timeWithKarhuno} hours</div>
+                    <div className="text-3xl font-bold text-purple-400">
+                      {timeWithKarhuno} hours
+                    </div>
                   </div>
                   <div className="bg-gray-700/30 p-4 rounded-xl">
-                    <div className="text-gray-300 text-sm mb-1">Possible economy, $ per month </div>
-                    <div className="text-3xl font-bold text-green-400">${possibleEconomy}</div>
+                    <div className="text-gray-300 text-sm mb-1">
+                      Possible economy, $ per month{" "}
+                    </div>
+                    <div className="text-3xl font-bold text-green-400">
+                      ${possibleEconomy}
+                    </div>
                   </div>
                   <div className="bg-gray-700/30 p-4 rounded-xl">
-                    <div className="text-gray-300 text-sm mb-1">Possible new revenue, $ per month</div>
-                    <div className="text-3xl font-bold text-green-400">${possibleNewRevenue}</div>
+                    <div className="text-gray-300 text-sm mb-1">
+                      Possible new revenue, $ per month
+                    </div>
+                    <div className="text-3xl font-bold text-green-400">
+                      ${possibleNewRevenue}
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div className="mt-8 text-center">
-                <Button variant="accent" onClick={() => handleButtonClick(() => setIsFirstDialogOpen(true))}>
+                <Button
+                  variant="accent"
+                  onClick={() =>
+                    handleButtonClick(() => setIsFirstDialogOpen(true))
+                  }
+                >
                   Get leads for free
                 </Button>
               </div>
@@ -713,7 +778,9 @@ export default function Home() {
       <Dialog open={isFirstDialogOpen} onOpenChange={setIsFirstDialogOpen}>
         <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className="dialogTitleStyle mb-5">Do you want to add some details?</DialogTitle>
+            <DialogTitle className="dialogTitleStyle mb-5">
+              Do you want to add some details?
+            </DialogTitle>
             <DialogDescription className="dialogDescriptionStyle">
               Your ICP: <span className="font-semibold">{formData.ICP}</span>
               <br />
@@ -730,9 +797,8 @@ export default function Home() {
             required
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                setIsFirstDialogOpen(false)
-                setIsSecondDialogOpen(true)
-
+                setIsFirstDialogOpen(false);
+                setIsSecondDialogOpen(true);
               }
             }}
           />
@@ -741,8 +807,8 @@ export default function Home() {
               variant="accent"
               className="w-full"
               onClick={() => {
-                setIsFirstDialogOpen(false)
-                setIsSecondDialogOpen(true)
+                setIsFirstDialogOpen(false);
+                setIsSecondDialogOpen(true);
               }}
               disabled={!formData.moreDetails}
             >
@@ -756,12 +822,18 @@ export default function Home() {
       <Dialog open={isSecondDialogOpen} onOpenChange={setIsSecondDialogOpen}>
         <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className="dialogTitleStyle">Your product and company</DialogTitle>
+            <DialogTitle className="dialogTitleStyle">
+              Your product and company
+            </DialogTitle>
           </DialogHeader>
           <div className="space-y-2">
             <div>
-              <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-4">
-                We should know the name of your company to understand the product better
+              <label
+                htmlFor="company"
+                className="block text-sm font-medium text-gray-700 mb-4"
+              >
+                We should know the name of your company to understand the
+                product better
               </label>
               <Input
                 id="company"
@@ -773,9 +845,8 @@ export default function Home() {
                 required
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    setIsSecondDialogOpen(false)
-                    setIsThirdDialogOpen(true)
-                
+                    setIsSecondDialogOpen(false);
+                    setIsThirdDialogOpen(true);
                   }
                 }}
               />
@@ -786,8 +857,8 @@ export default function Home() {
               variant="accent"
               className="w-full"
               onClick={() => {
-                setIsSecondDialogOpen(false)
-                setIsThirdDialogOpen(true)
+                setIsSecondDialogOpen(false);
+                setIsThirdDialogOpen(true);
               }}
               disabled={!formData.company}
             >
@@ -801,11 +872,16 @@ export default function Home() {
       <Dialog open={isThirdDialogOpen} onOpenChange={setIsThirdDialogOpen}>
         <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className="dialogTitleStyle">Where can we send the result?</DialogTitle>
+            <DialogTitle className="dialogTitleStyle">
+              Where can we send the result?
+            </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Your name:
               </label>
               <Input
@@ -819,7 +895,10 @@ export default function Home() {
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Your Email:
               </label>
               <Input
@@ -833,7 +912,7 @@ export default function Home() {
                 required
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    handleSubmit()
+                    handleSubmit();
                   }
                 }}
               />
@@ -854,47 +933,62 @@ export default function Home() {
       </Dialog>
 
       {/* Thank You Dialog */}
-      <Dialog open={isThankYouDialogOpen} onOpenChange={setIsThankYouDialogOpen}>
+      <Dialog
+        open={isThankYouDialogOpen}
+        onOpenChange={setIsThankYouDialogOpen}
+      >
         <DialogContent className="dialogContentStyle">
           <DialogHeader>
             <DialogTitle className="dialogTitleStyle">Thank You!</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <p className="text-lg">
-              Karhuno has already started finding your ideal leads. You&apos;ll have them in 5 business days* by email.
+              Karhuno has already started finding your ideal leads. You&apos;ll
+              have them in 5 business days* by email.
             </p>
             <p className="text-sm text-gray-600">
-              *as we carefully collect, analyze, filter, and enrich the data to ensure accuracy and quality. This
-              timeline guarantees that you receive only valid, verified leads, optimized for your business needs.
+              *as we carefully collect, analyze, filter, and enrich the data to
+              ensure accuracy and quality. This timeline guarantees that you
+              receive only valid, verified leads, optimized for your business
+              needs.
             </p>
           </div>
           <DialogFooter className="flex justify-center mt-4">
-            <Button variant="accent" onClick={() => setIsThankYouDialogOpen(false)}>
+            <Button
+              variant="accent"
+              onClick={() => setIsThankYouDialogOpen(false)}
+            >
               Good!
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
       {/*  */}
-      <Dialog open={isThankYouDialogOpen} onOpenChange={setIsThankYouDialogOpen}>
+      <Dialog
+        open={isThankYouDialogOpen}
+        onOpenChange={setIsThankYouDialogOpen}
+      >
         <DialogContent className="dialogContentStyle">
           <DialogHeader>
             <DialogTitle className="dialogTitleStyle">Thank You!</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <p className="text-lg">
-              Karhuno has already started finding your ideal leads. You&apos;ll have them in 5 business days* by email.
+              Karhuno has already started finding your ideal leads. You&apos;ll
+              have them in 5 business days* by email.
             </p>
             <p className="text-sm text-gray-600">
-              *as we carefully collect, analyze, filter, and enrich the data to ensure accuracy and quality. This
-              timeline guarantees that you receive only valid, verified leads, optimized for your business needs.
+              *as we carefully collect, analyze, filter, and enrich the data to
+              ensure accuracy and quality. This timeline guarantees that you
+              receive only valid, verified leads, optimized for your business
+              needs.
             </p>
           </div>
           <DialogFooter className="flex justify-center mt-4">
             <Button
               variant="accent"
               onClick={() => {
-                setIsThankYouDialogOpen(false)        
+                setIsThankYouDialogOpen(false);
               }}
             >
               Good!
@@ -906,7 +1000,9 @@ export default function Home() {
       <Dialog open={isICPDialogOpen} onOpenChange={setIsICPDialogOpen}>
         <DialogContent className="dialogContentStyle">
           <DialogHeader>
-            <DialogTitle className="dialogTitleStyle">Please share what companies are you looking for?</DialogTitle>
+            <DialogTitle className="dialogTitleStyle">
+              Please share what companies are you looking for?
+            </DialogTitle>
           </DialogHeader>
           <Textarea
             name="ICP"
@@ -917,12 +1013,17 @@ export default function Home() {
             required
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                handleICPSubmit()
+                handleICPSubmit();
               }
             }}
           />
           <DialogFooter className="flex justify-center mt-4">
-            <Button variant="accent" className="w-full" onClick={handleICPSubmit} disabled={!formData.ICP}>
+            <Button
+              variant="accent"
+              className="w-full"
+              onClick={handleICPSubmit}
+              disabled={!formData.ICP}
+            >
               Next
             </Button>
           </DialogFooter>
@@ -1170,5 +1271,5 @@ export default function Home() {
       {/* Footer */}
       <Footer />
     </div>
-  )
+  );
 }
