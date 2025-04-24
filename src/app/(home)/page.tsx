@@ -72,42 +72,6 @@ export default function Home() {
     name: "",
   })
 
-  // Track page view when component mounts
-  useEffect(() => {
-    sendToWebhook(
-      {
-        data: {
-          to: "",
-          ICP: "",
-          moreDetails: "",
-          company: "",
-          name: "",
-        },
-        type: "page_view",
-        page: "home",
-        url: window.location.href,
-      },
-      { eventType: "page_interaction" },
-    )
-  }, [])
-
-  // Track user interactions with the ROI calculator
-  useEffect(() => {
-    if (hours !== 20 || salary !== 20 || revenue !== 10) {
-      sendToWebhook(
-        {
-          type: "roi_calculator",
-          hours,
-          salary,
-          revenue,
-          possibleEconomy,
-          possibleNewRevenue,
-        },
-        { eventType: "calculator_interaction" },
-      )
-    }
-  }, [hours, salary, revenue, possibleEconomy, possibleNewRevenue])
-
   useEffect(() => {
     let timeout: NodeJS.Timeout
 
@@ -163,13 +127,6 @@ export default function Home() {
   }
 
   const handleICPSubmit = () => {
-    // Track ICP submission
-    sendToWebhook({
-      type: "icp_submission",
-      icp: formData.ICP,
-      timestamp: new Date().toISOString(),
-    })
-
     setIsICPDialogOpen(false)
     buttonAction()
   }
@@ -204,13 +161,6 @@ export default function Home() {
 
   const handleFind = () => {
     if (icp.trim()) {
-      // Track ICP search
-      sendToWebhook({
-        type: "icp_search",
-        icp,
-        timestamp: new Date().toISOString(),
-      })
-
       setIsFirstDialogOpen(true)
       formData.ICP = icp
       setFormData({ ...formData, ICP: icp })
@@ -220,19 +170,6 @@ export default function Home() {
   const handleSubmit = async () => {
     setIsThirdDialogOpen(false)
     setIsThankYouDialogOpen(true)
-
-    // Track form submission
-    sendToWebhook({
-      data: {
-        to: formData.to,
-        ICP: formData.ICP,
-        moreDetails: formData.moreDetails,
-        company: formData.company,
-        name: formData.name,
-      },
-      type: "lead_submission",
-      timestamp: new Date().toISOString(),
-    })
 
     try {
       const userEmailData: SendEmailParams = {
@@ -265,11 +202,11 @@ export default function Home() {
         })
       }
     } catch (error) {
-
+      console.error("Error sending email:", error)
       // Track error
       sendToWebhook({
         type: "email_error",
-        error: String(error),
+        error: "Network error",
         timestamp: new Date().toISOString(),
       })
     } finally {
@@ -282,27 +219,6 @@ export default function Home() {
       })
     }
   }
-
-  // Track dialog state changes
-  useEffect(() => {
-    if (isThankYouDialogOpen) {
-      sendToWebhook(
-        {
-          data: {
-            to: formData.to,
-            ICP: formData.ICP,
-            moreDetails: formData.moreDetails,
-            company: formData.company,
-            name: formData.name,
-          },
-          type: "dialog_open",
-          dialog: "thank_you_dialog",
-          timestamp: new Date().toISOString(),
-        },
-        { eventType: "dialog_interaction" },
-      )
-    }
-  }, [formData.ICP, formData.company, formData.moreDetails, formData.name, formData.to, isThankYouDialogOpen])
 
   // The rest of your component remains the same...
   return (
@@ -354,48 +270,18 @@ export default function Home() {
                 <a
                   href="#features"
                   className="text-gray-700 hover:text-gray-900 transition-colors"
-                  onClick={() =>
-                    sendToWebhook(
-                      {
-                        type: "nav_click",
-                        target: "features",
-                        timestamp: new Date().toISOString(),
-                      },
-                      { eventType: "navigation_interaction" },
-                    )
-                  }
                 >
                   What we do
                 </a>
                 <a
                   href="#case-studies"
                   className="text-gray-700 hover:text-gray-900 transition-colors"
-                  onClick={() =>
-                    sendToWebhook(
-                      {
-                        type: "nav_click",
-                        target: "case_studies",
-                        timestamp: new Date().toISOString(),
-                      },
-                      { eventType: "navigation_interaction" },
-                    )
-                  }
                 >
                   Case studies
                 </a>
                 <a
                   href="#pricing"
                   className="text-gray-700 hover:text-gray-900 transition-colors"
-                  onClick={() =>
-                    sendToWebhook(
-                      {
-                        type: "nav_click",
-                        target: "pricing",
-                        timestamp: new Date().toISOString(),
-                      },
-                      { eventType: "navigation_interaction" },
-                    )
-                  }
                 >
                   Pricing
                 </a>
@@ -445,32 +331,12 @@ export default function Home() {
               <a
                 href="#case-studies"
                 className="text-gray-700 hover:text-gray-900 transition-colors"
-                onClick={() =>
-                  sendToWebhook(
-                    {
-                      type: "mobile_nav_click",
-                      target: "case_studies",
-                      timestamp: new Date().toISOString(),
-                    },
-                    { eventType: "navigation_interaction" },
-                  )
-                }
               >
                 Case studies
               </a>
               <a
                 href="#pricing"
                 className="text-gray-700 hover:text-gray-900 transition-colors"
-                onClick={() =>
-                  sendToWebhook(
-                    {
-                      type: "mobile_nav_click",
-                      target: "pricing",
-                      timestamp: new Date().toISOString(),
-                    },
-                    { eventType: "navigation_interaction" },
-                  )
-                }
               >
                 Pricing
               </a>
@@ -505,19 +371,6 @@ export default function Home() {
                   value={icp}
                   onChange={(e) => {
                     setIcp(e.target.value)
-                    // Track ICP input changes (debounced)
-                    const debounceTimeout = setTimeout(() => {
-                      if (e.target.value.length > 2) {
-                        sendToWebhook(
-                          {
-                            type: "icp_input",
-                            value: e.target.value,
-                            timestamp: new Date().toISOString(),
-                          },
-                          { eventType: "form_interaction" },
-                        )
-                      }
-                    }, 1000)
                     return () => clearTimeout(debounceTimeout)
                   }}
                   onKeyDown={(e) => {
@@ -525,16 +378,6 @@ export default function Home() {
                       handleFind()
                     }
                   }}
-                  onFocus={() =>
-                    sendToWebhook(
-                      {
-                        type: "input_focus",
-                        field: "icp_search",
-                        timestamp: new Date().toISOString(),
-                      },
-                      { eventType: "form_interaction" },
-                    )
-                  }
                 />
               </div>
               <Button variant="accent" className="px-8 py-3" onClick={handleFind}>
@@ -685,16 +528,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-8"
-            onViewportEnter={() =>
-              sendToWebhook(
-                {
-                  type: "section_view",
-                  section: "pricing",
-                  timestamp: new Date().toISOString(),
-                },
-                { eventType: "scroll_interaction" },
-              )
-            }
+
           >
             <h2 className="text-3xl md:text-4xl mb-4">Pricing</h2>
           </motion.div>
@@ -706,16 +540,6 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="relative p-6 max-w-96 rounded-2xl border-2 border-purple-300 bg-white/80 backdrop-blur-sm hover:border-purple-400 transition-all duration-300 flex flex-col"
-              onViewportEnter={() =>
-                sendToWebhook(
-                  {
-                    type: "plan_view",
-                    plan: "explorer",
-                    timestamp: new Date().toISOString(),
-                  },
-                  { eventType: "pricing_interaction" },
-                )
-              }
             >
               <div className="flex flex-col flex-grow">
                 <div className="text-center mb-4">
@@ -773,16 +597,6 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="relative p-6 max-w-96 rounded-2xl border-2 border-purple-300 bg-white/80 backdrop-blur-sm hover:border-purple-400 transition-all duration-300 flex flex-col"
-              onViewportEnter={() =>
-                sendToWebhook(
-                  {
-                    type: "plan_view",
-                    plan: "signal_tracker",
-                    timestamp: new Date().toISOString(),
-                  },
-                  { eventType: "pricing_interaction" },
-                )
-              }
             >
               <div className="flex flex-col flex-grow">
                 <div className="text-center mb-4">
@@ -835,16 +649,6 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-center mb-8"
-              onViewportEnter={() =>
-                sendToWebhook(
-                  {
-                    type: "section_view",
-                    section: "roi_calculator",
-                    timestamp: new Date().toISOString(),
-                  },
-                  { eventType: "scroll_interaction" },
-                )
-              }
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Calculate potential ROI</h2>
               <p className="text-lg text-gray-300 max-w-3xl mx-auto">
@@ -895,16 +699,7 @@ export default function Home() {
                       value={salary}
                       onChange={(e) => {
                         setSalary(Number(e.target.value))
-                        // Track slider change
-                        sendToWebhook(
-                          {
-                            type: "calculator_input",
-                            field: "salary",
-                            value: Number(e.target.value),
-                            timestamp: new Date().toISOString(),
-                          },
-                          { eventType: "calculator_interaction", async: true },
-                        )
+
                       }}
                       className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
                     />
@@ -920,16 +715,6 @@ export default function Home() {
                       value={revenue}
                       onChange={(e) => {
                         setRevenue(Number(e.target.value))
-                        // Track input change
-                        sendToWebhook(
-                          {
-                            type: "calculator_input",
-                            field: "revenue",
-                            value: Number(e.target.value),
-                            timestamp: new Date().toISOString(),
-                          },
-                          { eventType: "calculator_interaction", async: true },
-                        )
                       }}
                       className="bg-gray-700 border-gray-600 text-white text-center text-lg"
                       min="0"
@@ -1001,7 +786,6 @@ export default function Home() {
               onClick={() => {
                 setIsFirstDialogOpen(false)
                 setIsSecondDialogOpen(true)
-       
               }}
               disabled={!formData.moreDetails}
             >
