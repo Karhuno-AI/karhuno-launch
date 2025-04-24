@@ -137,24 +137,6 @@ export default function Home() {
 
     // Track form field changes (debounced to avoid too many requests)
     if (name !== "password") {
-      // Don't track password changes
-      const debounceTimeout = setTimeout(() => {
-        sendToWebhook(
-          {
-            icp: formData.ICP,
-            name: formData.name,
-            to: formData.to,
-            moreDetails: formData.moreDetails,
-            company: formData.company,
-            type: "form_field_change",
-            field: name,
-            value: name === "to" ? "email_provided" : value, // Anonymize email
-            timestamp: new Date().toISOString(),
-          },
-          { eventType: "form_interaction" },
-        )
-      }, 1000)
-
       return () => clearTimeout(debounceTimeout)
     }
   }
@@ -187,15 +169,23 @@ export default function Home() {
         body: JSON.stringify(userEmailData),
       }).then((res) => res.json())
       if (result.success) {
-        // Track successful submission
         sendToWebhook({
+          icp: formData.ICP,
+          name: formData.name,
+          to: formData.to,
+          moreDetails: formData.moreDetails,
+          company: formData.company,
           type: "email_success",
           timestamp: new Date().toISOString(),
         })
       } else {
-
         // Track error
         sendToWebhook({
+          icp: 'error',
+          name: 'error',
+          to: 'error',
+          moreDetails: 'error',
+          company: 'error',
           type: "email_error",
           error: result.error,
           timestamp: new Date().toISOString(),
@@ -203,12 +193,6 @@ export default function Home() {
       }
     } catch (error) {
       console.error("Error sending email:", error)
-      // Track error
-      sendToWebhook({
-        type: "email_error",
-        error: "Network error",
-        timestamp: new Date().toISOString(),
-      })
     } finally {
       setFormData({
         to: "",
@@ -315,16 +299,6 @@ export default function Home() {
               <a
                 href="#features"
                 className="text-gray-700 hover:text-gray-900 transition-colors"
-                onClick={() =>
-                  sendToWebhook(
-                    {
-                      type: "mobile_nav_click",
-                      target: "features",
-                      timestamp: new Date().toISOString(),
-                    },
-                    { eventType: "navigation_interaction" },
-                  )
-                }
               >
                 What we do
               </a>
@@ -501,15 +475,7 @@ export default function Home() {
         onLoad={onLoad}
         onBeforeLoad={onBeforeLoad}
         ref={tawkMessengerRef}
-        onChatHidden={() => {
-          sendToWebhook(
-            {
-              type: "chat_hidden",
-              timestamp: new Date().toISOString(),
-            },
-            { eventType: "chat_interaction" },
-          )
-        }}
+
       />
 
       <ComparisonTable />
@@ -674,16 +640,7 @@ export default function Home() {
                       value={hours}
                       onChange={(e) => {
                         setHours(Number(e.target.value))
-                        // Track slider change
-                        sendToWebhook(
-                          {
-                            type: "calculator_input",
-                            field: "hours",
-                            value: Number(e.target.value),
-                            timestamp: new Date().toISOString(),
-                          },
-                          { eventType: "calculator_interaction", async: true },
-                        )
+
                       }}
                       className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
                     />
