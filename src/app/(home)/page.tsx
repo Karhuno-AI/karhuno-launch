@@ -530,11 +530,14 @@ export default function Home() {
 
       <CaseStudies id="case-studies" />
 
-      <section id="pricing" className="min-h-screen bg-gradient-to-b from-purple-200 via-white to-purple-200 p-4 font-montserrat">
+      <section
+        id="pricing"
+        className="min-h-screen bg-gradient-to-b from-purple-200 via-white to-purple-200 p-4 font-montserrat"
+      >
         <div className="max-w-4xl mx-auto pt-8 pb-12">
-          <h1 className="text-4xl font-semibold text-center text-purple-600 mb-4">
+          <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
             Pricing
-          </h1>
+          </h2>
           <p className="text-gray-600 text-center text-lg mb-8">
             The more matching leads each week are available, the cheaper your
             leads!
@@ -549,26 +552,28 @@ export default function Home() {
 
           <div className="flex gap-6 mt-12">
             <div className="flex-1 bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm relative">
-              <h3 className="text-sm font-bold text-gray-500 mb-6 text-center">
+              <h3 className="text-sm font-bold text-gray-600 mb-6 text-center">
                 YOUR PRICE
               </h3>
-              <div className="text-4xl font-bold text-purple-800 mb-12 text-center">
+              <div className="text-4xl font-bold text-purple-800 text-center">
                 ${calculateTotalPrice()}
-                <span className="text-sm font-medium text-gray-500 ml-2">
+                <span className="text-sm font-semibold text-gray-600 ml-2">
                   per week
                 </span>
-              </div>
-              <div className="absolute bottom-6 left-0 right-0 text-sm text-gray-600 space-y-1 px-6">
-                <p className="text-center">
-                  100% money-back guarantee if you&apos;re not satisfied with
-                  the results.
-                </p>
-                <p className="text-center">Minimum package is $50.</p>
+                <div>
+                  <div className="font-medium text-sm text-gray-600 space-y-1 px-6 pt-6">
+                    <p className="text-center">
+                      100% money-back guarantee if you&apos;re not satisfied
+                      with the results.
+                    </p>
+                    <p className="text-center">Minimum package is $50.</p>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className="w-96 bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm">
-              <h4 className="text-sm font-bold text-gray-500 text-center mb-6">
+              <h4 className="text-sm font-bold text-gray-600 text-center mb-6">
                 MORE BENEFITS
               </h4>
               <div className="space-y-4">
@@ -603,7 +608,13 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center mt-8">
-            <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-6 rounded-full text-lg font-medium">
+            <Button
+              variant="accent"
+              size="lg"
+              onClick={() =>
+                handleButtonClick(() => setIsFirstDialogOpen(true))
+              }
+            >
               Try for free
             </Button>
           </div>
