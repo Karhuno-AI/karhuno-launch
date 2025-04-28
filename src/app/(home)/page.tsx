@@ -20,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
+import { Switch } from "@/components/ui/switch";
 // COMPONENTS
 import { Textarea } from "@/components/ui/textarea";
 // import VennDiagram from "@/components/home/venn-diagram";
@@ -33,12 +33,7 @@ import Footer from "@/components/home/footer";
 import SaleSignal from "@/components/home/sale-signal";
 import Feature from "@/components/home/feature";
 import type { SendEmailParams } from "../api/mail/route";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import GlassySlider from "@/components/home/glassy-slider";
 import SignalCarousel from "@/components/home/signal-carousel";
 import { sendToWebhook } from "@/lib/webhook";
 
@@ -64,6 +59,9 @@ export default function Home() {
   const [salary, setSalary] = useState(20);
   const [revenue, setRevenue] = useState(10);
   const tawkMessengerRef = useRef(null);
+  const [sliderValue, setSliderValue] = useState(1);
+  const [additionalContacts, setAdditionalContacts] = useState(false);
+  const [customAI, setCustomAI] = useState(false);
 
   const timeWithKarhuno = 0.5;
   const possibleEconomy = Math.round(salary * (hours - timeWithKarhuno) * 4);
@@ -211,6 +209,27 @@ export default function Home() {
         name: "",
       });
     }
+  };
+
+  const calculateTotalPrice = () => {
+    let basePrice = 0;
+    if (sliderValue <= 10) {
+      basePrice = sliderValue * 1.8;
+    } else if (sliderValue <= 50) {
+      basePrice = 18 + (sliderValue - 10) * 1.1;
+    } else {
+      basePrice = 62 + (sliderValue - 50) * 0.8;
+    }
+
+    if (additionalContacts) {
+      basePrice += sliderValue * 0.24;
+    }
+
+    if (customAI) {
+      basePrice += sliderValue * 0.19;
+    }
+
+    return basePrice.toFixed(1);
   };
 
   // The rest of your component remains the same...
@@ -511,138 +530,82 @@ export default function Home() {
 
       <CaseStudies id="case-studies" />
 
-      <section
-        id="pricing"
-        className="py-12 bg-gradient-to-tr from-purple-50 via-indigo-100 to-pink-50 min-h-screen flex items-center relative z-10"
-      >
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <h2 className="text-3xl md:text-4xl mb-4">Pricing</h2>
-          </motion.div>
+      <section id="pricing" className="min-h-screen bg-gradient-to-b from-purple-200 via-white to-purple-200 p-4 font-montserrat">
+        <div className="max-w-4xl mx-auto pt-8 pb-12">
+          <h1 className="text-4xl font-semibold text-center text-purple-600 mb-4">
+            Pricing
+          </h1>
+          <p className="text-gray-600 text-center text-lg mb-8">
+            The more matching leads each week are available, the cheaper your
+            leads!
+          </p>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto justify-items-center">
-            {/* Explorer Plan */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative p-6 max-w-96 rounded-2xl border-2 border-purple-300 bg-white/80 backdrop-blur-sm hover:border-purple-400 transition-all duration-300 flex flex-col"
-            >
-              <div className="flex flex-col flex-grow">
-                <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold mb-2">
-                    Build your sales funnel
-                  </h3>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-center">
-                      <h4 className="text-lg">
-                        Get the curated list of companies, perfectly aligned
-                        with your ICP
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger>
-                              <span
-                                className="inline-block text-gray-400 hover:text-gray-600 transition-colors duration-200"
-                                style={{
-                                  fontSize: "70%",
-                                  verticalAlign: "super",
-                                }}
-                              >
-                                ⓘ
-                              </span>
-                            </TooltipTrigger>
-                            <TooltipContent className="bg-white/90 backdrop-blur-sm shadow-lg p-2 tooltip-content">
-                              <p>Ideal Customer Profile -</p>
-                              <p>a perfect customer who&apos;s</p>
-                              <p>most likely to love your product</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </h4>
-                    </div>
+          <GlassySlider
+            value={sliderValue}
+            setValue={setSliderValue}
+            additionalContacts={additionalContacts}
+            customAI={customAI}
+          />
+
+          <div className="flex gap-6 mt-12">
+            <div className="flex-1 bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm relative">
+              <h3 className="text-sm font-bold text-gray-500 mb-6 text-center">
+                YOUR PRICE
+              </h3>
+              <div className="text-4xl font-bold text-purple-800 mb-12 text-center">
+                ${calculateTotalPrice()}
+                <span className="text-sm font-medium text-gray-500 ml-2">
+                  per week
+                </span>
+              </div>
+              <div className="absolute bottom-6 left-0 right-0 text-sm text-gray-600 space-y-1 px-6">
+                <p className="text-center">
+                  100% money-back guarantee if you&apos;re not satisfied with
+                  the results.
+                </p>
+                <p className="text-center">Minimum package is $50.</p>
+              </div>
+            </div>
+
+            <div className="w-96 bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm">
+              <h4 className="text-sm font-bold text-gray-500 text-center mb-6">
+                MORE BENEFITS
+              </h4>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">+ up to 7 contacts</p>
+                    <p className="text-sm text-gray-500">
+                      for every lead (+${(sliderValue * 0.24).toFixed(2)})
+                    </p>
                   </div>
+                  <Switch
+                    checked={additionalContacts}
+                    onCheckedChange={setAdditionalContacts}
+                    className="data-[state=checked]:bg-[#522faa]"
+                  />
                 </div>
-
-                <div className="flex-grow flex flex-col justify-end">
-                  <div className="space-y-1 text-center mb-4">
-                    <div className="text-3xl font-bold">$0.59 - $0.89</div>
-                    <div className="text-sm text-gray-600">per one lead</div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">+ custom AI company analysis</p>
+                    <p className="text-sm text-gray-500">
+                      for every lead (+${(sliderValue * 0.19).toFixed(2)})
+                    </p>
                   </div>
-
-                  <Button
-                    variant="accent"
-                    size="xl"
-                    onClick={() =>
-                      handleButtonClick(() => setIsFirstDialogOpen(true))
-                    }
-                  >
-                    Try For Free
-                  </Button>
-
-                  <div className="text-center text-sm text-gray-600 mt-4">
-                    Volume-based discounts apply
-                  </div>
+                  <Switch
+                    checked={customAI}
+                    onCheckedChange={setCustomAI}
+                    className="data-[state=checked]:bg-[#522faa]"
+                  />
                 </div>
               </div>
-            </motion.div>
-            {/* Signal Tracker Plan */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative p-6 max-w-96 rounded-2xl border-2 border-purple-300 bg-white/80 backdrop-blur-sm hover:border-purple-400 transition-all duration-300 flex flex-col"
-            >
-              <div className="flex flex-col flex-grow">
-                <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold mb-2">
-                    Power your funnel with fresh leads
-                  </h3>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-center">
-                      <h4 className="text-lg">
-                        Stay ahead with real-time sales signals and fresh leads
-                        added weekly, so you always reach the most engaged
-                        buyers.
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex-grow flex flex-col justify-end">
-                  <div className="space-y-1 text-center mb-4">
-                    <div className="text-3xl font-bold">$1.50 - $1.94</div>
-                    <div className="text-sm text-gray-600">per one lead</div>
-                  </div>
-
-                  <Button
-                    variant="accent"
-                    size="xl"
-                    onClick={() =>
-                      handleButtonClick(() => setIsFirstDialogOpen(true))
-                    }
-                  >
-                    Try For Free
-                  </Button>
-
-                  <div className="text-center text-sm text-gray-600 mt-4">
-                    Volume-based discounts apply
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            </div>
           </div>
 
-          <div className="text-center mt-6 space-y-1">
-            <p className="font-medium text-sm">
-              100% money-back guarantee if you&apos;re not satisfied with the
-              results.
-            </p>
-            <p className="text-sm text-gray-600">Minimum package is $50.</p>
+          <div className="flex justify-center mt-8">
+            <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-6 rounded-full text-lg font-medium">
+              Try for free
+            </Button>
           </div>
         </div>
       </section>
