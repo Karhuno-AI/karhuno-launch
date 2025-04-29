@@ -532,9 +532,9 @@ export default function Home() {
 
       <section
         id="pricing"
-        className="min-h-screen bg-gradient-to-b from-purple-200 via-white to-purple-200 p-4 font-montserrat"
+        className="min-h-screen inset-0 bg-gradient-to-b from-white via-purple-50/50 to-white"
       >
-        <div className="max-w-4xl mx-auto pt-4 pb-8">
+        <div className="max-w-4xl mx-auto py-8 px-4">
           <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
             Pricing
           </h2>
@@ -550,8 +550,8 @@ export default function Home() {
             customAI={customAI}
           />
 
-          <div className="flex gap-6 mt-12">
-            <div className="flex-1 bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm relative">
+          <div className="flex flex-col lg:flex-row gap-6 mt-12">
+            <div className="flex-1 bg-white/80 backdrop-blur-sm py-4 px-6 rounded-xl shadow-sm relative">
               <h3 className="text-sm font-bold text-gray-600 mb-6 text-center">
                 YOUR PRICE
               </h3>
@@ -572,7 +572,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="w-96 bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm">
+            <div className="flex-1 min-w-[280px] bg-white/80 backdrop-blur-sm px-6 py-4 rounded-xl shadow-sm">
               <h4 className="text-sm font-bold text-gray-600 text-center mb-6">
                 MORE BENEFITS
               </h4>

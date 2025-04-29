@@ -17,7 +17,7 @@ interface GlassySliderProps {
 
 const GlassySlider = ({ value, setValue }: GlassySliderProps) => {
   const max = 150;
-  const [showArrow, setShowArrow] = useState(true);
+  const [showArrow, setShowArrow] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
@@ -32,92 +32,80 @@ const GlassySlider = ({ value, setValue }: GlassySliderProps) => {
     return "from-[#bda3ff40] to-[#cbb8ff40]";
   };
 
-  const getSegmentHeights = (currentValue: number) => {
-    if (currentValue <= 10) {
-      return {
-        seg1: "h-8",
-        seg2: "h-4",
-        seg3: "h-4",
-      };
-    } else if (currentValue <= 50) {
-      return {
-        seg1: "h-8",
-        seg2: "h-8",
-        seg3: "h-4",
-      };
-    } else {
-      return {
-        seg1: "h-8",
-        seg2: "h-8",
-        seg3: "h-8",
-      };
+  const getSegmentHeights = (currentValue: number) => ({
+    seg1: currentValue <= 10 ? "h-4" : "h-4",
+    seg2: currentValue <= 10 ? "h-2" : currentValue <= 50 ? "h-4" : "h-4",
+    seg3: currentValue <= 50 ? "h-2" : "h-4",
+  });
+
+  const getTooltipContent = () => {
+    if (value <= 10) {
+      return (
+        <>
+          &bull; Startup raised funding <br />
+          &bull; Launched a new product/marketing campaign <br />
+          &bull; Opened a new office
+        </>
+      );
     }
+    if (value <= 50) {
+      return (
+        <>
+          &bull; Job openings for strategic roles (e.g., Compliance Officer, AI Lead) <br />
+          &bull; VC/PE firms expanding investment <br />
+          &bull; ESG or carbon-related initiatives
+        </>
+      );
+    }
+    return (
+      <>
+        &bull; New commercial construction projects <br />
+        &bull; Participation in accelerators or trade shows
+      </>
+    );
+  };
+
+  const getPopoverText = () => {
+    if (value <= 10) return "Niche ICP with hidden signals. Finding leads is tough — it demands precision.";
+    if (value <= 50) return "Signals are quite specific but accessible.";
+    return "Signals are easy to spot, high signal density.";
   };
 
   return (
     <div className="w-full max-w-4xl mx-auto relative font-montserrat">
-      <div className="flex justify-between mb-8 text-lg relative">
-        <div className="absolute left-[2%] text-center">
-          <span
-            className={cn(
-              "font-semibold text-2xl transition-colors",
-              value <= 10 ? "text-[#522faa]" : "text-gray-400"
-            )}
-          >
-            $1.8 / lead
-          </span>
-        </div>
-        <div className="absolute left-[25%] text-center">
-          <span
-            className={cn(
-              "font-semibold text-2xl transition-colors",
-              value > 10 && value <= 50 ? "text-[#522faa]" : "text-gray-400"
-            )}
-          >
-            $1.1 / lead
-          </span>
-        </div>
-        <div className="absolute left-[65%] text-center">
-          <span
-            className={cn(
-              "font-semibold text-2xl transition-colors",
-              value > 50 ? "text-[#522faa]" : "text-gray-400"
-            )}
-          >
-            $0.8 / lead
-          </span>
-        </div>
+      
+      {/* Price Points */}
+      <div className="relative flex justify-between mb-10">
+        {[
+          { label: "$1.8 / lead", position: "2%", active: value <= 10 },
+          { label: "$1.1 / lead", position: "25%", active: value > 10 && value <= 50 },
+          { label: "$0.8 / lead", position: "65%", active: value > 50 },
+        ].map((item, idx) => (
+          <div key={idx} className="absolute" style={{ left: item.position }}>
+            <span className={cn("font-semibold text-xs md:text-lg transition-colors", item.active ? "text-[#522faa]" : "text-gray-400")}>
+              {item.label}
+            </span>
+          </div>
+        ))}
       </div>
 
+      {/* Slider Track & Segments */}
       <div className="relative mb-12">
-        <div className="absolute w-full rounded-full overflow-hidden flex items-center">
-          {/* Segment 1 */}
-          <div
-            className={cn(
-              "bg-gradient-to-r from-[#522faa] to-[#5e3abc] transition-all duration-300",
-              getSegmentHeights(value).seg1
-            )}
-            style={{ width: "6%", opacity: 0.9 }}
-          />
-          {/* Segment 2 */}
-          <div
-            className={cn(
-              "bg-gradient-to-r from-[#7b46ff] to-[#8658ff] transition-all duration-300",
-              getSegmentHeights(value).seg2
-            )}
-            style={{ width: "26%", opacity: 0.9 }}
-          />
-          {/* Segment 3 */}
-          <div
-            className={cn(
-              "bg-gradient-to-r from-[#bda3ff] to-[#cbb8ff] transition-all duration-300",
-              getSegmentHeights(value).seg3
-            )}
-            style={{ width: "68%", opacity: 0.9 }}
-          />
+        <div className="absolute w-full flex items-center overflow-hidden rounded-full">
+          {[
+            { width: "6%", colors: "from-[#522faa] to-[#5e3abc]", height: getSegmentHeights(value).seg1 },
+            { width: "26%", colors: "from-[#7b46ff] to-[#8658ff]", height: getSegmentHeights(value).seg2 },
+            { width: "68%", colors: "from-[#bda3ff] to-[#cbb8ff]", height: getSegmentHeights(value).seg3 },
+          ].map((seg, idx) => (
+            <div
+              key={idx}
+              className={cn("bg-gradient-to-r transition-all duration-300", seg.colors, seg.height)}
+              style={{ width: seg.width, opacity: 0.9 }}
+            />
+          ))}
         </div>
 
-        {/* Slider */}
+        {/* Transparent Input Slider */}
         <input
           type="range"
           min="1"
@@ -125,13 +113,13 @@ const GlassySlider = ({ value, setValue }: GlassySliderProps) => {
           value={value}
           onChange={(e) => setValue(parseInt(e.target.value))}
           onMouseDown={() => setIsDragging(true)}
-          className="w-full appearance-none bg-transparent cursor-pointer relative z-10 opacity-0"
+          className="w-full appearance-none bg-transparent cursor-pointer z-10 opacity-0"
           style={{ height: "2rem" }}
         />
 
-        {/* Custom Thumb */}
+        {/* Thumb */}
         <div
-          className="absolute pointer-events-none w-12 h-12 rounded-full backdrop-blur-sm bg-white/70 shadow-lg flex items-center justify-center text-purple-800 font-bold text-xl"
+          className="absolute pointer-events-none w-12 h-12 rounded-full bg-white/70 backdrop-blur-sm shadow-lg flex items-center justify-center text-purple-800 font-bold text-xl"
           style={{
             left: `${(value / max) * 100}%`,
             top: "50%",
@@ -140,113 +128,67 @@ const GlassySlider = ({ value, setValue }: GlassySliderProps) => {
         >
           {value}
         </div>
-        {/* LEADS / WEEK MARKS */}
-        <div className="relative mb-8">
-          <div className="absolute left-[6.5%] text-center transform -translate-x-1/2">
-            <p className="font-semibold text-gray-600">10</p>
-            <p className="text-xs text-gray-400">leads/week</p>
-          </div>
-          <div className="absolute left-[32.5%] text-center transform -translate-x-1/2">
-            <p className="font-semibold text-gray-600">50</p>
-            <p className="text-xs text-gray-400">leads/week</p>
-          </div>
+
+        {/* Leads/Week Marks */}
+        <div className="relative mt-6">
+          {[
+            { left: "6.5%", value: "10" },
+            { left: "32.5%", value: "50" },
+          ].map((mark, idx) => (
+            <div key={idx} className="absolute text-center transform -translate-x-1/2 -top-[35px]" style={{ left: mark.left }}>
+              <p className="font-semibold text-gray-600">{mark.value}</p>
+              <p className="text-xs text-gray-400">leads/week</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Arrow Button */}
+      {/* Arrow Pulse Animation */}
       {showArrow && (
         <button
           type="button"
-          className="absolute right-0 top-1/2 z-50 transform -translate-y-1/2 translate-x-full opacity-0"
+          className="absolute right-0 top-1/2 z-50 transform -translate-y-1/2 translate-x-full opacity-0 d-none"
         >
           <ArrowRight className="w-14 h-14 text-[#1EAEDB] bg-blue-100/30 rounded-full p-2 backdrop-blur-sm animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]" />
         </button>
       )}
 
+      {/* Popover Below */}
       <div className="relative mt-12">
-        <div
-          className="absolute left-0 right-0 h-6 overflow-hidden"
-          style={{ bottom: "100%" }}
-        >
+        {/* Pointer (Triangle) */}
+        <div className="absolute left-0 right-0 h-6 overflow-hidden" style={{ bottom: "100%" }}>
           <div
             className="absolute bottom-0 w-0 h-0 border-l-[12px] border-r-[12px] border-b-[24px] border-l-transparent border-r-transparent"
             style={{
               left: `${(value / max) * 100}%`,
               transform: "translateX(-50%)",
               borderBottomColor:
-                value <= 10
-                  ? "#522faa40"
-                  : value <= 50
-                    ? "#7b46ff40"
-                    : "#bda3ff40",
+                value <= 10 ? "#522faa40" : value <= 50 ? "#7b46ff40" : "#bda3ff40",
             }}
           />
         </div>
 
+        {/* Popover Content */}
         <div
           className={cn(
-            "backdrop-blur-sm rounded-lg shadow-lg p-6 relative bg-opacity-25 flex items-center justify-center min-h-[56px]",
+            "backdrop-blur-sm rounded-lg shadow-lg px-6 py-4 relative bg-opacity-25 flex items-center justify-center min-h-[56px]",
             "bg-gradient-to-r",
             getPopoverColor(value)
           )}
         >
-          {value <= 10 && (
-            <p className="text-[15px] font-medium text-gray-600">
-              Niche ICP with hidden signals. Finding leads is tough — it demands
-              precision.{" "}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger className="underline cursor-pointer">
-                    Examples -&gt;
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-sm">
-                      &bull;Startup raised funding Launched a new product or
-                      marketing campaign Opened a new office or entered
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </p>
-          )}
-          {value > 10 && value <= 50 && (
-            <p className="text-[15px] font-medium text-gray-600">
-              Signals are quite specific but accessible.{" "}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger className="underline cursor-pointer">
-                    Examples -&gt;
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-sm">
-                      &bull; Job openings for strategic or unusual roles (e.g.,
-                      Compliance Officer, AI Lead) Expansion of investment
-                      portfolios (e.g., VC/PE firms scaling up) ESG or
-                      carbon-related initiatives
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </p>
-          )}
-          {value > 50 && (
-            <p className="text-[15px] font-medium text-gray-600">
-              Signals are easy to spot, high signal density.{" "}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger className="underline cursor-pointer">
-                    Examples -&gt;
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-sm">
-                      &bull; New commercial construction projects in a specific
-                      city Participation in accelerators or niche trade shows
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </p>
-          )}
+          <p className="text-[15px] font-medium text-gray-600">
+            {getPopoverText()}{" "}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="underline cursor-pointer">
+                  Examples -&gt;
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-sm">{getTooltipContent()}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </p>
         </div>
       </div>
     </div>
