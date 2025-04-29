@@ -200,7 +200,10 @@ const GlassySlider = ({ value, setValue }: GlassySliderProps) => {
                     Examples -&gt;
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p className="text-sm">I will provide, 7 min</p>
+                    <p className="text-sm">
+                      &bull;Startup raised funding Launched a new product or
+                      marketing campaign Opened a new office or entered
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -215,7 +218,12 @@ const GlassySlider = ({ value, setValue }: GlassySliderProps) => {
                     Examples -&gt;
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p className="text-sm">I will provide, 7 min</p>
+                    <p className="text-sm">
+                      &bull; Job openings for strategic or unusual roles (e.g.,
+                      Compliance Officer, AI Lead) Expansion of investment
+                      portfolios (e.g., VC/PE firms scaling up) ESG or
+                      carbon-related initiatives
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -230,7 +238,10 @@ const GlassySlider = ({ value, setValue }: GlassySliderProps) => {
                     Examples -&gt;
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p className="text-sm">I will provide, 7 min</p>
+                    <p className="text-sm">
+                      &bull; New commercial construction projects in a specific
+                      city Participation in accelerators or niche trade shows
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
