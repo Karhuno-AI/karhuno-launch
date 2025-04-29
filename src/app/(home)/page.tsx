@@ -534,7 +534,7 @@ export default function Home() {
         id="pricing"
         className="min-h-screen bg-gradient-to-b from-purple-200 via-white to-purple-200 p-4 font-montserrat"
       >
-        <div className="max-w-4xl mx-auto pt-8 pb-12">
+        <div className="max-w-4xl mx-auto pt-4 pb-8">
           <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
             Pricing
           </h2>
@@ -607,7 +607,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-4">
             <Button
               variant="accent"
               size="lg"
