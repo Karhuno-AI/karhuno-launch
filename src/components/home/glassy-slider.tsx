@@ -122,7 +122,7 @@ const GlassySlider = ({ value, setValue }: GlassySliderProps) => {
           className="absolute pointer-events-none w-12 h-12 rounded-full bg-white/70 backdrop-blur-sm shadow-lg flex items-center justify-center text-purple-800 font-bold text-xl"
           style={{
             left: `${(value / max) * 100}%`,
-            top: "50%",
+            top: "20%",
             transform: "translate(-50%, -50%)",
           }}
         >

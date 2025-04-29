@@ -535,7 +535,7 @@ export default function Home() {
         className="min-h-screen inset-0 bg-gradient-to-b from-white via-purple-50/50 to-white"
       >
         <div className="max-w-4xl mx-auto py-8 px-4">
-          <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl text-center font-bold mb-4 bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
             Pricing
           </h2>
           <p className="text-gray-600 text-center text-lg mb-8">
