@@ -127,7 +127,7 @@ const WhoItsFor: React.FC = () => {
               {/* Card */}
               <div className="flex justify-center items-center">
                 <div 
-                  ref={el => cardsRef.current[index] = el}
+                  ref={el => { cardsRef.current[index] = el; }}
                   className={`w-full md:w-5/12 ${card.bgColor} rounded-xl shadow-lg p-5 md:p-6 border-2 ${card.borderColor} 
                     transition-all duration-700 ease-out opacity-0 ${
                     card.side === 'left' 
