@@ -3,9 +3,9 @@ import React from 'react';
 import Image from 'next/image';
 const MultiPlatformIcons: React.FC = () => {
   return (
-    <section className="py-8 px-6 md:px-12 bg-white">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-xl md:text-2xl font-bold mb-4 font-roboto">
+    <section className="py-16 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-indigo-200/80 before:via-pink-200/60 before:to-transparent before:animate-gradient-shift before:opacity-75 overflow-hidden">
+      <div className="max-w-4xl mx-auto text-center relative">
+        <h2 className="text-3xl md:text-4xl mb-6 text-gray-900">
           Monitor All Relevant Sources in One Place
         </h2>
         

@@ -43,35 +43,36 @@ const Hero: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-gradient-to-br from-[#a947e7] to-[#792abf] text-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="w-full py-16 md:py-8 px-6 md:px-12 text-black">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 opacity-60"></div>
+        <div className="container mx-auto relative z-10 flex justify-center items-center">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             {/* Hero Content Left Side */}
             <div className="w-full md:w-1/2 text-left">
               {/* Early Adopter Label - NEW */}
               <div className="mb-4">
-                <span className="text-[14px] font-semibold bg-[#E5D8FF]/20 text-[#E5D8FF] px-4 py-1.5 rounded-full inline-flex items-center">
+                <span className="text-sm font-semibold bg-[#E5D8FF]/60 text-primary px-4 py-1.5 rounded-full inline-flex items-center">
                   🚀 For early adopters
                 </span>
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4  leading-tight">
-                <span className="text-white">Stop Searching</span>, <br />
-                <span className="text-[#F25D9C]">Start Selling</span>
+                <span className="text-black">Stop Searching</span>, <br />
+                <span className="text-primary">Start Selling</span>
               </h1>
 
-              <p className="text-lg md:text-xl mb-8  text-white/90">
+              <p className="text-lg md:text-xl mb-6 text-black/80">
                 From live signals to perfect-fit leads — with filtering
                 flexibility you won&apos;t find anywhere else.
               </p>
 
               {/* Updated button with icon */}
-              <Button className="px-8 py-7 bg-white text-[#792abf] rounded-lg hover:bg-white/90 transition-all  text-lg font-bold flex items-center gap-2">
+              <Button className="px-8 py-7 transition-all text-lg font-bold flex items-center gap-2" variant="accent" size="xl">
                 <Mail size={20} />
                 Claim Your Free Access
               </Button>
 
-              <p className="mt-4 text-sm text-white/80 ">
+              <p className="mt-4 text-sm text-black/80 ">
                 First 100 users get free access. No LinkedIn login.
               </p>
             </div>
@@ -94,13 +95,13 @@ const Hero: React.FC = () => {
       </section>
 
       {/* How It Works Section - Keep everything below the same */}
-      <section className="py-20 px-6 md:px-12 bg-gray-50">
+      <section className="py-20 px-6 md:px-12 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 ">
+            <h2 className="text-3xl md:text-4xl mb-4 bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
               How Karhuno AI Works
             </h2>
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto ">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Track real buying signals — from LinkedIn or across the web.
             </p>
           </div>
