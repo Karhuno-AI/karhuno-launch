@@ -10,7 +10,7 @@ export const HomeSidebar = () => {
   return (
     <Sidebar className="z-40 border-none" collapsible="icon">
       <Link href="/">
-        <div className="p-4 flex items-center gap-1 bg-surface">
+        <div className="p-4 flex relative items-center gap-1 bg-surface">
           <Image src="/logo.png" alt="Logo" width={32} height={32} />
           {state === "expanded" ? (
             <p className="text-xl text-primary pl-2 font-semibold tracking-tight font-[family-name:var(--font-roboto-sans)]">

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 import { CookieConsent } from "@/components/cookie-content";
 import Script from "next/script";
-
+import { Toaster } from "@/components/ui/sonner"
 
 const montserrat = Montserrat({
   variable: "--font-montserrat-sans",
@@ -53,15 +52,9 @@ export default function RootLayout({
           />
         </head>
         <body className={`${montserrat.variable} antialiased`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
             {children}
+             <Toaster />
             <CookieConsent />
-          </ThemeProvider>
         </body>
       </html>
   );
