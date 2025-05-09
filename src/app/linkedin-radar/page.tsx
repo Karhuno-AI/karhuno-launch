@@ -1,4 +1,4 @@
-
+"use client";
 import React, { useEffect, useState, useRef } from 'react';
 import { Radar, Search, Filter, Mail, Users, Briefcase, UserCheck, Shield } from 'lucide-react';
 import { Button } from "@/components/ui/button";
