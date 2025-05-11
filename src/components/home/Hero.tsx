@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="w-full py-16 md:py-8 px-6 md:px-12 text-black">
+      <section className="w-full text-black min-h-screen mt-20 flex relative">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 opacity-60"></div>
         <div className="container mx-auto relative z-10 flex justify-center items-center">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
@@ -67,13 +67,13 @@ const Hero: React.FC = () => {
               </p>
 
               {/* Updated button with icon */}
-              <Button className="px-8 py-7 transition-all text-lg font-bold flex items-center gap-2" variant="accent" size="xl">
+              <Button className="px-8 py-7 transition-all text-lg font-bold flex items-center gap-2 shadow-md" variant="accent" size="xl">
                 <Mail size={20} />
                 Claim Your Free Access
               </Button>
 
               <p className="mt-4 text-sm text-black/80 ">
-                First 100 users get free access. No LinkedIn login.
+                First 100 users get free access.
               </p>
             </div>
 
@@ -98,10 +98,10 @@ const Hero: React.FC = () => {
       <section className="py-20 px-6 md:px-12 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl mb-4 bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
-              How Karhuno AI Works
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-blue-400 via-violet-400 to-purple-400 bg-clip-text">
+              How Karhuno AI works
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
               Track real buying signals — from LinkedIn or across the web.
             </p>
           </div>

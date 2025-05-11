@@ -11,7 +11,7 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <nav className="absolute top-0 left-0 right-0 backdrop-blur-sm bg-white/30 dark:bg-black/30 z-50 shadow-sm">
+    <nav className="absolute top-0 left-0 right-0 backdrop-blur-sm bg-white/30 dark:bg-black/30 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className=" flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -29,25 +29,25 @@ const NavBar: React.FC = () => {
               onClick={() => scrollToSection("how-it-works")}
               className="text-black hover:text-violet-600 transition-colors font-medium"
             >
-              How It Works
+              How it works
             </button>
             <button
               onClick={() => scrollToSection("who-its-for")}
               className="text-black hover:text-violet-600 transition-colors font-medium"
             >
-              Who It&apos;s For
+              Who it&apos;s for
             </button>
             <button
               onClick={() => scrollToSection("track-signals")}
               className="text-black hover:text-violet-600 transition-colors font-medium"
             >
-              Track Signals
+              Track signals
             </button>
             <button
               onClick={() => scrollToSection("use-cases")}
               className="text-black hover:text-violet-600 transition-colors font-medium"
             >
-              Use Cases
+              Use cases
             </button>
           </div>
 

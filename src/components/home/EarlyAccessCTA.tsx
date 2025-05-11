@@ -33,7 +33,7 @@ const EarlyAccessCTA: React.FC<EarlyAccessCTAProps> = ({ className = "" }) => {
   return (
     <div className={`bg-white rounded-xl shadow-lg p-6 md:p-8 ${className}`}>
       <h3 className="text-2xl md:text-[28px] font-bold mb-3 text-center font-roboto">
-        Don&apos;t Miss This Limited Offer!
+        Don&apos;t miss this limited offer!
       </h3>
       
       <p className="text-base md:text-lg mb-6 text-center font-montserrat">
@@ -54,7 +54,7 @@ const EarlyAccessCTA: React.FC<EarlyAccessCTAProps> = ({ className = "" }) => {
         
         <Button
           type="submit"
-          className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-[#a947e7]/90 hover:to-[#792abf]/90 text-white font-bold py-2 px-6"
+          className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-[#a947e7]/90 hover:to-[#792abf]/90 shadow-lg text-white font-bold py-2 px-6"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Processing..." : "Claim Your Free Access"}

@@ -82,7 +82,7 @@ const RealWorldUseCases: React.FC = () => {
       </div>
       <div className="max-w-4xl mx-auto text-center relative">
         <h2 className="text-3xl md:text-4xl mb-6 text-gray-900">
-          Real-World Use Cases
+          real-world use cases
         </h2>
 
         <Accordion type="single" collapsible className="w-full space-y-3">
@@ -98,7 +98,7 @@ const RealWorldUseCases: React.FC = () => {
                     <Plus className="h-5 w-5 transition-opacity text-primary duration-300 ease-in-out data-[state=closed]:opacity-100 data-[state=open]:opacity-0 data-[state=open]:hidden" />
                     <Minus className="h-5 w-5 transition-opacity text-primary duration-300 ease-in-out data-[state=closed]:opacity-0 data-[state=open]:opacity-100 data-[state=closed]:hidden" />
                   </div>
-                  <span>{useCase.title}</span>
+                  <span className="font-montserrat">{useCase.title}</span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-4 pt-1 font-montserrat text-base">

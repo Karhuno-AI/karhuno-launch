@@ -141,7 +141,7 @@ const WhoItsFor: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl mb-4">Who It&apos;s For</h2>
+          <h2 className="text-3xl md:text-4xl mb-4">Who It&apos;s for</h2>
         </div>
 
         {/* Vertical Timeline Line - even shorter to prevent overlap with CTA */}
@@ -188,17 +188,7 @@ const WhoItsFor: React.FC = () => {
         </div>
 
         {/* Final CTA Block with updated background color */}
-        <div className="text-center mt-16 max-w-2xl mx-auto px-4 relative z-20 bg-[#F1F0FB] py-8 rounded-xl shadow-sm">
-          <div className="mb-5">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800 font-roboto mb-2">
-              Don&apos;t miss out on high-intent leads!
-            </h3>
-            <p className="text-gray-600 font-montserrat">
-              Join hundreds of sales professionals already using Karhuno to get
-              ahead of competitors
-            </p>
-          </div>
-
+        <div className="text-center mt-16 max-w-2xl mx-auto px-4 relative z-20">
           <EarlyAccessCTA />
         </div>
       </div>

@@ -24,7 +24,7 @@ const TwoWaysToTrack: React.FC = () => {
               Right Signals{" "}
             </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             Everything you need to catch the right leads — from the moment they
             show intent.
           </p>

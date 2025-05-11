@@ -33,14 +33,14 @@ const ConsolidatedCTA = () => {
         <div className="bg-gradient-to-r from-violet-500 to-[#792abf] text-white text-xs font-bold py-1 px-3 rounded-full mb-3 animate-pulse">
           LIMITED OFFER - ONLY SPOTS LEFT
         </div>
-        <h3 className="text-3xl md:text-4xl font-bold text-center font-roboto bg-gradient-to-r from-violet-500 to-[#792abf] bg-clip-text text-transparent">
-          Don&apos;t Miss This Opportunity!
+        <h3 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-violet-500 to-[#792abf] bg-clip-text text-transparent">
+          Don&apos;t miss this opportunity!
         </h3>
       </div>
       
       <div className="flex gap-4 items-center justify-center mb-6">
         <div className="h-px flex-grow bg-gradient-to-r from-transparent to-violet-500/30"></div>
-        <span className="text-lg font-semibold text-gray-700">Limited Time Offer</span>
+        <span className="text-lg font-semibold text-gray-700">Limited time offer</span>
         <div className="h-px flex-grow bg-gradient-to-r from-violet-500/30 to-transparent"></div>
       </div>
       
@@ -76,7 +76,7 @@ const ConsolidatedCTA = () => {
         
         <Button
           type="submit"
-          className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-[#a947e7]/90 hover:to-[#792abf]/90 text-white font-bold py-2 px-8"
+          className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-[#a947e7]/90 hover:to-[#792abf]/90 shadow-lg text-white font-bold py-2 px-8"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Processing..." : (

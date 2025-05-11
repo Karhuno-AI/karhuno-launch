@@ -76,7 +76,7 @@ const AnimatedSearchBar: React.FC = () => {
   return (
     <section className="py-20 bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 relative overflow-hidden px-6 md:px-12 text-white">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 font-roboto">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12">
           See what Karhuno can find for you
         </h2>
         
