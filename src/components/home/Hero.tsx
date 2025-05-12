@@ -64,7 +64,7 @@ const Hero: React.FC = () => {
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
                 <span className="text-black">Stop Searching</span>, <br />
-                <span className="text-primary">Start Selling</span>
+                <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">Start Selling</span>
               </h1>
 
               <p className="text-lg md:text-xl mb-6 text-black/80">
