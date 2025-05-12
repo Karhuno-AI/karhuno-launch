@@ -169,11 +169,11 @@ const WhoItsFor: React.FC = () => {
                     <div className="flex p-2 bg-white bg-opacity-60 rounded-lg mr-3">
                       {card.icons}
                     </div>
-                    <h3 className="text-lg font-bold font-roboto text-[#222]">
+                    <h3 className="text-lg font-bold text-[#222]">
                       {card.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-gray-700 font-montserrat">
+                  <p className="text-sm text-gray-700">
                     {card.description}
                   </p>
                 </div>

@@ -31,7 +31,7 @@ const ConsolidatedCTA = () => {
     <div className="bg-white rounded-xl shadow-lg p-8 md:p-10">
       <div className="flex flex-col items-center mb-8">
         <div className="bg-gradient-to-r from-violet-500 to-[#792abf] text-white text-xs font-bold py-1 px-3 rounded-full mb-3 animate-pulse">
-          LIMITED OFFER - ONLY SPOTS LEFT
+          LIMITED OFFER - ONLY A FEW SPOTS LEFT
         </div>
         <h3 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-violet-500 to-[#792abf] bg-clip-text text-transparent">
           Don&apos;t miss this opportunity!

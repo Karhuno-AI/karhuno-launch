@@ -9,14 +9,15 @@ import MultiPlatformIcons from "@/components/home/MultiPlatformIcons";
 import Footer from "@/components/home/footer";
 
 export default function Home() {
-
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation Bar */}
-      <NavBar />
+    <div className="min-h-screen">
+      <header className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 dark:from-purple-900 dark:via-purple-950 dark:to-purple-900">
+        {/* Navigation Bar */}
+        <NavBar />
 
-      {/* Hero Section */}
-      <Hero />
+        {/* Hero Section */}
+        <Hero />
+      </header>
 
       {/* Animated Search Bar Section */}
       <AnimatedSearchBar />

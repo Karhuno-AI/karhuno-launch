@@ -32,11 +32,11 @@ const EarlyAccessCTA: React.FC<EarlyAccessCTAProps> = ({ className = "" }) => {
 
   return (
     <div className={`bg-white rounded-xl shadow-lg p-6 md:p-8 ${className}`}>
-      <h3 className="text-2xl md:text-[28px] font-bold mb-3 text-center font-roboto">
+      <h3 className="text-2xl md:text-[28px] font-bold mb-3 text-center">
         Don&apos;t miss this limited offer!
       </h3>
       
-      <p className="text-base md:text-lg mb-6 text-center font-montserrat">
+      <p className="text-base md:text-lg mb-6 text-center">
         Be among the first to get free access to Karhuno AI — a new way to find leads using real signals from the web and LinkedIn.
       </p>
       

@@ -32,7 +32,7 @@ const TwoWaysToTrack: React.FC = () => {
 
         <div className="flex flex-col gap-10">
           {/* Card 1 - Web Signals - Full Width Horizontal */}
-          <Card className="rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.05)] bg-[#FCE2E4] border-0">
+          <Card className="rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.05)] bg-transparent border-black border">
             <CardContent className="p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left Content */}
@@ -93,7 +93,7 @@ const TwoWaysToTrack: React.FC = () => {
                 {/* Right Image - Updated with new uploaded image */}
                 <div className="w-full h-full relative min-h-[300px] rounded-lg overflow-hidden bg-white/50 border border-[#49937d]/20 flex items-center justify-center">
                   <Image
-                    src="/images/b4468311-843f-4ef9-af4a-dd7a1b66b4b6.png"
+                    src="/images/card.png"
                     alt="Search interface for finding European SaaS startups"
                     className="w-full h-full object-contain"
                     fill
