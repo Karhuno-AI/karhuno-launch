@@ -32,13 +32,13 @@ const TwoWaysToTrack: React.FC = () => {
 
         <div className="flex flex-col gap-10">
           {/* Card 1 - Web Signals - Full Width Horizontal */}
-          <Card className="rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.05)] bg-[#F2FCE2] border-0">
+          <Card className="rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.05)] bg-[#FCE2E4] border-0">
             <CardContent className="p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left Content */}
                 <div className="flex flex-col justify-between">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold mb-4 font-roboto text-left">
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-left">
                       Track what companies do — not just what they say.
                     </h3>
 
@@ -110,7 +110,7 @@ const TwoWaysToTrack: React.FC = () => {
                 {/* Left Content */}
                 <div className="flex flex-col justify-between">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold mb-4 font-roboto text-left">
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-left">
                       Find companies that posted… before your competitors even
                       saw it.
                     </h3>

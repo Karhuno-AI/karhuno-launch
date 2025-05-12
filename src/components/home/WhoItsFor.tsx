@@ -145,7 +145,7 @@ const WhoItsFor: React.FC = () => {
         </div>
 
         {/* Vertical Timeline Line - even shorter to prevent overlap with CTA */}
-        <div className="absolute left-1/2 top-20 bottom-[450px] transform -translate-x-1/2 w-1 bg-[#a947e7] bg-opacity-80 z-10"></div>
+        <div className="absolute left-1/2 top-20 bottom-[400px] transform -translate-x-1/2 w-1 bg-[#a947e7] bg-opacity-80 z-10"></div>
 
         {/* Cards with connectors */}
         <div className="relative z-20">

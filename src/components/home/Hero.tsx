@@ -147,6 +147,7 @@ const Hero: React.FC = () => {
                 className="px-8 py-7 transition-all text-lg font-bold flex items-center gap-2 shadow-md"
                 variant="accent"
                 size="xl"
+                onClick={() => handleSubmit()}
               >
                 <Mail size={20} />
                 Claim Your Free Access
@@ -452,7 +453,6 @@ const Hero: React.FC = () => {
               variant="accent"
               onClick={() => {
                 setIsThankYouDialogOpen(false);
-                handleSubmit();
               }}
             >
               Good!
