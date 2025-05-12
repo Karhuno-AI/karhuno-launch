@@ -76,7 +76,7 @@ const ConsolidatedCTA = () => {
         
         <Button
           type="submit"
-          className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-[#a947e7]/90 hover:to-[#792abf]/90 shadow-lg text-white font-bold py-2 px-8"
+          className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-indigo-600 hover:to-purple-500 hover:shadow-purple-600/50 shadow-lg text-white font-bold py-2 px-8"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Processing..." : (

@@ -15,8 +15,84 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
+import { sendToWebhook } from "@/lib/webhook";
+import { SendEmailParams } from "@/app/api/mail/route";
+
 const Hero: React.FC = () => {
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
+  const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
+
+  const [formData, setFormData] = useState<SendEmailParams>({
+    to: "",
+    ICP: "",
+    moreDetails: "",
+    company: "",
+    name: "",
+  });
+
+  const handleSubmit = async () => {
+    setIsThankYouDialogOpen(true);
+
+    // Track form submission
+    sendToWebhook({
+      type: "lead_submission",
+      email: "email_provided", // Anonymized for security
+      timestamp: new Date().toISOString(),
+    });
+
+    try {
+      const userEmailData: SendEmailParams = {
+        to: formData.to, // Admin email is auto-set in the API
+        ICP: formData.ICP,
+        moreDetails: formData.moreDetails,
+        company: formData.company,
+        name: formData.name,
+      };
+      const result = await fetch("/api/mail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userEmailData),
+      }).then((res) => res.json());
+      if (result.success) {
+        // Track successful submission
+        sendToWebhook({
+          type: "email_success",
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        // Track error
+        sendToWebhook({
+          type: "email_error",
+          error: result.error,
+          timestamp: new Date().toISOString(),
+        });
+      }
+    } catch (error) {
+      // Track error
+      sendToWebhook({
+        type: "email_error",
+        error: String(error),
+        timestamp: new Date().toISOString(),
+      });
+    } finally {
+      setFormData({
+        to: "",
+        ICP: "",
+        moreDetails: "",
+        company: "",
+        name: "",
+      });
+    }
+  };
 
   const handleCardFlip = (index: number) => {
     if (flippedCard === index) {
@@ -56,7 +132,7 @@ const Hero: React.FC = () => {
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4  leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
                 <span className="text-black">Stop Searching</span>, <br />
                 <span className="text-primary">Start Selling</span>
               </h1>
@@ -67,7 +143,11 @@ const Hero: React.FC = () => {
               </p>
 
               {/* Updated button with icon */}
-              <Button className="px-8 py-7 transition-all text-lg font-bold flex items-center gap-2 shadow-md" variant="accent" size="xl">
+              <Button
+                className="px-8 py-7 transition-all text-lg font-bold flex items-center gap-2 shadow-md"
+                variant="accent"
+                size="xl"
+              >
                 <Mail size={20} />
                 Claim Your Free Access
               </Button>
@@ -81,7 +161,7 @@ const Hero: React.FC = () => {
             <div className="w-full md:w-1/2 flex justify-center">
               <div className="relative w-80 h-80">
                 <Image
-                  src="/images/3027da6b-793d-435c-9161-e7829dbac973.png"
+                  src="/images/image1.png"
                   alt="Karhuno Radar"
                   className="w-full h-full object-contain"
                   fill
@@ -98,7 +178,7 @@ const Hero: React.FC = () => {
       <section className="py-20 px-6 md:px-12 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-blue-400 via-violet-400 to-purple-400 bg-clip-text">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-purple-400">
               How Karhuno AI works
             </h2>
             <p className="text-lg text-gray-700 max-w-2xl mx-auto">
@@ -346,6 +426,40 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </section>
+      {/* Thank You Dialog */}
+      <Dialog
+        open={isThankYouDialogOpen}
+        onOpenChange={setIsThankYouDialogOpen}
+      >
+        <DialogContent className="dialogContentStyle">
+          <DialogHeader>
+            <DialogTitle className="dialogTitleStyle">Thank You!</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-lg">
+              Karhuno has already started finding your ideal leads. You&apos;ll
+              have them in 5 business days* by email.
+            </p>
+            <p className="text-sm text-gray-600">
+              *as we carefully collect, analyze, filter, and enrich the data to
+              ensure accuracy and quality. This timeline guarantees that you
+              receive only valid, verified leads, optimized for your business
+              needs.
+            </p>
+          </div>
+          <DialogFooter className="flex justify-center mt-4">
+            <Button
+              variant="accent"
+              onClick={() => {
+                setIsThankYouDialogOpen(false);
+                handleSubmit();
+              }}
+            >
+              Good!
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
