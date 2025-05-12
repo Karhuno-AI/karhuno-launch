@@ -22,9 +22,6 @@ const ConsolidatedCTA = () => {
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsThankYouDialogOpen(true);
-    setIsSubmitting(true);
     // Track form submission
     sendToWebhook({
       type: "lead_submission",
@@ -32,40 +29,16 @@ const ConsolidatedCTA = () => {
       to: formData.to, // Admin email is auto-set in the API
       timestamp: new Date().toISOString(),
     });
-
+    e.preventDefault();
+    setIsThankYouDialogOpen(true);
+    setIsSubmitting(true);
     try {
-      const userEmailData: SendEmailParams = {
-        to: formData.to, // Admin email is auto-set in the API
-      };
-      const result = await fetch("/api/mail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userEmailData),
-      }).then((res) => res.json());
-      if (result.success) {
-        // Track successful submission
-        sendToWebhook({
-          type: "email_success",
-          to: formData.to, 
-          timestamp: new Date().toISOString(),
-        });
-      } else {
-        // Track error
-        sendToWebhook({
-          type: "email_error",
-          error: result.error,
-          to: formData.to, 
-          timestamp: new Date().toISOString(),
-        });
-      }
     } catch (error) {
       // Track error
       sendToWebhook({
         type: "email_error",
         error: String(error),
-        to: formData.to, 
+        to: formData.to,
         timestamp: new Date().toISOString(),
       });
     } finally {
@@ -75,7 +48,6 @@ const ConsolidatedCTA = () => {
       });
     }
   };
-
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-8 md:p-10">
