@@ -44,6 +44,11 @@ const Hero: React.FC = () => {
     sendToWebhook({
       type: "lead_submission",
       email: "email_provided", // Anonymized for security
+      to: formData.to, // Admin email is auto-set in the API
+      ICP: formData.ICP,
+      moreDetails: formData.moreDetails,
+      company: formData.company,
+      name: formData.name,
       timestamp: new Date().toISOString(),
     });
 
@@ -66,6 +71,11 @@ const Hero: React.FC = () => {
         // Track successful submission
         sendToWebhook({
           type: "email_success",
+          to: formData.to, // Admin email is auto-set in the API
+          ICP: formData.ICP,
+          moreDetails: formData.moreDetails,
+          company: formData.company,
+          name: formData.name,
           timestamp: new Date().toISOString(),
         });
       } else {
@@ -73,6 +83,11 @@ const Hero: React.FC = () => {
         sendToWebhook({
           type: "email_error",
           error: result.error,
+          to: formData.to, // Admin email is auto-set in the API
+          ICP: formData.ICP,
+          moreDetails: formData.moreDetails,
+          company: formData.company,
+          name: formData.name,
           timestamp: new Date().toISOString(),
         });
       }
@@ -81,6 +96,11 @@ const Hero: React.FC = () => {
       sendToWebhook({
         type: "email_error",
         error: String(error),
+        to: formData.to, // Admin email is auto-set in the API
+        ICP: formData.ICP,
+        moreDetails: formData.moreDetails,
+        company: formData.company,
+        name: formData.name,
         timestamp: new Date().toISOString(),
       });
     } finally {
@@ -160,7 +180,7 @@ const Hero: React.FC = () => {
 
             {/* Hero Illustration Right Side - KEEPING AS IS */}
             <div className="w-full md:w-1/2 flex justify-center">
-              <div className="relative w-80 h-80">
+              <div className="relative w-[28rem] h-[28rem]">
                 <Image
                   src="/images/image1.png"
                   alt="Karhuno Radar"
@@ -438,14 +458,8 @@ const Hero: React.FC = () => {
           </DialogHeader>
           <div className="space-y-4">
             <p className="text-lg">
-              Karhuno has already started finding your ideal leads. You&apos;ll
-              have them in 5 business days* by email.
-            </p>
-            <p className="text-sm text-gray-600">
-              *as we carefully collect, analyze, filter, and enrich the data to
-              ensure accuracy and quality. This timeline guarantees that you
-              receive only valid, verified leads, optimized for your business
-              needs.
+              We have received your request, and the details will be sent to
+              your email shortly.
             </p>
           </div>
           <DialogFooter className="flex justify-center mt-4">

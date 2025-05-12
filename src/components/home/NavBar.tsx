@@ -27,25 +27,25 @@ const NavBar: React.FC = () => {
           <div className="hidden md:flex space-x-8 justify-center">
             <button
               onClick={() => scrollToSection("how-it-works")}
-              className="text-black hover:text-violet-600 transition-colors font-medium"
+              className="text-black hover:text-violet-600 transition-colors"
             >
               How it works
             </button>
             <button
               onClick={() => scrollToSection("who-its-for")}
-              className="text-black hover:text-violet-600 transition-colors font-medium"
+              className="text-black hover:text-violet-600 transition-colors"
             >
               Who it&apos;s for
             </button>
             <button
               onClick={() => scrollToSection("track-signals")}
-              className="text-black hover:text-violet-600 transition-colors font-medium"
+              className="text-black hover:text-violet-600 transition-colors"
             >
               Track signals
             </button>
             <button
               onClick={() => scrollToSection("use-cases")}
-              className="text-black hover:text-violet-600 transition-colors font-medium"
+              className="text-black hover:text-violet-600 transition-colors"
             >
               Use cases
             </button>
