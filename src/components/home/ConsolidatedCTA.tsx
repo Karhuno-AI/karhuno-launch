@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { Rocket } from "lucide-react";
 import {
   Dialog,
@@ -11,31 +10,72 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
+import { SendEmailParams } from "@/app/api/mail/route";
+import { sendToWebhook } from "@/lib/webhook";
 
 const ConsolidatedCTA = () => {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const [formData, setFormData] = useState<SendEmailParams>({
+    to: "",
+  });
 
-    if (!email || !email.includes("@")) {
-      toast.error("Please enter a valid email address");
-      return;
-    }
-
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsThankYouDialogOpen(true);
     setIsSubmitting(true);
+    // Track form submission
+    sendToWebhook({
+      type: "lead_submission",
+      email: "email_provided", // Anonymized for security
+      to: formData.to, // Admin email is auto-set in the API
+      timestamp: new Date().toISOString(),
+    });
 
-    // Simulate API call
-    setTimeout(() => {
-      toast.success(
-        "Success! You've secured your spot among the first 100 users!"
-      );
-      setEmail("");
+    try {
+      const userEmailData: SendEmailParams = {
+        to: formData.to, // Admin email is auto-set in the API
+      };
+      const result = await fetch("/api/mail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userEmailData),
+      }).then((res) => res.json());
+      if (result.success) {
+        // Track successful submission
+        sendToWebhook({
+          type: "email_success",
+          to: formData.to, 
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        // Track error
+        sendToWebhook({
+          type: "email_error",
+          error: result.error,
+          to: formData.to, 
+          timestamp: new Date().toISOString(),
+        });
+      }
+    } catch (error) {
+      // Track error
+      sendToWebhook({
+        type: "email_error",
+        error: String(error),
+        to: formData.to, 
+        timestamp: new Date().toISOString(),
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+      setFormData({
+        to: "",
+      });
+    }
   };
+
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-8 md:p-10">
@@ -85,14 +125,15 @@ const ConsolidatedCTA = () => {
           type="email"
           placeholder="Your email address"
           className="flex-grow shadow-sm"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.to}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, to: e.target.value }))
+          }
           required
           disabled={isSubmitting}
         />
 
         <Button
-          type="submit"
           className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-indigo-600 hover:to-purple-500 hover:shadow-purple-600/50 shadow-lg text-white font-bold py-2 px-8"
           disabled={isSubmitting}
         >
@@ -123,7 +164,8 @@ const ConsolidatedCTA = () => {
           </DialogHeader>
           <div className="space-y-4">
             <p className="text-lg">
-              We have received your request, and the details will be sent to your email shortly.
+              We have received your request, and the details will be sent to
+              your email shortly.
             </p>
           </div>
           <DialogFooter className="flex justify-center mt-4">

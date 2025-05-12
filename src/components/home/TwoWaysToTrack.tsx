@@ -18,10 +18,10 @@ const TwoWaysToTrack: React.FC = () => {
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl mb-6 text-gray-900">
-            Two Ways to Track the{" "}
+            Two ways to track the{" "}
             <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">
               {" "}
-              Right Signals{" "}
+              right signals{" "}
             </span>
           </h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
@@ -32,7 +32,7 @@ const TwoWaysToTrack: React.FC = () => {
 
         <div className="flex flex-col gap-10">
           {/* Card 1 - Web Signals - Full Width Horizontal */}
-          <Card className="rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.05)] bg-transparent border-black border">
+          <Card className="rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.05)] bg-[#F4D0FF] border-0">
             <CardContent className="p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left Content */}
@@ -91,7 +91,7 @@ const TwoWaysToTrack: React.FC = () => {
                 </div>
 
                 {/* Right Image - Updated with new uploaded image */}
-                <div className="w-full h-full relative min-h-[300px] rounded-lg overflow-hidden bg-white/50 border border-[#49937d]/20 flex items-center justify-center">
+                <div className="w-full h-full relative min-h-[300px] rounded-lg overflow-hidden  flex items-center justify-center">
                   <Image
                     src="/images/card.png"
                     alt="Search interface for finding European SaaS startups"

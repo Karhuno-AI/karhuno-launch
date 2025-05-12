@@ -12,13 +12,9 @@ import * as React from "react";
 
 interface KarhunoAdminEmailProps {
     to: string;
-    ICP: string;
-    moreDetails: string;
-    company: string;
-    name: string;
   }
 
-export default function KarhunoAdminEmail({to,ICP,moreDetails,company,name}: KarhunoAdminEmailProps) {
+export default function KarhunoAdminEmail({to}: KarhunoAdminEmailProps) {
   return (
     <Html>
       <Head />
@@ -31,14 +27,8 @@ export default function KarhunoAdminEmail({to,ICP,moreDetails,company,name}: Kar
             />
           </Section>
 
-          <Text style={subtitle}>All the information from user, {name}</Text>
-
           <Hr style={divider} />
 
-          <Text style={text}>I am looking for this ICP: {ICP}</Text>
-          <Text style={text}>more details: {moreDetails}</Text>
-          <Text style={text}>My company name is: {company}</Text>
-          <Text style={text}>My name is: {name}</Text>
           <Text style={text}>my Email address is: {to}</Text>
         </Container>
       </Body>
@@ -66,12 +56,6 @@ const logoSection = {
   justifyContent: "center",
 };
 
-const subtitle = {
-  fontSize: "20px",
-  color: "#6A0DAD",
-  fontWeight: "bold",
-  textAlign: "center" as const,
-};
 
 const divider = {
   margin: "20px auto",

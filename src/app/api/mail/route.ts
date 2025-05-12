@@ -10,10 +10,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export interface SendEmailParams {
   to: string;
-  ICP: string;
-  moreDetails: string;
-  company: string;
-  name: string;
 }
 
 export async function POST(req: Request) {
@@ -27,10 +23,6 @@ export async function POST(req: Request) {
     const Adminhtml = await render(
       KarhunoAdminEmail({
         to: body.to,
-        ICP: body.ICP,
-        moreDetails: body.moreDetails,
-        company: body.company,
-        name: body.name,
       })
     );
     

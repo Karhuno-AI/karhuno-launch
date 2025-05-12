@@ -15,105 +15,15 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
-import { sendToWebhook } from "@/lib/webhook";
-import { SendEmailParams } from "@/app/api/mail/route";
 
 const Hero: React.FC = () => {
-  const [flippedCard, setFlippedCard] = useState<number | null>(null);
-  const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
-
-  const [formData, setFormData] = useState<SendEmailParams>({
-    to: "",
-    ICP: "",
-    moreDetails: "",
-    company: "",
-    name: "",
-  });
-
-  const handleSubmit = async () => {
-    setIsThankYouDialogOpen(true);
-
-    // Track form submission
-    sendToWebhook({
-      type: "lead_submission",
-      email: "email_provided", // Anonymized for security
-      to: formData.to, // Admin email is auto-set in the API
-      ICP: formData.ICP,
-      moreDetails: formData.moreDetails,
-      company: formData.company,
-      name: formData.name,
-      timestamp: new Date().toISOString(),
-    });
-
-    try {
-      const userEmailData: SendEmailParams = {
-        to: formData.to, // Admin email is auto-set in the API
-        ICP: formData.ICP,
-        moreDetails: formData.moreDetails,
-        company: formData.company,
-        name: formData.name,
-      };
-      const result = await fetch("/api/mail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userEmailData),
-      }).then((res) => res.json());
-      if (result.success) {
-        // Track successful submission
-        sendToWebhook({
-          type: "email_success",
-          to: formData.to, // Admin email is auto-set in the API
-          ICP: formData.ICP,
-          moreDetails: formData.moreDetails,
-          company: formData.company,
-          name: formData.name,
-          timestamp: new Date().toISOString(),
-        });
-      } else {
-        // Track error
-        sendToWebhook({
-          type: "email_error",
-          error: result.error,
-          to: formData.to, // Admin email is auto-set in the API
-          ICP: formData.ICP,
-          moreDetails: formData.moreDetails,
-          company: formData.company,
-          name: formData.name,
-          timestamp: new Date().toISOString(),
-        });
-      }
-    } catch (error) {
-      // Track error
-      sendToWebhook({
-        type: "email_error",
-        error: String(error),
-        to: formData.to, // Admin email is auto-set in the API
-        ICP: formData.ICP,
-        moreDetails: formData.moreDetails,
-        company: formData.company,
-        name: formData.name,
-        timestamp: new Date().toISOString(),
-      });
-    } finally {
-      setFormData({
-        to: "",
-        ICP: "",
-        moreDetails: "",
-        company: "",
-        name: "",
-      });
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
+  const [flippedCard, setFlippedCard] = useState<number | null>(null);
   const handleCardFlip = (index: number) => {
     if (flippedCard === index) {
       setFlippedCard(null);
@@ -167,7 +77,7 @@ const Hero: React.FC = () => {
                 className="px-8 py-7 transition-all text-lg font-bold flex items-center gap-2 shadow-md"
                 variant="accent"
                 size="xl"
-                onClick={() => handleSubmit()}
+                onClick={() => scrollToSection("early-access")}
               >
                 <Mail size={20} />
                 Claim Your Free Access
@@ -180,7 +90,7 @@ const Hero: React.FC = () => {
 
             {/* Hero Illustration Right Side - KEEPING AS IS */}
             <div className="w-full md:w-1/2 flex justify-center">
-              <div className="relative w-[28rem] h-[28rem]">
+              <div className="relative w-[32rem] h-[32rem]">
                 <Image
                   src="/images/image1.png"
                   alt="Karhuno Radar"
@@ -447,33 +357,6 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* Thank You Dialog */}
-      <Dialog
-        open={isThankYouDialogOpen}
-        onOpenChange={setIsThankYouDialogOpen}
-      >
-        <DialogContent className="dialogContentStyle">
-          <DialogHeader>
-            <DialogTitle className="dialogTitleStyle">Thank You!</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-lg">
-              We have received your request, and the details will be sent to
-              your email shortly.
-            </p>
-          </div>
-          <DialogFooter className="flex justify-center mt-4">
-            <Button
-              variant="accent"
-              onClick={() => {
-                setIsThankYouDialogOpen(false);
-              }}
-            >
-              Good!
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </>
   );
 };

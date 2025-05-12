@@ -1,7 +1,15 @@
+'use client';
 import Link from "next/link";
 import { Linkedin } from "lucide-react";
 
 export default function Footer() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -26,36 +34,36 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link
-                  href="#features"
+                <button
+                  onClick={() => scrollToSection("how-it-works")}
                   className="text-gray-300 hover:text-purple-400 transition-colors"
                 >
-                  What we do
-                </Link>
+                  How it works
+                </button>
               </li>
               <li>
-                <Link
-                  href="#case-studies"
+                <button
+                  onClick={() => scrollToSection("who-its-for")}
                   className="text-gray-300 hover:text-purple-400 transition-colors"
                 >
-                  Case studies
-                </Link>
+                  Who it&apos;s for
+                </button>
               </li>
               <li>
-                <Link
-                  href="#pricing"
+                <button
+                  onClick={() => scrollToSection("track-signals")}
                   className="text-gray-300 hover:text-purple-400 transition-colors"
                 >
-                  Pricing
-                </Link>
+                  Track signals
+                </button>
               </li>
               <li>
-                <Link
-                  href="/privacy-policy"
+                <button
+                  onClick={() => scrollToSection("use-cases")}
                   className="text-gray-300 hover:text-purple-400 transition-colors"
                 >
-                  Privacy Policy
-                </Link>
+                  Use cases
+                </button>
               </li>
             </ul>
           </div>

@@ -65,8 +65,8 @@ const RealWorldUseCases: React.FC = () => {
                 fx="50%"
                 fy="50%"
               >
-                <stop offset="0%" stop-color="rgba(216, 180, 254, 0.3)"></stop>
-                <stop offset="100%" stop-color="rgba(216, 180, 254, 0)"></stop>
+                <stop offset="0%" stopColor="rgba(216, 180, 254, 0.3)"></stop>
+                <stop offset="100%" stopColor="rgba(216, 180, 254, 0)"></stop>
               </radialGradient>
             </defs>
             <rect x="0" y="0" width="100" height="100" fill="url(#faq-grad1)">
