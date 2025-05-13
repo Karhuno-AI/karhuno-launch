@@ -27,6 +27,7 @@ export async function sendToWebhook(
 
   // If webhooks are disabled, just log the data and return
   if (!SEND_WEBHOOKS) {
+    console.log("Webhooks disabled, but would have sent:", data);
     return { success: true, message: "Webhook disabled" }
   }
 
@@ -39,6 +40,9 @@ export async function sendToWebhook(
     url: typeof window !== "undefined" ? window.location.href : null,
   }
 
+  // Выводим лог о том, что будем отправлять
+  console.log("Preparing to send webhook data:", JSON.stringify(payload, null, 2));
+
   try {
     // If async is true, don't wait for the response
     if (async) {
@@ -48,8 +52,19 @@ export async function sendToWebhook(
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "Accept": "application/json"
           },
           body: JSON.stringify(payload),
+        }).then(response => {
+          if (!response.ok) {
+            console.error(`Webhook request failed with status: ${response.status}`);
+          } else {
+            console.log("Webhook request successful (async)");
+          }
+          return response.json();
+        }).then(data => {
+          console.log("Webhook response:", data);
         }).catch((error) => {
           console.error("Error sending to webhook (async):", error)
         })
@@ -62,15 +77,20 @@ export async function sendToWebhook(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+          "Accept": "application/json"
         },
         body: JSON.stringify(payload),
       })
 
       if (!response.ok) {
+        console.error(`Webhook request failed with status: ${response.status}`);
         throw new Error(`Webhook request failed with status: ${response.status}`)
       }
 
-      return { success: true, message: "Webhook request successful" }
+      const responseData = await response.json();
+      console.log("Webhook response:", responseData);
+      return { success: true, message: "Webhook request successful", data: responseData }
     }
   } catch (error) {
     // Log the error but don't break the user experience

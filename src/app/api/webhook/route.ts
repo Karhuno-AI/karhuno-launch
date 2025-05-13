@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 
 // The actual webhook URL that we'll call from the server side
 const WEBHOOK_URL = "https://n8n.karhuno.info/webhook/ec1feda6-dab0-4d10-ab9b-78aa5dd43efd"
+const TEST_WEBHOOK_URL = "https://n8n.karhuno.info/webhook-test/ec1feda6-dab0-4d10-ab9b-78aa5dd43efd"
 
 // Flag to control whether we actually send data to the external webhook
 // Default to true unless explicitly set to "false"
@@ -22,11 +23,22 @@ export async function POST(request: NextRequest) {
     // Only send to external webhook if enabled
     if (SEND_TO_EXTERNAL) {
       try {
-        // Forward the data to the n8n webhook from the server side
+        // Forward the data to both n8n webhooks from the server side
         const controller = new AbortController()
         const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
 
+        // Отправка на основной вебхук
         const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(enrichedData),
+          signal: controller.signal,
+        })
+
+        // Отправка на тестовый вебхук
+        const testResponse = await fetch(TEST_WEBHOOK_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -38,7 +50,12 @@ export async function POST(request: NextRequest) {
         clearTimeout(timeoutId)
 
         if (!response.ok) {
-          console.warn(`Webhook forwarding failed with status: ${response.status}`)
+          console.warn(`Main webhook forwarding failed with status: ${response.status}`)
+          // Continue anyway - don't fail the user experience
+        }
+
+        if (!testResponse.ok) {
+          console.warn(`Test webhook forwarding failed with status: ${testResponse.status}`)
           // Continue anyway - don't fail the user experience
         }
       } catch (webhookError) {
@@ -50,7 +67,7 @@ export async function POST(request: NextRequest) {
     // Return success response regardless of webhook success
     return NextResponse.json({
       success: true,
-      message: SEND_TO_EXTERNAL ? "Data forwarded to webhook" : "Data logged (external webhook disabled)",
+      message: SEND_TO_EXTERNAL ? "Data forwarded to webhooks" : "Data logged (external webhook disabled)",
     })
   } catch (error) {
     console.error("Webhook proxy error:", error)

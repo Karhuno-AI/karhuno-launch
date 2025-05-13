@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { sendToWebhook } from "@/lib/webhook";
 
 interface EarlyAccessCTAProps {
   className?: string;
@@ -22,7 +23,14 @@ const EarlyAccessCTA: React.FC<EarlyAccessCTAProps> = ({ className = "" }) => {
     
     setIsSubmitting(true);
     
-    // Simulate API call
+    // Отправляем данные через вебхук
+    sendToWebhook({
+      type: "early_access_submission",
+      email: email, // Передаем реальный email пользователя
+      timestamp: new Date().toISOString(),
+    });
+    
+    // Симулируем успешный ответ
     setTimeout(() => {
       toast.success("Success! You've claimed your free access to Karhuno AI.");
       setEmail("");

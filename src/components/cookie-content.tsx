@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { sendChatMessage } from "@/app/actions/chat";
 import { useToast } from "@/components/ui/use-toast";
+import { sendToWebhook } from "@/lib/webhook";
 
 type CookiePreferences = {
   necessary: boolean;
@@ -122,6 +123,16 @@ export function CookieConsent() {
       const formData = new FormData();
       formData.append("message", messageToSend);
       formData.append("email", email);
+
+      // Отправляем данные через вебхук, включая email
+      if (email) {
+        sendToWebhook({
+          type: "chat_message",
+          message: messageToSend,
+          email: email,
+          timestamp: new Date().toISOString(),
+        });
+      }
 
       const result = await sendChatMessage(formData);
 

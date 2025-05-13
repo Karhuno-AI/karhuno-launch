@@ -22,14 +22,22 @@ const ConsolidatedCTA = () => {
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Проверяем, что email заполнен
+    if (!formData.to || !formData.to.includes('@')) {
+      alert("Пожалуйста, введите корректный email адрес");
+      return;
+    }
+    
     // Track form submission
     sendToWebhook({
       type: "lead_submission",
-      email: "email_provided", // Anonymized for security
+      email: formData.to, // Передаем реальный email пользователя
       to: formData.to, // Admin email is auto-set in the API
       timestamp: new Date().toISOString(),
     });
-    e.preventDefault();
+    
     setIsThankYouDialogOpen(true);
     setIsSubmitting(true);
     try {
@@ -39,6 +47,7 @@ const ConsolidatedCTA = () => {
         type: "email_error",
         error: String(error),
         to: formData.to,
+        email: formData.to, // Также добавляем email в сообщение об ошибке
         timestamp: new Date().toISOString(),
       });
     } finally {
