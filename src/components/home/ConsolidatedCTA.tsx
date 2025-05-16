@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
+import { TiTick } from "react-icons/ti";
+
 import {
   Dialog,
   DialogContent,
@@ -16,6 +18,7 @@ import { sendToWebhook } from "@/lib/webhook";
 const ConsolidatedCTA = () => {
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFeedback, setIsFeedback] = useState(true);
 
   const [formData, setFormData] = useState<SendEmailParams>({
     to: "",
@@ -23,13 +26,13 @@ const ConsolidatedCTA = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Проверяем, что email заполнен
-    if (!formData.to || !formData.to.includes('@')) {
+    if (!formData.to || !formData.to.includes("@")) {
       alert("Пожалуйста, введите корректный email адрес");
       return;
     }
-    
+
     // Track form submission
     sendToWebhook({
       type: "lead_submission",
@@ -37,7 +40,7 @@ const ConsolidatedCTA = () => {
       to: formData.to, // Admin email is auto-set in the API
       timestamp: new Date().toISOString(),
     });
-    
+
     setIsThankYouDialogOpen(true);
     setIsSubmitting(true);
     try {
@@ -133,6 +136,14 @@ const ConsolidatedCTA = () => {
         <p className="text-sm text-gray-500 font-montserrat">
           Spots are filling up fast! Join now to secure your free access.
         </p>
+        {isFeedback && (
+          <div className="flex gap-4 items-center justify-start">
+            <TiTick size="22" />
+            <p className="text-sm text-gray-500 font-montserrat">
+              Yes, I&apos;m ready to give feedback on a 15 min call
+            </p>
+          </div>
+        )}
       </div>
       {/* Thank You Dialog */}
       <Dialog

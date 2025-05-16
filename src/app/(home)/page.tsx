@@ -6,6 +6,7 @@ import TwoWaysToTrack from "@/components/home/TwoWaysToTrack";
 import RealWorldUseCases from "@/components/home/RealWorldUseCases";
 import ConsolidatedCTA from "@/components/home/ConsolidatedCTA";
 import MultiPlatformIcons from "@/components/home/MultiPlatformIcons";
+import YoutubeVideos from "@/components/home/YoutubeVideos";
 import Footer from "@/components/home/footer";
 
 export default function Home() {
@@ -33,10 +34,14 @@ export default function Home() {
       {/* Multi-Platform Icons Section */}
       <MultiPlatformIcons />
 
+
+      <YoutubeVideos />
       {/* Real World Use Cases */}
       <section id="use-cases">
         <RealWorldUseCases />
       </section>
+
+      
 
       {/* Consolidated CTA Before Footer */}
       <section
