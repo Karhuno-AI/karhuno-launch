@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 const YoutubeVideos: React.FC = () => {
   return (
-    <section className="py-20 px-6 md:px-12 relative">
+    <section className="py-20 px-6 md:px-12 relative bg-gradient-to-b from-transparent via-purple-50/50 to-white">
       <div>
         <div className="max-w-4xl mx-auto text-center relative">
           <h2 className="text-3xl md:text-4xl my-6 text-gray-900">
@@ -12,7 +12,7 @@ const YoutubeVideos: React.FC = () => {
           <p className="text-xl text-gray-700 max-w-3xl mb-12 mx-auto">
             Everything you need to See — Check out our{" "}
             <Link
-              className="text-2xl bg-clip-text text-primary"
+              className="text-2xl bg-clip-text text-primary font-medium"
               href="https://www.youtube.com/@Karhuno"
               target="_blank"
             >

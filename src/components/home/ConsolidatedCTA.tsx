@@ -137,7 +137,7 @@ const ConsolidatedCTA = () => {
           Spots are filling up fast! Join now to secure your free access.
         </p>
         {isFeedback && (
-          <div className="flex gap-4 items-center justify-start">
+          <div className="flex gap-2 items-center justify-center my-2">
             <TiTick size="22" />
             <p className="text-sm text-gray-500 font-montserrat">
               Yes, I&apos;m ready to give feedback on a 15 min call
