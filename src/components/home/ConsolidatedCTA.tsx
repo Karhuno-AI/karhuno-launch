@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
 import { TiTick } from "react-icons/ti";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import {
   Dialog,
@@ -18,7 +19,7 @@ import { sendToWebhook } from "@/lib/webhook";
 const ConsolidatedCTA = () => {
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const isFeedback = true;
+  const [isFeedbackChecked, setIsFeedbackChecked] = useState(false);
 
   const [formData, setFormData] = useState<SendEmailParams>({
     to: "",
@@ -39,6 +40,7 @@ const ConsolidatedCTA = () => {
       email: formData.to, // Передаем реальный email пользователя
       to: formData.to, // Admin email is auto-set in the API
       timestamp: new Date().toISOString(),
+      feedbackCall: isFeedbackChecked, // Добавляем состояние чекбокса
     });
 
     setIsThankYouDialogOpen(true);
@@ -58,6 +60,7 @@ const ConsolidatedCTA = () => {
       setFormData({
         to: "",
       });
+      setIsFeedbackChecked(false);
     }
   };
 
@@ -136,14 +139,19 @@ const ConsolidatedCTA = () => {
         <p className="text-sm text-gray-500 font-montserrat">
           Spots are filling up fast! Join now to secure your free access.
         </p>
-        {isFeedback && (
-          <div className="flex gap-2 items-center justify-center my-2">
-            <TiTick size="22" />
-            <p className="text-sm text-gray-500 font-montserrat">
-              Yes, I&apos;m ready to give feedback on a 15 min call
-            </p>
-          </div>
-        )}
+        <div className="flex gap-2 items-center justify-center my-2">
+          <Checkbox 
+            id="feedback-checkbox" 
+            checked={isFeedbackChecked} 
+            onCheckedChange={setIsFeedbackChecked} 
+          />
+          <label 
+            htmlFor="feedback-checkbox" 
+            className="text-sm text-gray-500 font-montserrat cursor-pointer"
+          >
+            Yes, I&apos;m ready to give feedback on a 15 min call
+          </label>
+        </div>
       </div>
       {/* Thank You Dialog */}
       <Dialog
