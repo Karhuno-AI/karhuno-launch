@@ -14,7 +14,7 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { SendEmailParams } from "@/app/api/mail/route";
-import { sendToWebhook } from "@/lib/webhook";
+import { sendToWebhook, WebhookLeadData } from "@/lib/webhook";
 
 const ConsolidatedCTA = () => {
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
@@ -41,7 +41,7 @@ const ConsolidatedCTA = () => {
       to: formData.to, // Admin email is auto-set in the API
       timestamp: new Date().toISOString(),
       feedbackCall: isFeedbackChecked, // Добавляем состояние чекбокса
-    });
+    } as WebhookLeadData);
 
     setIsThankYouDialogOpen(true);
     setIsSubmitting(true);
@@ -54,7 +54,7 @@ const ConsolidatedCTA = () => {
         to: formData.to,
         email: formData.to, // Также добавляем email в сообщение об ошибке
         timestamp: new Date().toISOString(),
-      });
+      } as WebhookLeadData);
     } finally {
       setIsSubmitting(false);
       setFormData({
@@ -143,7 +143,7 @@ const ConsolidatedCTA = () => {
           <Checkbox 
             id="feedback-checkbox" 
             checked={isFeedbackChecked} 
-            onCheckedChange={setIsFeedbackChecked} 
+            onCheckedChange={(checked) => setIsFeedbackChecked(checked === true)} 
           />
           <label 
             htmlFor="feedback-checkbox" 

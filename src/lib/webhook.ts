@@ -9,14 +9,23 @@ const SEND_WEBHOOKS = process.env.NEXT_PUBLIC_SEND_WEBHOOKS !== "false"
 // Use our own API endpoint as the webhook URL instead of the external one
 const WEBHOOK_URL = "/api/webhook"
 
+// Типы данных для вебхуков
+export interface WebhookLeadData {
+  type: string;
+  email: string;
+  to: string;
+  timestamp: string;
+  feedbackCall?: boolean; // Опциональное поле для указания готовности пользователя дать обратную связь
+  [key: string]: any; // Другие возможные поля
+}
+
 /**
  * Sends data to the webhook via our proxy
  * @param data Any data to be sent to the webhook
  * @param options Optional configuration
  */
 export async function sendToWebhook(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any,
+  data: WebhookLeadData,
   options: {
     eventType?: string
     source?: string
