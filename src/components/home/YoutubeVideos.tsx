@@ -26,19 +26,19 @@ const YoutubeVideos: React.FC = () => {
             className="w-full lg:h-80"
             src="https://www.youtube.com/embed/CG2UpE1fmtg?si=TZO9VU4796NkaYvZ"
             title="YouTube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           ></iframe>
           <iframe
             className="w-full lg:h-80"
             src="https://www.youtube.com/embed/YXXPixSryOY?si=DoXJJOJPgcDbiEYx"
             title="YouTube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           ></iframe>
         </div>
       </div>

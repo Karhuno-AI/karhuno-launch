@@ -18,7 +18,7 @@ import { sendToWebhook } from "@/lib/webhook";
 const ConsolidatedCTA = () => {
   const [isThankYouDialogOpen, setIsThankYouDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isFeedback, setIsFeedback] = useState(true);
+  const isFeedback = true;
 
   const [formData, setFormData] = useState<SendEmailParams>({
     to: "",
