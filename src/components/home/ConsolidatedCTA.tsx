@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
@@ -23,10 +23,6 @@ const ConsolidatedCTA = () => {
   const [formData, setFormData] = useState<SendEmailParams>({
     to: "",
   });
-
-  useEffect(() => {
-    setIsFeedback(true)
-  },[])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -180,4 +176,4 @@ const ConsolidatedCTA = () => {
   );
 };
 
-export default ConsolidatedCTA;
+export default ConsolidatedCTA; 
