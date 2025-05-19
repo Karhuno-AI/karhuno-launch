@@ -49,9 +49,9 @@ const Hero: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="w-full text-black min-h-[90vh] mt-16 md:mt-20 flex relative">
+      <section className="w-full text-black min-h-[85vh] md:min-h-screen mt-16 md:mt-20 flex relative">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 opacity-60"></div>
-        <div className="container mx-auto px-4 sm:px-6 relative z-10 flex justify-center items-center py-8 md:py-12">
+        <div className="container mx-auto px-4 sm:px-6 md:px-0 relative z-10 flex justify-center items-center py-8 md:py-0">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
             {/* Hero Content Left Side */}
             <div className="w-full md:w-1/2 text-left">
@@ -88,9 +88,9 @@ const Hero: React.FC = () => {
               </p>
             </div>
 
-            {/* Hero Illustration Right Side - Optimized for responsiveness */}
+            {/* Hero Illustration Right Side - KEEPING AS IS for desktop but optimized for mobile */}
             <div className="w-full md:w-1/2 flex justify-center mt-8 md:mt-0">
-              <div className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[500px] aspect-square">
+              <div className="relative w-full max-w-[320px] md:w-[32rem] md:h-[32rem] sm:max-w-[400px] md:max-w-none aspect-square md:aspect-auto">
                 <Image
                   src="/images/image1.png"
                   alt="Karhuno Radar"

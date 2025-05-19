@@ -84,7 +84,7 @@ const NavBar: React.FC = () => {
 
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white/90 dark:bg-black/90 backdrop-blur-sm">
+        <div className="md:hidden bg-white/90 dark:bg-black/90 backdrop-blur-sm shadow-md fixed top-[52px] left-0 right-0 z-40">
           <div className="px-4 py-4 space-y-4">
             <button
               onClick={() => scrollToSection("how-it-works")}

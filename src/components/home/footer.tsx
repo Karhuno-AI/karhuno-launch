@@ -79,7 +79,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 text-sm sm:text-base text-gray-200 hover:text-purple-400 transition-colors"
             >
-              <Linkedin size={20} className="sm:size-24" />
+              <Linkedin size={20} className="sm:w-[24px] sm:h-[24px]" />
               <span>LinkedIn</span>
             </Link>
           </div>
