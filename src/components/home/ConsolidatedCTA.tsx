@@ -64,28 +64,28 @@ const ConsolidatedCTA = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8 md:p-10">
-      <div className="flex flex-col items-center mb-8">
+    <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 md:p-10">
+      <div className="flex flex-col items-center mb-6 md:mb-8">
         <div className="bg-gradient-to-r from-violet-500 to-[#792abf] text-white text-xs font-bold py-1 px-3 rounded-full mb-3 animate-pulse">
           LIMITED OFFER - ONLY A FEW SPOTS LEFT
         </div>
-        <h3 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-violet-500 to-[#792abf] bg-clip-text text-transparent">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-violet-500 to-[#792abf] bg-clip-text text-transparent">
           Don&apos;t miss this opportunity!
         </h3>
       </div>
 
       <div className="flex gap-4 items-center justify-center mb-6">
         <div className="h-px flex-grow bg-gradient-to-r from-transparent to-violet-500/30"></div>
-        <span className="text-lg font-semibold text-gray-700">
+        <span className="text-base sm:text-lg font-semibold text-gray-700">
           Limited time offer
         </span>
         <div className="h-px flex-grow bg-gradient-to-r from-violet-500/30 to-transparent"></div>
       </div>
 
-      <div className="space-y-6">
-        <div className="flex flex-col md:flex-row gap-3 justify-center">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <div className="flex items-center gap-2 bg-gray-100 p-3 rounded-lg">
-            <div className="w-8 h-8 rounded-full bg-teal-300 flex items-center justify-center flex-shrink-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-teal-300 flex items-center justify-center flex-shrink-0">
               <span className="font-bold text-teal-600">✓</span>
             </div>
             <p className="text-sm font-semibold">
@@ -94,7 +94,7 @@ const ConsolidatedCTA = () => {
           </div>
 
           <div className="flex items-center gap-2 bg-gray-100 p-3 rounded-lg">
-            <div className="w-8 h-8 rounded-full bg-teal-300 flex items-center justify-center flex-shrink-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-teal-300 flex items-center justify-center flex-shrink-0">
               <span className="font-bold text-teal-600">✓</span>
             </div>
             <p className="text-sm font-semibold">1000 credits included</p>
@@ -105,7 +105,7 @@ const ConsolidatedCTA = () => {
       {/* Email Form */}
       <form
         onSubmit={handleSubmit}
-        className="mt-8 space-y-4 md:space-y-0 md:flex gap-4"
+        className="mt-6 sm:mt-8 space-y-4 md:space-y-0 md:flex gap-4"
       >
         <Input
           type="email"
@@ -120,7 +120,7 @@ const ConsolidatedCTA = () => {
         />
 
         <Button
-          className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-indigo-600 hover:to-purple-500 hover:shadow-purple-600/50 shadow-lg text-white font-bold py-2 px-8"
+          className="w-full md:w-auto bg-gradient-to-r from-[#a947e7] to-[#792abf] hover:from-indigo-600 hover:to-purple-500 hover:shadow-purple-600/50 shadow-lg text-white font-bold py-2 px-6 sm:px-8"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
@@ -138,15 +138,16 @@ const ConsolidatedCTA = () => {
         <p className="text-sm text-gray-500 font-montserrat">
           Spots are filling up fast! Join now to secure your free access.
         </p>
-        <div className="flex gap-2 items-center justify-center my-2">
+        <div className="flex items-start sm:items-center gap-2 justify-center my-2 max-w-md mx-auto">
           <Checkbox 
             id="feedback-checkbox" 
             checked={isFeedbackChecked} 
             onCheckedChange={(checked) => setIsFeedbackChecked(checked === true)} 
+            className="mt-1 sm:mt-0"
           />
           <label 
             htmlFor="feedback-checkbox" 
-            className="text-sm text-gray-500 font-montserrat cursor-pointer"
+            className="text-xs sm:text-sm text-gray-500 font-montserrat cursor-pointer text-left"
           >
             Yes, I&apos;m ready to give feedback on a 15 min call
           </label>

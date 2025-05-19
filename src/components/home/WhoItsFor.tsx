@@ -137,27 +137,27 @@ const WhoItsFor: React.FC = () => {
     <section
       id="who-its-for"
       ref={sectionRef}
-      className="py-16 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-indigo-200/80 before:via-pink-200/60 before:to-purple-200/80 before:animate-gradient-shift before:opacity-75 overflow-hidden"
+      className="py-10 sm:py-16 relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-indigo-200/80 before:via-pink-200/60 before:to-purple-200/80 before:animate-gradient-shift before:opacity-75 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto relative">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl mb-4">Who It&apos;s for</h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl mb-4">Who It&apos;s for</h2>
         </div>
 
         {/* Vertical Timeline Line - even shorter to prevent overlap with CTA */}
-        <div className="absolute left-1/2 top-20 bottom-[400px] transform -translate-x-1/2 w-1 bg-[#a947e7] bg-opacity-80 z-10"></div>
+        <div className="absolute left-1/2 top-20 bottom-[250px] sm:bottom-[400px] transform -translate-x-1/2 w-1 bg-[#a947e7] bg-opacity-80 z-10 hidden sm:block"></div>
 
         {/* Cards with connectors */}
         <div className="relative z-20">
           {cards.map((card, index) => (
-            <div key={index} className="relative mb-10">
+            <div key={index} className="relative mb-6 sm:mb-10">
               {/* Card */}
               <div className="flex justify-center items-center">
                 <div
                   ref={(el) => {
                     cardsRef.current[index] = el;
                   }}
-                  className={`w-full md:w-5/12 ${card.bgColor} rounded-xl shadow-lg p-5 md:p-6 border-2 ${card.borderColor} 
+                  className={`w-full md:w-5/12 ${card.bgColor} rounded-xl shadow-lg p-4 sm:p-5 md:p-6 border-2 ${card.borderColor} 
                     transition-all duration-700 ease-out opacity-0 ${
                       card.side === "left"
                         ? "md:mr-auto md:-translate-x-8"
@@ -165,15 +165,15 @@ const WhoItsFor: React.FC = () => {
                     }`}
                   style={{ transitionDelay: `${200 * index}ms` }}
                 >
-                  <div className="flex items-center mb-3">
-                    <div className="flex p-2 bg-white bg-opacity-60 rounded-lg mr-3">
+                  <div className="flex items-center mb-2 sm:mb-3">
+                    <div className="flex p-1.5 sm:p-2 bg-white bg-opacity-60 rounded-lg mr-2 sm:mr-3">
                       {card.icons}
                     </div>
-                    <h3 className="text-lg font-bold text-[#222]">
+                    <h3 className="text-base sm:text-lg font-bold text-[#222]">
                       {card.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-xs sm:text-sm text-gray-700">
                     {card.description}
                   </p>
                 </div>
@@ -181,14 +181,14 @@ const WhoItsFor: React.FC = () => {
 
               {/* Timeline Node */}
               <div
-                className={`absolute top-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white border-2 border-[#a947e7] z-20`}
+                className={`absolute top-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white border-2 border-[#a947e7] z-20 hidden sm:block`}
               ></div>
             </div>
           ))}
         </div>
 
         {/* Final CTA Block with updated background color */}
-        <div className="text-center mt-16 max-w-2xl mx-auto px-4 relative z-20">
+        <div className="text-center mt-8 sm:mt-16 max-w-2xl mx-auto px-4 relative z-20">
           <EarlyAccessCTA />
         </div>
       </div>

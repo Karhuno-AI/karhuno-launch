@@ -49,10 +49,10 @@ const Hero: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="w-full text-black min-h-screen mt-20 flex relative">
+      <section className="w-full text-black min-h-[90vh] mt-16 md:mt-20 flex relative">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-indigo-200 to-pink-100 opacity-60"></div>
-        <div className="container mx-auto relative z-10 flex justify-center items-center">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 flex justify-center items-center py-8 md:py-12">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
             {/* Hero Content Left Side */}
             <div className="w-full md:w-1/2 text-left">
               {/* Early Adopter Label - NEW */}
@@ -62,24 +62,24 @@ const Hero: React.FC = () => {
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
                 <span className="text-black">Stop Searching</span>, <br />
                 <span className="bg-gradient-to-r from-[#792abf] to-[#522faa] text-transparent bg-clip-text">Start Selling</span>
               </h1>
 
-              <p className="text-lg md:text-xl mb-6 text-black/80">
+              <p className="text-base sm:text-lg md:text-xl mb-6 text-black/80">
                 From live signals to perfect-fit leads — with filtering
                 flexibility you won&apos;t find anywhere else.
               </p>
 
               {/* Updated button with icon */}
               <Button
-                className="px-8 py-7 transition-all text-lg font-bold flex items-center gap-2 shadow-md"
+                className="px-6 sm:px-8 py-4 sm:py-7 transition-all text-base sm:text-lg font-bold flex items-center gap-2 shadow-md"
                 variant="accent"
                 size="xl"
                 onClick={() => scrollToSection("early-access")}
               >
-                <Mail size={20} />
+                <Mail size={18} />
                 Claim Your Free Access
               </Button>
 
@@ -88,14 +88,15 @@ const Hero: React.FC = () => {
               </p>
             </div>
 
-            {/* Hero Illustration Right Side - KEEPING AS IS */}
-            <div className="w-full md:w-1/2 flex justify-center">
-              <div className="relative w-[32rem] h-[32rem]">
+            {/* Hero Illustration Right Side - Optimized for responsiveness */}
+            <div className="w-full md:w-1/2 flex justify-center mt-8 md:mt-0">
+              <div className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[500px] aspect-square">
                 <Image
                   src="/images/image1.png"
                   alt="Karhuno Radar"
                   className="w-full h-full object-contain"
                   fill
+                  priority
                 />
               </div>
             </div>
@@ -106,18 +107,18 @@ const Hero: React.FC = () => {
       </section>
 
       {/* How It Works Section - Keep everything below the same */}
-      <section className="py-20 px-6 md:px-12 bg-gray-50 relative">
+      <section id="how-it-works" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-purple-400">
+          <div className="text-center mb-10 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-purple-400">
               How Karhuno AI works
             </h2>
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto">
               Track real buying signals — from LinkedIn or across the web.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {/* Card 1 - Set Your Topics - Keeping as is as requested */}
             <div
               className="perspective-1000 h-80 cursor-pointer"
@@ -129,7 +130,7 @@ const Hero: React.FC = () => {
                 className={`rounded-xl shadow-lg h-full transition-all duration-500 transform-style-preserve-3d relative ${flippedCard === 0 ? "rotate-y-180" : ""}`}
               >
                 {/* Front Side */}
-                <div className="absolute inset-0 bg-[#99edcd] rounded-xl p-8 backface-hidden flex flex-col items-center justify-center">
+                <div className="absolute inset-0 bg-[#99edcd] rounded-xl p-6 sm:p-8 backface-hidden flex flex-col items-center justify-center">
                   <div className="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center mb-6 relative">
                     <Search size={28} className="text-[#49937d] absolute" />
                     <Tag
@@ -155,7 +156,7 @@ const Hero: React.FC = () => {
                 </div>
 
                 {/* Back Side */}
-                <div className="absolute inset-0 bg-white rounded-xl p-8 backface-hidden rotate-y-180 flex flex-col justify-between">
+                <div className="absolute inset-0 bg-white rounded-xl p-6 sm:p-8 backface-hidden rotate-y-180 flex flex-col justify-between">
                   <div>
                     <h4 className="text-lg font-bold mb-4 text-[#1a1a1a]">
                       Add Your Topics
@@ -189,7 +190,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            {/* Card 2 - Filter & Focus - Updated with new content as requested */}
+            {/* Card 2 - Filter & Focus - Fixing duplication and improving responsiveness */}
             <div
               className="perspective-1000 h-80 cursor-pointer"
               onClick={() => handleCardFlip(1)}
@@ -200,7 +201,7 @@ const Hero: React.FC = () => {
                 className={`rounded-xl shadow-lg h-full transition-all duration-500 transform-style-preserve-3d relative ${flippedCard === 1 ? "rotate-y-180" : ""}`}
               >
                 {/* Front Side */}
-                <div className="absolute inset-0 bg-[#d8c4f4] rounded-xl p-8 backface-hidden flex flex-col items-center justify-center">
+                <div className="absolute inset-0 bg-[#d8c4f4] rounded-xl p-6 sm:p-8 backface-hidden flex flex-col items-center justify-center">
                   <div className="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center mb-6 relative">
                     <Filter size={28} className="text-[#792abf] absolute" />
                     <SlidersHorizontal
@@ -223,8 +224,8 @@ const Hero: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Back Side - Updated with new content as requested */}
-                <div className="absolute inset-0 bg-white rounded-xl p-8 backface-hidden rotate-y-180 flex flex-col justify-between">
+                {/* Back Side */}
+                <div className="absolute inset-0 bg-white rounded-xl p-6 sm:p-8 backface-hidden rotate-y-180 flex flex-col justify-between">
                   <div>
                     <h4 className="text-lg font-bold mb-4 text-[#1a1a1a]">
                       Filter & Focus
@@ -273,7 +274,7 @@ const Hero: React.FC = () => {
                 className={`rounded-xl shadow-lg h-full transition-all duration-500 transform-style-preserve-3d relative ${flippedCard === 2 ? "rotate-y-180" : ""}`}
               >
                 {/* Front Side */}
-                <div className="absolute inset-0 bg-[#f5f5f5] rounded-xl p-8 backface-hidden flex flex-col items-center justify-center">
+                <div className="absolute inset-0 bg-[#f5f5f5] rounded-xl p-6 sm:p-8 backface-hidden flex flex-col items-center justify-center">
                   <div className="w-16 h-16 rounded-full bg-gray-200/80 flex items-center justify-center mb-6 relative">
                     <Contact size={28} className="text-[#a947e7] absolute" />
                     <Radar
