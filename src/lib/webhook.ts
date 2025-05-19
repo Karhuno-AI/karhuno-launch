@@ -13,10 +13,12 @@ const WEBHOOK_URL = "/api/webhook"
 export interface WebhookLeadData {
   type: string;
   email: string;
-  to: string;
+  to?: string; // Делаем поле опциональным
   timestamp: string;
   feedbackCall?: boolean; // Опциональное поле для указания готовности пользователя дать обратную связь
-  [key: string]: any; // Другие возможные поля
+  error?: string; // Для обработки ошибок
+  message?: string; // Для сообщений чата
+  [key: string]: string | boolean | number | undefined; // Другие возможные поля с более конкретными типами
 }
 
 /**

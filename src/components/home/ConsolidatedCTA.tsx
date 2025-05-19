@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
-import { TiTick } from "react-icons/ti";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import {

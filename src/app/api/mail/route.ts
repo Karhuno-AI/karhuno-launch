@@ -6,7 +6,10 @@ import WelcomeEmail from "../../../../emails/index";
 import { render } from "@react-email/render";
 import { NextResponse } from "next/server"; // Import NextResponse
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Проверяем наличие ключа и создаем экземпляр Resend только если ключ есть
+// Иначе используем заглушку для сборки
+const RESEND_API_KEY = process.env.RESEND_API_KEY || 'dummy_key_for_build';
+const resend = new Resend(RESEND_API_KEY);
 
 export interface SendEmailParams {
   to: string;
@@ -14,11 +17,17 @@ export interface SendEmailParams {
 
 export async function POST(req: Request) {
   try {
+    // Проверяем, что API-ключ настоящий, а не заглушка
+    if (RESEND_API_KEY === 'dummy_key_for_build') {
+      return NextResponse.json(
+        { success: false, error: "Email API key is not configured." },
+        { status: 503 }
+      );
+    }
+    
     const body: SendEmailParams = await req.json();
 
-
     const userhtml = await render(WelcomeEmail())
-
 
     const Adminhtml = await render(
       KarhunoAdminEmail({
