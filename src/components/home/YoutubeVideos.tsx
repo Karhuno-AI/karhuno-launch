@@ -25,7 +25,7 @@ const YoutubeVideos: React.FC = () => {
           <div className="aspect-video w-full relative">
             <iframe
               className="w-full h-full absolute inset-0 rounded-md shadow-md"
-              src="https://www.youtube.com/embed/CG2UpE1fmtg?si=TZO9VU4796NkaYvZ"
+              src="https://www.youtube.com/embed/T0jnrfBfFv0"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -36,7 +36,7 @@ const YoutubeVideos: React.FC = () => {
           <div className="aspect-video w-full relative">
             <iframe
               className="w-full h-full absolute inset-0 rounded-md shadow-md"
-              src="https://www.youtube.com/embed/YXXPixSryOY?si=DoXJJOJPgcDbiEYx"
+              src="https://www.youtube.com/embed/dawpcuQNgqE"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
